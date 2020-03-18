@@ -1,3 +1,4 @@
 {
-    "base_url": "https://ckan.publishing.service.gov.uk/api"
+    "api_base_url": "https://ckan.publishing.service.gov.uk/api",
+    "api_user_agent": "ckan-functional-tests"
 }
