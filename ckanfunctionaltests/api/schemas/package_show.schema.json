@@ -59,6 +59,45 @@
             }
           }
         },
+        "resources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "package_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "revision_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "url",
+              "package_id",
+              "revision_id",
+              "created",
+              "name"
+            ]
+          }
+        },
         "harvest": {
           "type": "array",
           "items": {
@@ -87,6 +126,9 @@
         "creator_user_id": {
           "type": "string",
           "format": "uuid"
+        },
+        "isopen": {
+          "type": "boolean"
         },
         "owner_org": {
           "type": "string",
@@ -140,11 +182,11 @@
         "groups",
         "type",
         "state",
-        "extras",
         "title",
         "private",
         "name",
         "creator_user_id",
+        "isopen",
         "owner_org",
         "organization"
       ]
