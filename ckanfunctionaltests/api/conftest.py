@@ -25,3 +25,10 @@ def random_org_slug(base_url, rsession):
     response = rsession.get(f"{base_url}/action/organization_list")
     assert response.status_code == 200
     return _random.choice(response.json()["result"])
+
+
+@pytest.fixture()
+def random_pkg_slug(base_url, rsession):
+    response = rsession.get(f"{base_url}/action/package_list")
+    assert response.status_code == 200
+    return _random.choice(response.json()["result"])

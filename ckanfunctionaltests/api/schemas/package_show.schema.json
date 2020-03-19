@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/package_show.schema.json",
+  "title": "CKAN package show response",
+  "description": "A lenient specification for responses from the CKAN api's package_show endpoint",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "help": {
+      "type": "string",
+      "format": "uri"
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "revision_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "type": "string",
+          "const": "dataset"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "capacity": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "state": {
+          "type": "string",
+          "enum": ["active", "deleted"]
+        },
+        "extras": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "harvest": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "title": {
+          "type": "string"
+        },
+        "private": {
+          "type": "boolean",
+          "const": false
+        },
+        "name": {
+          "type": "string",
+          "pattern": "[a-z0-9_-]"
+        },
+        "creator_user_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "owner_org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "organization": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": {
+              "type": "string",
+              "const": "organization"
+            },
+            "state": {
+              "type": "string",
+              "enum": ["active", "deleted"]
+            },
+            "is_organization": {
+              "type": "boolean",
+              "const": true
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "revision_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "state",
+            "is_organization",
+            "created",
+            "revision_id",
+            "title"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "revision_id",
+        "groups",
+        "type",
+        "state",
+        "extras",
+        "title",
+        "private",
+        "name",
+        "creator_user_id",
+        "owner_org",
+        "organization"
+      ]
+    }
+  },
+  "required": ["success", "help", "result"]
+}
