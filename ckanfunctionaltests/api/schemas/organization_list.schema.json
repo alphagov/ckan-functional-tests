@@ -20,5 +20,5 @@
       }
     }
   },
-  "required_properties": ["success", "help", "result"]
+  "required": ["success", "help", "result"]
 }

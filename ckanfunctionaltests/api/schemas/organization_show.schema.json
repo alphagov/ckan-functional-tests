@@ -72,7 +72,7 @@
           }
         }
       },
-      "required_properties": [
+      "required": [
         "package_count",
         "id",
         "revision_id",
@@ -86,5 +86,5 @@
       ]
     }
   },
-  "required_properties": ["success", "help", "result"]
+  "required": ["success", "help", "result"]
 }
