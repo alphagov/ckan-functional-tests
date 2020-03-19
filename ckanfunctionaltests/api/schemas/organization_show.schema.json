@@ -26,18 +26,27 @@
           "type": "string",
           "format": "uuid"
         },
+        "title": {
+          "type": "string"
+        },
         "created": {
           "type": "string",
           "format": "date-time"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "[a-z0-9_-]"
         },
         "display_name": {
           "type": "string"
         },
         "is_organization": {
-          "type": "boolean"
+          "type": "boolean",
+          "const": true
         },
         "type": {
-          "type": "string"
+          "type": "string",
+          "const": "organization"
         },
         "groups": {
           "type": "array",
@@ -82,7 +91,9 @@
         "groups",
         "type",
         "state",
-        "extras"
+        "extras",
+        "name",
+        "title"
       ]
     }
   },
