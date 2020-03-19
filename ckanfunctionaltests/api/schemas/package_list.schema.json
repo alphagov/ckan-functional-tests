@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/package_list.schema.json",
+  "title": "CKAN package list response",
+  "description": "A lenient specification for responses from the CKAN api's package_list endpoint",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "help": {
+      "type": "string",
+      "format": "uri"
+    },
+    "result": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "[a-z0-9_-]"
+      }
+    }
+  },
+  "required": ["success", "help", "result"]
+}
