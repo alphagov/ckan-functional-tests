@@ -59,6 +59,9 @@
             }
           }
         },
+        "num_resources": {
+          "type": "integer"
+        },
         "resources": {
           "type": "array",
           "items": {
@@ -85,7 +88,11 @@
                 "format": "date-time"
               },
               "name": {
-                "type": "string"
+                "anyOf": [{
+                  "type": "string"
+                }, {
+                  "type": "null"
+                }]
               }
             },
             "required": [
@@ -93,7 +100,6 @@
               "url",
               "package_id",
               "revision_id",
-              "created",
               "name"
             ]
           }
@@ -124,8 +130,12 @@
           "pattern": "[a-z0-9_-]"
         },
         "creator_user_id": {
-          "type": "string",
-          "format": "uuid"
+          "anyOf": [{
+            "type": "string",
+            "format": "uuid"
+          }, {
+            "type": "null"
+          }]
         },
         "isopen": {
           "type": "boolean"

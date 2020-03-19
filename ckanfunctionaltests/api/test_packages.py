@@ -25,6 +25,8 @@ def test_package_show(base_url, rsession, random_pkg_slug):
 
     assert rj["success"] is True
     assert rj["result"]["name"] == random_pkg_slug
+    assert all(res["package_id"] == rj['result']['id'] for res in rj["result"]["resources"])
+    assert rj["result"]["num_resources"] == len(rj["result"]["resources"])
 
     # we should be able to look up this same package by its uuid and get an identical response
     uuid_response = rsession.get(f"{base_url}/action/package_show?id={rj['result']['id']}")
