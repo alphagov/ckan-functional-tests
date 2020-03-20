@@ -17,8 +17,9 @@ pluggy==0.13.1            # via pytest
 py==1.8.1                 # via pytest
 pyparsing==2.4.6          # via packaging
 pyrsistent==0.15.7        # via jsonschema
+pytest-subtests==0.3.0    # via -r requirements.in
 pytest-variables==1.9.0   # via -r requirements.in
-pytest==5.4.1             # via -r requirements.in, pytest-variables
+pytest==5.4.1             # via -r requirements.in, pytest-subtests, pytest-variables
 requests==2.23.0          # via -r requirements.in
 six==1.14.0               # via jsonschema, packaging, pyrsistent
 urllib3==1.25.8           # via requests
