@@ -26,9 +26,8 @@ in (with args; {
       pythonPackages.python
       sitePrioNonNix
       pkgs.glibcLocales
-      # for `cryptography`
-#       pkgs.openssl
-#       pkgs.cacert
+      # some requirements are installed via git
+      pkgs.git
     ];
 
     hardeningDisable = pkgs.stdenv.lib.optionals pkgs.stdenv.isDarwin [ "format" ];
