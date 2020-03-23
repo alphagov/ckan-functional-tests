@@ -28,7 +28,6 @@ def test_package_show(subtests, base_url, rsession, random_pkg_slug):
         assert rj["success"] is True
         assert rj["result"]["name"] == random_pkg_slug
         assert all(res["package_id"] == rj['result']['id'] for res in rj["result"]["resources"])
-        assert rj["result"]["num_resources"] == len(rj["result"]["resources"])
 
     with subtests.test("uuid lookup consistency"):
         # we should be able to look up this same package by its uuid and get an identical response

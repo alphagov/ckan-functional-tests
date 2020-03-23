@@ -25,7 +25,7 @@
         },
         "type": {
           "type": "string",
-          "const": "dataset"
+          "enum": ["dataset", "harvest"]
         },
         "groups": {
           "type": "array",
@@ -196,7 +196,6 @@
         "private",
         "name",
         "creator_user_id",
-        "isopen",
         "owner_org",
         "organization"
       ]
