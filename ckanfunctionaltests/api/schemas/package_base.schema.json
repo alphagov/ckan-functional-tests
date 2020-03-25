@@ -134,45 +134,7 @@
       "format": "uuid"
     },
     "organization": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "type": {
-          "type": "string",
-          "const": "organization"
-        },
-        "state": {
-          "type": "string",
-          "enum": ["active", "deleted"]
-        },
-        "is_organization": {
-          "type": "boolean",
-          "const": true
-        },
-        "created": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "revision_id": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "title": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "type",
-        "state",
-        "is_organization",
-        "created",
-        "revision_id",
-        "title"
-      ]
+      "$ref": "organization_base"
     }
   },
   "required": [

@@ -71,13 +71,10 @@
     }
   },
   "required": [
-    "package_count",
     "id",
     "revision_id",
     "created",
-    "display_name",
     "is_organization",
-    "groups",
     "type",
     "state",
     "name",

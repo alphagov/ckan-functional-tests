@@ -13,7 +13,17 @@
       "format": "uri"
     },
     "result": {
-      "$ref": "organization_base"
+      "allOf": [{
+          "$ref": "organization_base"
+        }, {
+          "type": "object",
+          "required": [
+            "display_name",
+            "package_count",
+            "groups"
+          ]
+        }
+      ]
     }
   },
   "required": ["success", "help", "result"]
