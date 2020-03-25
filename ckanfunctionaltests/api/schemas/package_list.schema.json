@@ -15,8 +15,7 @@
     "result": {
       "type": "array",
       "items": {
-        "type": "string",
-        "pattern": "[a-z0-9_-]"
+        "$ref": "common#/definitions/slug"
       }
     }
   },

@@ -31,8 +31,7 @@
       }
     },
     "state": {
-      "type": "string",
-      "enum": ["active", "deleted"]
+      "$ref": "common#/definitions/state"
     },
     "extras": {
       "type": "array",
@@ -115,16 +114,11 @@
       "const": false
     },
     "name": {
-      "type": "string",
-      "pattern": "[a-z0-9_-]"
+      "$ref": "common#/definitions/slug"
     },
     "creator_user_id": {
-      "anyOf": [{
-        "type": "string",
-        "format": "uuid"
-      }, {
-        "type": "null"
-      }]
+      "type": ["string", "null"],
+      "format": "uuid"
     },
     "isopen": {
       "type": "boolean"

@@ -23,8 +23,7 @@
       "format": "date-time"
     },
     "name": {
-      "type": "string",
-      "pattern": "[a-z0-9_-]"
+      "$ref": "common#/definitions/slug"
     },
     "display_name": {
       "type": "string"
@@ -52,8 +51,7 @@
       }
     },
     "state": {
-      "type": "string",
-      "enum": ["active", "deleted"]
+      "$ref": "common#/definitions/state"
     },
     "extras": {
       "type": "array",
