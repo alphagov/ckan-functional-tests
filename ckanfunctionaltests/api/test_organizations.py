@@ -4,7 +4,7 @@ from ckanfunctionaltests.api import validate_against_schema
 def test_organization_list(base_url, rsession):
     response = rsession.get(f"{base_url}/action/organization_list")
     assert response.status_code == 200
-    validate_against_schema(response.json(), "organization_list.schema.json")
+    validate_against_schema(response.json(), "organization_list")
 
     assert response.json()["success"] is True
 
@@ -22,7 +22,7 @@ def test_organization_show(subtests, base_url, rsession, random_org_slug):
     rj = response.json()
 
     with subtests.test("response validity"):
-        validate_against_schema(rj, "organization_show.schema.json")
+        validate_against_schema(rj, "organization_show")
 
         assert rj["success"] is True
         assert rj["result"]["name"] == random_org_slug

@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/package_base.schema.json",
+  "title": "CKAN base package representation",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["dataset", "harvest"]
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "capacity": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "state": {
+      "type": "string",
+      "enum": ["active", "deleted"]
+    },
+    "extras": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "num_resources": {
+      "type": "integer"
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "package_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "revision_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "anyOf": [{
+              "type": "string"
+            }, {
+              "type": "null"
+            }]
+          }
+        },
+        "required": [
+          "id",
+          "url",
+          "package_id",
+          "revision_id",
+          "name"
+        ]
+      }
+    },
+    "harvest": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "title": {
+      "type": "string"
+    },
+    "private": {
+      "type": "boolean",
+      "const": false
+    },
+    "name": {
+      "type": "string",
+      "pattern": "[a-z0-9_-]"
+    },
+    "creator_user_id": {
+      "anyOf": [{
+        "type": "string",
+        "format": "uuid"
+      }, {
+        "type": "null"
+      }]
+    },
+    "isopen": {
+      "type": "boolean"
+    },
+    "owner_org": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "organization": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "type": "string",
+          "const": "organization"
+        },
+        "state": {
+          "type": "string",
+          "enum": ["active", "deleted"]
+        },
+        "is_organization": {
+          "type": "boolean",
+          "const": true
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "revision_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "state",
+        "is_organization",
+        "created",
+        "revision_id",
+        "title"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "revision_id",
+    "groups",
+    "type",
+    "state",
+    "title",
+    "private",
+    "name",
+    "creator_user_id",
+    "owner_org",
+    "organization"
+  ]
+}

@@ -9,7 +9,7 @@ from ckanfunctionaltests.api import validate_against_schema
 def test_package_list(base_url, rsession):
     response = rsession.get(f"{base_url}/action/package_list")
     assert response.status_code == 200
-    validate_against_schema(response.json(), "package_list.schema.json")
+    validate_against_schema(response.json(), "package_list")
 
     assert response.json()["success"] is True
 
@@ -27,7 +27,7 @@ def test_package_show(subtests, base_url, rsession, random_pkg_slug):
     rj = response.json()
 
     with subtests.test("response validity"):
-        validate_against_schema(rj, "package_show.schema.json")
+        validate_against_schema(rj, "package_show")
         assert rj["success"] is True
         assert rj["result"]["name"] == random_pkg_slug
         assert all(res["package_id"] == rj['result']['id'] for res in rj["result"]["resources"])
