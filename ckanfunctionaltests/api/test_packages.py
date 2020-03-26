@@ -51,7 +51,11 @@ def test_package_search_by_full_slug_general_term(subtests, base_url, rsession, 
         f"{base_url}/action/package_search?q={random_pkg_slug}&rows=100"
     )
     assert response.status_code == 200
-    assert response.json()["success"] is True
+    rj = response.json()
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "package_search")
+        assert rj["success"] is True
 
     desired_result = tuple(
         pkg for pkg in response.json()["result"]["results"] if pkg["name"] == random_pkg_slug
@@ -75,7 +79,10 @@ def test_package_search_by_revision_id_specific_field(subtests, base_url, rsessi
     )
     assert response.status_code == 200
     rj = response.json()
-    assert rj["success"] is True
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "package_search")
+        assert rj["success"] is True
 
     desired_result = tuple(
         pkg for pkg in rj["result"]["results"] if pkg["id"] == random_pkg["id"]
@@ -122,7 +129,10 @@ def test_package_search_by_org_id_specific_field_and_title_general_term(
     )
     assert response.status_code == 200
     rj = response.json()
-    assert rj["success"] is True
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "package_search")
+        assert rj["success"] is True
 
     with subtests.test("all results match criteria"):
         assert all(
@@ -155,7 +165,10 @@ def test_package_search_facets(subtests, base_url, rsession, random_pkg):
     )
     assert response.status_code == 200
     rj = response.json()
-    assert rj["success"] is True
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "package_search")
+        assert rj["success"] is True
 
     with subtests.test("facets include random_pkg's value"):
         assert random_pkg["organization"]["name"] in rj["result"]["facets"]["organization"]
