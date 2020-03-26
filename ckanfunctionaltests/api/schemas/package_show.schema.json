@@ -3,18 +3,15 @@
   "$id": "http://github.com/alphagov/ckan-functional-tests/api/package_show.schema.json",
   "title": "CKAN package show response",
   "description": "A lenient specification for responses from the CKAN api's package_show endpoint",
-  "type": "object",
-  "properties": {
-    "success": {
-      "type": "boolean"
-    },
-    "help": {
-      "type": "string",
-      "format": "uri"
-    },
-    "result": {
-      "$ref": "package_base"
+  "allOf": [{
+      "$ref": "action_response_base"
+    }, {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "package_base"
+        }
+      }
     }
-  },
-  "required": ["success", "help", "result"]
+  ]
 }

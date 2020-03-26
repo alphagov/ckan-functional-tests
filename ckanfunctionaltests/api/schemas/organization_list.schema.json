@@ -3,21 +3,18 @@
   "$id": "http://github.com/alphagov/ckan-functional-tests/api/organization_list.schema.json",
   "title": "CKAN organization list response",
   "description": "A lenient specification for responses from the CKAN api's organization_list endpoint",
-  "type": "object",
-  "properties": {
-    "success": {
-      "type": "boolean"
-    },
-    "help": {
-      "type": "string",
-      "format": "uri"
-    },
-    "result": {
-      "type": "array",
-      "items": {
-        "$ref": "common#/definitions/slug"
+  "allOf": [{
+      "$ref": "action_response_base"
+    }, {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "array",
+          "items": {
+            "$ref": "common#/definitions/slug"
+          }
+        }
       }
     }
-  },
-  "required": ["success", "help", "result"]
+  ]
 }

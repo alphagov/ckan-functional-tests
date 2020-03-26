@@ -136,7 +136,7 @@ def test_package_search_by_org_id_specific_field_and_title_general_term(
     )
     if rj["result"]["count"] > 1000 and not desired_result:
         # we don't have all results - it may well be on a latter page
-        warn(f"Expected package {random_pkg['id']!r} not found on first page of results")
+        warn(f"Expected package id {random_pkg['id']!r} not found on first page of results")
     else:
         assert len(desired_result) == 1
 
