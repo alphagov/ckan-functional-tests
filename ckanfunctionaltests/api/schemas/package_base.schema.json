@@ -55,9 +55,17 @@
       "items": {
         "type": "object",
         "properties": {
-          "url": {
+          "created": {
             "type": "string",
-            "format": "uri"
+            "format": "date-time"
+          },
+          "url": {
+            "$comment": "not reliably a valid uri",
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
           },
           "package_id": {
             "type": "string",
@@ -67,28 +75,55 @@
             "type": "string",
             "format": "uuid"
           },
-          "id": {
-            "type": "string",
-            "format": "uuid"
+          "state": {
+            "$ref": "common#/definitions/state"
           },
-          "created": {
-            "type": "string",
+          "cache_last_updated": {
+            "type": ["string", "null"],
             "format": "date-time"
           },
+          "cache_url": {
+            "type": ["string", "null"],
+            "format": "uri"
+          },
+          "format": {
+            "type": ["string", "null"]
+          },
+          "last_modified": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "mimetype": {
+            "type": ["string", "null"]
+          },
+          "mimetype_inner": {
+            "type": ["string", "null"]
+          },
           "name": {
-            "anyOf": [{
-              "type": "string"
-            }, {
-              "type": "null"
-            }]
+            "type": ["string", "null"]
+          },
+          "resource_type": {
+            "type": ["string", "null"]
+          },
+          "size": {
+            "type": ["string", "null"]
           }
         },
         "required": [
+          "cache_last_updated",
+          "cache_url",
+          "format",
           "id",
-          "url",
+          "last_modified",
+          "mimetype",
+          "mimetype_inner",
+          "name",
           "package_id",
+          "resource_type",
           "revision_id",
-          "name"
+          "size",
+          "state",
+          "url"
         ]
       }
     },
@@ -104,6 +139,28 @@
             "type": "string"
           }
         }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "state": {
+            "$ref": "common#/definitions/state"
+          }
+        },
+        "required": ["id", "name", "display_name", "state"]
       }
     },
     "title": {
