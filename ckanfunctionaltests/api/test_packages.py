@@ -3,7 +3,7 @@ from warnings import warn
 
 from dmtestutils.comparisons import AnySupersetOf
 
-from ckanfunctionaltests.api import validate_against_schema
+from ckanfunctionaltests.api import validate_against_schema, extract_search_terms
 
 
 def test_package_list(base_url, rsession):
@@ -56,6 +56,7 @@ def test_package_search_by_full_slug_general_term(subtests, base_url, rsession, 
     with subtests.test("response validity"):
         validate_against_schema(rj, "package_search")
         assert rj["success"] is True
+        assert len(rj["result"]["results"]) <= 100
 
     desired_result = tuple(
         pkg for pkg in response.json()["result"]["results"] if pkg["name"] == random_pkg_slug
@@ -83,6 +84,7 @@ def test_package_search_by_revision_id_specific_field(subtests, base_url, rsessi
     with subtests.test("response validity"):
         validate_against_schema(rj, "package_search")
         assert rj["success"] is True
+        assert len(rj["result"]["results"]) <= 1000
 
     desired_result = tuple(
         pkg for pkg in rj["result"]["results"] if pkg["id"] == random_pkg["id"]
@@ -100,28 +102,13 @@ def test_package_search_by_revision_id_specific_field(subtests, base_url, rsessi
         # TODO assert actual contents are approximately equal (exact equality is out the window)
 
 
-_all_alpha_re = re.compile(r"[a-z]+", re.I)
-
-
-def _extract_search_terms(source_text: str, n: int) -> str:
-    """
-    choose n longest "clean" words from the source_text as our search terms (longer words
-    are more likely to be distinctive) and format them for use in a url
-    """
-    return "+".join(sorted(
-        (token for token in source_text.split() if _all_alpha_re.fullmatch(token)),
-        key=lambda t: len(t),
-        reverse=True,
-    )[:n])
-
-
 def test_package_search_by_org_id_specific_field_and_title_general_term(
     subtests,
     base_url,
     rsession,
     random_pkg,
 ):
-    title_terms = _extract_search_terms(random_pkg["title"], 2)
+    title_terms = extract_search_terms(random_pkg["title"], 2)
 
     response = rsession.get(
         f"{base_url}/action/package_search?fq=owner_org:{random_pkg['owner_org']}"
@@ -133,6 +120,7 @@ def test_package_search_by_org_id_specific_field_and_title_general_term(
     with subtests.test("response validity"):
         validate_against_schema(rj, "package_search")
         assert rj["success"] is True
+        assert len(rj["result"]["results"]) <= 1000
 
     with subtests.test("all results match criteria"):
         assert all(
@@ -157,7 +145,7 @@ def test_package_search_by_org_id_specific_field_and_title_general_term(
 
 
 def test_package_search_facets(subtests, base_url, rsession, random_pkg):
-    notes_terms = _extract_search_terms(random_pkg["notes"], 2)
+    notes_terms = extract_search_terms(random_pkg["notes"], 2)
 
     response = rsession.get(
         f"{base_url}/action/package_search?q={notes_terms}&rows=10"
@@ -169,6 +157,7 @@ def test_package_search_facets(subtests, base_url, rsession, random_pkg):
     with subtests.test("response validity"):
         validate_against_schema(rj, "package_search")
         assert rj["success"] is True
+        assert len(rj["result"]["results"]) <= 10
 
     with subtests.test("facets include random_pkg's value"):
         assert random_pkg["organization"]["name"] in rj["result"]["facets"]["organization"]

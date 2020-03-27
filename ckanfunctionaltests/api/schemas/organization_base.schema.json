@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://github.com/alphagov/ckan-functional-tests/api/organization_base.schema.json",
-  "title": "CKAN base organization representation",
+  "title": "CKAN action api base organization representation",
   "type": "object",
   "properties": {
     "package_count": {

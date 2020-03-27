@@ -70,3 +70,18 @@ def get_validator(schema_name: str):
 
 def validate_against_schema(candidate, schema_name: str) -> None:
     get_validator(schema_name).validate(candidate)
+
+
+_all_alpha_re = re.compile(r"[a-z]+", re.I)
+
+
+def extract_search_terms(source_text: str, n: int) -> str:
+    """
+    choose n longest "clean" words from the source_text as our search terms (longer words
+    are more likely to be distinctive) and format them for use in a url
+    """
+    return "+".join(sorted(
+        (token for token in source_text.split() if _all_alpha_re.fullmatch(token)),
+        key=lambda t: len(t),
+        reverse=True,
+    )[:n])
