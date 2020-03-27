@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/dataset_base.schema.json",
+  "title": "CKAN legacy api base dataset representation",
+  "type": "object",
+  "properties": {
+    "organization": {
+      "$ref": "common#/definitions/slug"
+    },
+    "revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "state": {
+      "$ref": "common#/definitions/state"
+    },
+    "dataset_type": {
+      "type": "string"
+    },
+    "metadata_modified": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "indexed_ts": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "site_id": {
+      "type": "string"
+    },
+    "capacity": {
+      "type": "string"
+    },
+    "name": {
+      "$ref": "common#/definitions/slug"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "extras": {
+      "type": "object"
+    }
+  }
+}
