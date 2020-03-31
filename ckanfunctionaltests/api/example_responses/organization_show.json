@@ -1,0 +1,50 @@
+{
+  "help": "https://ckan.publishing.service.gov.uk/api/3/action/help_show?name=organization_show",
+  "success": true,
+  "result": {
+    "groups": [
+      {
+        "capacity": "public",
+        "name": "department-for-transport"
+      }
+    ],
+    "package_count": 4,
+    "num_followers": 0,
+    "foi-email": "",
+    "id": "8568e5d7-c6b4-480e-b44c-2c6bc566de0d",
+    "category": "executive-ndpb",
+    "display_name": "Network Rail",
+    "approval_status": "pending",
+    "title": "Network Rail",
+    "state": "active",
+    "foi-web": "",
+    "description": "http://www.networkrail.co.uk/",
+    "contact-email": "",
+    "tags": [],
+    "foi-name": "",
+    "contact-phone": "",
+    "contact-name": "",
+    "name": "network-rail",
+    "created": "2015-03-24T15:47:48.224752",
+    "type": "organization",
+    "image_display_url": "",
+    "is_organization": true,
+    "extras": [
+      {
+        "value": "",
+        "key": "abbreviation"
+      },
+      {
+        "value": "false",
+        "key": "closed"
+      },
+      {
+        "value": "[]",
+        "key": "replaced_by"
+      }
+    ],
+    "image_url": "",
+    "revision_id": "f0ac8982-2621-4346-8a62-e02f1c19fddc",
+    "foi-phone": ""
+  }
+}

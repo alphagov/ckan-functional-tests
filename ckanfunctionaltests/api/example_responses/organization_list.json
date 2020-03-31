@@ -1,0 +1,16 @@
+{
+  "help": "https://ckan.publishing.service.gov.uk/api/3/action/help_show?name=organization_list",
+  "success": true,
+  "result": [
+    "aberdeen-city-council",
+    "aberdeenshire-council",
+    "academics",
+    "adur-district-council",
+    "advantage-west-midlands",
+    "advisory-conciliation-and-arbitration-service",
+    "agri-food-and-biosciences-institute",
+    "air-accident-investigation-branch",
+    "air-command",
+    "airedale-nhs-foundation-trust"
+  ]
+}
