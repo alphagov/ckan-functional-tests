@@ -3,6 +3,7 @@ from glob import glob
 import json
 import os.path
 
+from jsonschema import draft7_format_checker
 from jsonschema.validators import RefResolver, validator_for
 
 
@@ -29,11 +30,32 @@ def _get_schema_store() -> dict:
     return _schema_store
 
 
+# grab a reference to the checker draft7_format_checker is using by default
+_is_datetime, _is_datetime_raises = draft7_format_checker.checkers["date-time"]
+
+
+# this could be considered monkeypatching, could perhaps use a deepcopy to mitigate that...
+@draft7_format_checker.checks("date-time", raises=_is_datetime_raises)
+def _lenient_is_datetime(instance):
+    """
+    A more lenient version of jsonschema's is_datetime checker needed because CKAN's
+    timestamps aren't completely rfc3339 compliant. if a string first fails to validate
+    alone, see if appending a "Z" allows it to pass
+    """
+    return _is_datetime(instance) or (
+        isinstance(instance, str) and _is_datetime(instance + "Z")
+    )
+
+
 @lru_cache()
 def get_validator(schema_name: str):
     store = _get_schema_store()
     schema = store[_schema_id_base + schema_name]
-    return validator_for(schema)(schema, resolver=RefResolver("", schema, store))
+    return validator_for(schema)(
+        schema,
+        resolver=RefResolver("", schema, store),
+        format_checker=draft7_format_checker,
+    )
 
 
 def validate_against_schema(candidate, schema_name: str) -> None:
