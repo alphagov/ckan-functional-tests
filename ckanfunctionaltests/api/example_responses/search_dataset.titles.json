@@ -1,0 +1,35 @@
+{
+  "count": 1407,
+  "results": [
+    {
+      "title": "Map based index (GeoIndex) modern and historical recorded earthquakes"
+    },
+    {
+      "title": "Map based index (GeoIndex) regional airborne magnetic surveys and flight lines"
+    },
+    {
+      "title": "BGS GeoIndex - Landsat data theme (OGC WxS INSPIRE)"
+    },
+    {
+      "title": "Map based index (GeoIndex) local geophysical surveys, survey lines and survey points"
+    },
+    {
+      "title": "Map based index (GeoIndex) water wells with aquifer property measurements"
+    },
+    {
+      "title": "BGS Earth Material Classes (concepts)"
+    },
+    {
+      "title": "Geospatial Data Catalogue: British Geological Survey (BGS)"
+    },
+    {
+      "title": "BGS Lexicon of Named Rock Units (concepts)"
+    },
+    {
+      "title": "GeoSure Shrink Swell Deposits"
+    },
+    {
+      "title": "BGS GeoIndex - Offshore (cultural data) data theme (OGC WxS INSPIRE)"
+    }
+  ]
+}
