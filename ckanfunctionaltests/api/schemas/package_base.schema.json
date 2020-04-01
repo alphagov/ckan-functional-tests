@@ -1,0 +1,203 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/package_base.schema.json",
+  "title": "CKAN base package representation",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["dataset", "harvest"]
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "capacity": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "state": {
+      "$ref": "common#/definitions/state"
+    },
+    "extras": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "num_resources": {
+      "type": "integer"
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "url": {
+            "$comment": "not reliably a valid uri",
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "package_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "revision_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "state": {
+            "$ref": "common#/definitions/state"
+          },
+          "cache_last_updated": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "cache_url": {
+            "type": ["string", "null"],
+            "format": "uri"
+          },
+          "format": {
+            "type": ["string", "null"]
+          },
+          "last_modified": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "mimetype": {
+            "type": ["string", "null"]
+          },
+          "mimetype_inner": {
+            "type": ["string", "null"]
+          },
+          "name": {
+            "type": ["string", "null"]
+          },
+          "resource_type": {
+            "type": ["string", "null"]
+          },
+          "size": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "cache_last_updated",
+          "cache_url",
+          "format",
+          "id",
+          "last_modified",
+          "mimetype",
+          "mimetype_inner",
+          "name",
+          "package_id",
+          "resource_type",
+          "revision_id",
+          "size",
+          "state",
+          "url"
+        ]
+      }
+    },
+    "harvest": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "state": {
+            "$ref": "common#/definitions/state"
+          }
+        },
+        "required": ["id", "name", "display_name", "state"]
+      }
+    },
+    "title": {
+      "type": "string"
+    },
+    "private": {
+      "type": "boolean",
+      "const": false
+    },
+    "name": {
+      "$ref": "common#/definitions/slug"
+    },
+    "creator_user_id": {
+      "$ref": "common#/definitions/optionalUUID"
+    },
+    "isopen": {
+      "type": "boolean"
+    },
+    "owner_org": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "organization": {
+      "$ref": "organization_base"
+    }
+  },
+  "required": [
+    "id",
+    "revision_id",
+    "groups",
+    "type",
+    "state",
+    "title",
+    "private",
+    "name",
+    "creator_user_id",
+    "owner_org",
+    "organization"
+  ]
+}

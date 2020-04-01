@@ -1,0 +1,162 @@
+{
+  "help": "https://ckan.publishing.service.gov.uk/api/3/action/help_show?name=package_show",
+  "success": true,
+  "result": {
+    "license_title": "",
+    "temporal_coverage-from": [
+      "2005"
+    ],
+    "relationships_as_object": [],
+    "private": false,
+    "num_tags": 0,
+    "id": "5e2d4ec4-2df6-4c3f-b559-93321a213d29",
+    "metadata_created": "2011-11-10T08:30:44.293151",
+    "metadata_modified": "2018-09-11T12:08:27.268889",
+    "state": "active",
+    "version": null,
+    "temporal_coverage-to": [
+      "2008"
+    ],
+    "license_id": "",
+    "type": "dataset",
+    "resources": [
+      {
+        "mimetype": null,
+        "cache_url": null,
+        "hash": "",
+        "description": "The BGS Homepage is an entry point to the BGS data services.",
+        "name": "BGS Homepage",
+        "format": "",
+        "url": "http://www.bgs.ac.uk/",
+        "cache_last_updated": null,
+        "package_id": "5e2d4ec4-2df6-4c3f-b559-93321a213d29",
+        "created": "2018-05-14T18:12:10.230542",
+        "state": "active",
+        "mimetype_inner": null,
+        "resource_locator_function": "information",
+        "last_modified": null,
+        "resource_locator_protocol": "HTTP",
+        "position": 0,
+        "revision_id": "a1165c8a-59ec-4002-b7d9-981ec06761ac",
+        "url_type": null,
+        "id": "7cc52d71-160c-4938-9154-78fee856955c",
+        "resource_type": null,
+        "size": null
+      }
+    ],
+    "num_resources": 1,
+    "contact-email": "enquiries@bgs.ac.uk",
+    "tags": [],
+    "groups": [],
+    "creator_user_id": "d295fb8a-7be8-4fd1-b4cf-317a18a1e6b9",
+    "relationships_as_subject": [],
+    "organization": {
+      "description": "Founded in 1835, the British Geological Survey (BGS) is the world's oldest national geological survey and the United Kingdom's premier centre for earth science information and expertise.\r\n\r\nThe BGS provides expert services and impartial advice in all areas of geoscience. Our client base is drawn from the public and private sectors both in the UK and internationally.\r\n\r\nhttp://www.bgs.ac.uk/home.html\r\n\r\n",
+      "created": "2012-06-27T14:50:32.295517",
+      "title": "British Geological Survey",
+      "name": "british-geological-survey",
+      "is_organization": true,
+      "state": "active",
+      "image_url": "",
+      "revision_id": "5a893ef1-664f-423f-a6c3-5c2c253ec159",
+      "type": "organization",
+      "id": "7ad23da8-c49d-4d81-bf85-5cfab52ba143",
+      "approval_status": "pending"
+    },
+    "name": "uk-continental-shelf-seabed-sediments-1-1-million-scale2",
+    "isopen": false,
+    "url": null,
+    "notes": "This data layer is the BGS contribution to the OneGeology project, providing UK onshore geological data at 1:625 000 scale and UK continental shelf seabed sediment data at 1:1 million scale. This map data is collected as part of an ongoing BGS project: Digital Geological Map of Great Britain (DiGMapGB). This layer is the seabed sediment data layer.",
+    "owner_org": "7ad23da8-c49d-4d81-bf85-5cfab52ba143",
+    "theme-secondary": [],
+    "extras": [
+      {
+        "key": "UKLP",
+        "value": "True"
+      },
+      {
+        "key": "access_constraints",
+        "value": "[\"otherRestrictions\"]"
+      },
+      {
+        "key": "bbox-east-long",
+        "value": "3.4000"
+      },
+      {
+        "key": "bbox-north-lat",
+        "value": "63.8900"
+      },
+      {
+        "key": "bbox-south-lat",
+        "value": "48.2300"
+      },
+      {
+        "key": "bbox-west-long",
+        "value": "-12.0000"
+      },
+      {
+        "key": "coupled-resource",
+        "value": "[]"
+      },
+      {
+        "key": "dataset-reference-date",
+        "value": "[{\"type\": \"creation\", \"value\": \"1995\"}]"
+      },
+      {
+        "key": "frequency-of-update",
+        "value": "asNeeded"
+      },
+      {
+        "key": "guid",
+        "value": "9df8df52-d786-37a8-e044-0003ba9b0d98"
+      },
+      {
+        "key": "harvest_source_reference",
+        "value": "9df8df52-d786-37a8-e044-0003ba9b0d98"
+      },
+      {
+        "key": "import_source",
+        "value": "harvest"
+      },
+      {
+        "key": "licence",
+        "value": "Either: (i) the dataset is made freely available, e.g. via the Internet, for a restricted category of use (e.g. educational use only); or (ii) the dataset has not been formally approved by BGS for access and use by external clients under licence, but its use may be permitted under alternative formal arrangements; or (iii) the dataset contains 3rd party data or information obtained by BGS under terms and conditions that must be consulted in order to determine the permitted usage of the dataset. Refer to the BGS staff member responsible for the creation of the dataset if further advice is required. He / she should be familiar with the composition of the dataset, particularly with regard to 3rd party IPR contained in it, and any resultant use restrictions. This staff member should revert to the IPR Section (ipr@bgs.ac.uk) for advice, should the position not be clear."
+      },
+      {
+        "key": "metadata-date",
+        "value": "2018-08-24"
+      },
+      {
+        "key": "metadata-language",
+        "value": "eng"
+      },
+      {
+        "key": "provider",
+        "value": ""
+      },
+      {
+        "key": "resource-type",
+        "value": "dataset"
+      },
+      {
+        "key": "responsible-party",
+        "value": "British Geological Survey (custodian, pointOfContact, distributor)"
+      },
+      {
+        "key": "spatial",
+        "value": "{\"type\":\"Polygon\",\"coordinates\":[[[3.4000, 48.2300],[3.4000, 63.8900], [-12.0000, 63.8900], [-12.0000, 48.2300], [3.4000, 48.2300]]]}"
+      },
+      {
+        "key": "spatial-data-service-type",
+        "value": ""
+      },
+      {
+        "key": "spatial-reference-system",
+        "value": "urn:ogc:def:crs:EPSG::27700"
+      }
+    ],
+    "title": "UK continental shelf seabed sediments (1:1 million scale)",
+    "revision_id": "0f37773a-5bab-42ab-be14-1cda5d6c0d32",
+    "theme-primary": "environment"
+  }
+}

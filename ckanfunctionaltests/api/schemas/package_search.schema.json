@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/package_search.schema.json",
+  "title": "CKAN package search response",
+  "description": "A lenient specification for responses from the CKAN api's package_search endpoint",
+  "allOf": [{
+      "$ref": "action_response_base"
+    }, {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "sort": {
+              "type": "string"
+            },
+            "facets": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer"
+                }
+              }
+            },
+            "results": {
+              "type": "array",
+              "items": {
+                "$ref": "package_base"
+              }
+            },
+            "search_facets": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "$ref": "common#/definitions/slug"
+                        },
+                        "display_name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "count",
+                        "name",
+                        "display_name"
+                      ]
+                    }
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "items",
+                  "title"
+                ]
+              }
+            }
+          },
+          "required": [
+            "count",
+            "sort",
+            "facets",
+            "results",
+            "search_facets"
+          ]
+        }
+      }
+    }
+  ]
+}

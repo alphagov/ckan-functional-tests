@@ -3,98 +3,25 @@
   "$id": "http://github.com/alphagov/ckan-functional-tests/api/organization_show.schema.json",
   "title": "CKAN organization show response",
   "description": "A lenient specification for responses from the CKAN api's organization_show endpoint",
-  "type": "object",
-  "properties": {
-    "success": {
-      "type": "boolean"
-    },
-    "help": {
-      "type": "string",
-      "format": "uri"
-    },
-    "result": {
+  "allOf": [{
+      "$ref": "action_response_base"
+    }, {
       "type": "object",
       "properties": {
-        "package_count": {
-          "type": "integer"
-        },
-        "id": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "revision_id": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "title": {
-          "type": "string"
-        },
-        "created": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "name": {
-          "type": "string",
-          "pattern": "[a-z0-9_-]"
-        },
-        "display_name": {
-          "type": "string"
-        },
-        "is_organization": {
-          "type": "boolean",
-          "const": true
-        },
-        "type": {
-          "type": "string",
-          "const": "organization"
-        },
-        "groups": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "capacity": {
-                "type": "string"
-              }
+        "result": {
+          "allOf": [{
+              "$ref": "organization_base"
+            }, {
+              "type": "object",
+              "required": [
+                "display_name",
+                "package_count",
+                "groups"
+              ]
             }
-          }
-        },
-        "state": {
-          "type": "string",
-          "enum": ["active", "deleted"]
-        },
-        "extras": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "key": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              }
-            }
-          }
+          ]
         }
-      },
-      "required": [
-        "package_count",
-        "id",
-        "revision_id",
-        "created",
-        "display_name",
-        "is_organization",
-        "groups",
-        "type",
-        "state",
-        "name",
-        "title"
-      ]
+      }
     }
-  },
-  "required": ["success", "help", "result"]
+  ]
 }

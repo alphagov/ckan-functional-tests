@@ -1,0 +1,977 @@
+{
+  "help": "https://ckan.publishing.service.gov.uk/api/3/action/help_show?name=package_search",
+  "success": true,
+  "result": {
+    "count": 10,
+    "sort": "score desc, metadata_modified desc",
+    "facets": {
+      "organization": {
+        "centre-for-environment-fisheries-aquaculture-science": 1,
+        "eidc": 4,
+        "greater-london-authority": 1,
+        "cambridgeshire-insight": 1,
+        "colchester-borough-council": 1,
+        "natural-england": 2
+      }
+    },
+    "results": [
+      {
+        "license_title": "UK Open Government Licence (OGL)",
+        "temporal_coverage-from": [
+          "2015-01-01"
+        ],
+        "relationships_as_object": [],
+        "private": false,
+        "num_tags": 13,
+        "id": "df1a587d-836a-4c63-b070-e5b6192117e4",
+        "metadata_created": "2016-08-16T18:34:06.445687",
+        "metadata_modified": "2020-03-18T04:48:27.035267",
+        "state": "active",
+        "version": null,
+        "temporal_coverage-to": [
+          "2015-12-31"
+        ],
+        "license_id": "uk-ogl",
+        "type": "dataset",
+        "resources": [
+          {
+            "mimetype": null,
+            "cache_url": null,
+            "hash": "",
+            "description": "Supporting information available to assist in re-use of this dataset",
+            "name": "Supporting information",
+            "format": "ZIP",
+            "url": "https://data-package.ceh.ac.uk/sd/5822900b-3af4-4bb9-a2d6-0b5d384e2a3c.zip",
+            "cache_last_updated": null,
+            "package_id": "df1a587d-836a-4c63-b070-e5b6192117e4",
+            "created": "2020-03-18T04:48:27.317909",
+            "state": "active",
+            "mimetype_inner": null,
+            "resource_locator_function": "information",
+            "last_modified": null,
+            "resource_locator_protocol": "",
+            "position": 0,
+            "revision_id": "78ac6e82-1af0-4f95-b2f2-12bbad76555e",
+            "url_type": null,
+            "id": "bf59b729-ab16-43eb-bf66-3e3b47d30a01",
+            "resource_type": null,
+            "size": null
+          },
+          {
+            "mimetype": null,
+            "cache_url": null,
+            "hash": "",
+            "description": "Download a copy of this data",
+            "name": "Download the data",
+            "format": "",
+            "url": "https://catalogue.ceh.ac.uk/download?fileIdentifier=5822900b-3af4-4bb9-a2d6-0b5d384e2a3c",
+            "cache_last_updated": null,
+            "package_id": "df1a587d-836a-4c63-b070-e5b6192117e4",
+            "created": "2020-03-18T04:48:27.317915",
+            "state": "active",
+            "mimetype_inner": null,
+            "resource_locator_function": "order",
+            "last_modified": null,
+            "resource_locator_protocol": "",
+            "position": 1,
+            "revision_id": "78ac6e82-1af0-4f95-b2f2-12bbad76555e",
+            "url_type": null,
+            "id": "cbda648e-67c0-4a4b-b43b-4e027101a9bb",
+            "resource_type": null,
+            "size": null
+          }
+        ],
+        "num_resources": 2,
+        "contact-email": "\nm.p.garratt@reading.ac.uk\n",
+        "tags": [
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "Common Carder Bee",
+            "id": "dc3f2ac1-d893-4fcb-b958-cd93c683896d",
+            "name": "Common Carder Bee"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "Early bumblebee",
+            "id": "e49e160b-e3ae-4ab4-a812-ec63ba40f88d",
+            "name": "Early bumblebee"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "Environmental Monitoring Facilities",
+            "id": "1ab109f7-fa03-4de9-ab56-3b79cb9a14ea",
+            "name": "Environmental Monitoring Facilities"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "National Pollinator and Pollination Monitoring Fra",
+            "id": "d8762514-6088-4695-ac88-c94d325e7fc1",
+            "name": "National Pollinator and Pollination Monitoring Fra"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "apples",
+            "id": "873b37be-f8ce-420e-93de-6807d9cc6b7c",
+            "name": "apples"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "bee",
+            "id": "f05cb88d-ac1e-40d1-88aa-b93832c4519f",
+            "name": "bee"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "beetle",
+            "id": "31e82f65-bcde-48ab-a381-792904b8f50e",
+            "name": "beetle"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "field beans",
+            "id": "d852f694-4542-40f5-860e-f90bbe98ba65",
+            "name": "field beans"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "flies",
+            "id": "706fc28b-358b-4dcd-9efc-8721b60a3522",
+            "name": "flies"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "fly",
+            "id": "1311c73d-6597-4082-a0fa-6c6994fe0ba4",
+            "name": "fly"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "hoverfly",
+            "id": "fb3edcbe-9910-4068-af36-9139c240fcd1",
+            "name": "hoverfly"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "moth",
+            "id": "ad9ed5bd-2888-4634-8146-065c3798b9a9",
+            "name": "moth"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "oilseed rape",
+            "id": "ed37c002-9317-4091-904c-6eae99ca1d16",
+            "name": "oilseed rape"
+          }
+        ],
+        "groups": [],
+        "creator_user_id": "431b5956-7b87-41ba-8fc5-a4a8b681b797",
+        "relationships_as_subject": [],
+        "organization": {
+          "description": "<p>The <a href=\"https://www.eidc.ac.uk/\" target=\"_blank\">Environmental Information Data Centre (EIDC)</a> is the UK's national data centre for terrestrial and freshwater sciences.</p>\r\n\r\n<p>The EIDC is one of the network of Natural Environment Research Council (NERC) data centres that provide a focal point for its scientific data and information.</p>\r\n\r\n<p>The EIDC is hosted by <a href=\"http://www.ceh.ac.uk/\" target=\"_blank\">the UK Centre for Ecology & Hydrology (UKCEH)</a>, a world-class, independent, not-for-profit research organisation focusing on land and freshwater ecosystems and their interaction with the atmosphere. UKCEH integrates UK-wide observation systems and curiosity driven research, from the smallest scale of genetic diversity to large-scale, whole-Earth systems. We work across disciplines and facilitate academic, public, private and voluntary sector partnerships. UKCEH\u2019s extensive, long-term monitoring, analysis and modelling deliver UK and global environmental data, providing early warnings of change and management solutions for our land and freshwaters.</p>",
+          "created": "2012-06-27T14:54:40.370760",
+          "title": "Environmental Information Data Centre",
+          "name": "eidc",
+          "is_organization": true,
+          "state": "active",
+          "image_url": "2020-01-09-092402.7201059E2F5F93-AA00-4DD2-8727-97F0F63FD4CB.png",
+          "revision_id": "9cc5b179-3d68-4cde-bcc8-c4175b7756fd",
+          "type": "organization",
+          "id": "866f4088-ae4f-43b8-ba8c-6d3141a327f2",
+          "approval_status": "pending"
+        },
+        "name": "pollinator-and-pollination-service-data-from-the-national-pollinator-and-pollination-monit-2015",
+        "isopen": true,
+        "url": null,
+        "notes": "This dataset contains data on insects observed visiting flowers of three crops (apples, field beans and oilseed rape) and responses by recorders to a questionnaire asking about their experience carrying out pollinator surveys. Data from thirteen flowering crop fields was collected by teams based at the University of Reading and the James Hutton Institute in Scotland. Data was collected by different recorders, some of whom were novice data collectors, experienced researchers or farmers and agronomists. Recorders were asked to implement three methods: pan trapping, transect walking and/or hand pollination and plant bagging. Transects involved walking a 50m transect recording floral visitors to crop flowers within a 1m squared moving observation widow next to the recorder. Pan trapping involved placing out three coloured water trap arrays along a 50m transect and then recording what flying insects were caught in the water traps at the end of the survey. Hand pollination and plant bagging involved putting mesh bags over flowers to exclude visitation by insects, hand pollinating crop flowers and counting and marking flowers with cable ties. Data were collected between April and July 2015 from sites across the UK. Full details about this dataset can be found at https://doi.org/10.5285/5822900b-3af4-4bb9-a2d6-0b5d384e2a3c",
+        "owner_org": "866f4088-ae4f-43b8-ba8c-6d3141a327f2",
+        "extras": [
+          {
+            "key": "UKLP",
+            "value": "True"
+          },
+          {
+            "key": "access_constraints",
+            "value": "[\"\\u00c2\\u00a9 Crown Copyright\", \"If you reuse this data, you should cite: Garratt, M.P.D, Carvell, C., Hawes, C., Potts, S.G. (2016). Pollinator and pollination service data from the National Pollinator and Pollination Monitoring Framework pilot study from 13 UK crop field sites 2015. NERC Environmental Information Data Centre https://doi.org/10.5285/5822900b-3af4-4bb9-a2d6-0b5d384e2a3c\"]"
+          },
+          {
+            "key": "bbox-east-long",
+            "value": "1.768"
+          },
+          {
+            "key": "bbox-north-lat",
+            "value": "60.861"
+          },
+          {
+            "key": "bbox-south-lat",
+            "value": "49.864"
+          },
+          {
+            "key": "bbox-west-long",
+            "value": "-8.648"
+          },
+          {
+            "key": "coupled-resource",
+            "value": "[]"
+          },
+          {
+            "key": "dataset-reference-date",
+            "value": "[{\"type\": \"publication\", \"value\": \"2016-04-14\"}, {\"type\": \"creation\", \"value\": \"2015-12-31\"}]"
+          },
+          {
+            "key": "frequency-of-update",
+            "value": "notPlanned"
+          },
+          {
+            "key": "guid",
+            "value": "5822900b-3af4-4bb9-a2d6-0b5d384e2a3c"
+          },
+          {
+            "key": "licence",
+            "value": "[]"
+          },
+          {
+            "key": "metadata-date",
+            "value": "2020-03-13T14:27:24"
+          },
+          {
+            "key": "metadata-language",
+            "value": "eng"
+          },
+          {
+            "key": "progress",
+            "value": ""
+          },
+          {
+            "key": "provider",
+            "value": "NERC Environmental Information Data Centre"
+          },
+          {
+            "key": "resource-type",
+            "value": "dataset"
+          },
+          {
+            "key": "responsible-party",
+            "value": "The James Hutton Institute (author); Environmental Information Data Centre (custodian); Centre for Ecology & Hydrology (author); University of Reading (pointOfContact, author); NERC Environmental Information Data Centre (publisher)"
+          },
+          {
+            "key": "spatial",
+            "value": "{\"type\": \"Polygon\", \"coordinates\": [[[1.768, 49.864], [-8.648, 49.864], [-8.648, 60.861], [1.768, 60.861], [1.768, 49.864]]]}"
+          },
+          {
+            "key": "spatial-data-service-type",
+            "value": ""
+          },
+          {
+            "key": "spatial-reference-system",
+            "value": ""
+          },
+          {
+            "key": "harvest_object_id",
+            "value": "4c387ee2-6da0-4480-a168-9152acf2e140"
+          },
+          {
+            "key": "harvest_source_id",
+            "value": "92985a0c-1d7c-4ef2-bf51-d5e43178de24"
+          },
+          {
+            "key": "harvest_source_title",
+            "value": "EIDC GEMINI records"
+          }
+        ],
+        "license_url": "http://reference.data.gov.uk/id/open-government-licence",
+        "title": "Pollinator and pollination service data from the National Pollinator and Pollination Monitoring Framework pilot study from 13 UK crop field sites 2015",
+        "revision_id": "863fd091-f307-44fe-b7f4-1c0de16eb147"
+      },
+      {
+        "license_title": "UK Open Government Licence (OGL)",
+        "relationships_as_object": [],
+        "private": false,
+        "num_tags": 0,
+        "id": "25f3bcfd-619b-43d3-82eb-255859622b9c",
+        "metadata_created": "2015-09-10T10:20:55.190010",
+        "metadata_modified": "2019-12-21T23:55:17.854523",
+        "state": "active",
+        "version": null,
+        "creator_user_id": "60e687bf-a6d8-43e2-a50e-efab84b27952",
+        "type": "dataset",
+        "resources": [
+          {
+            "mimetype": null,
+            "cache_url": null,
+            "hash": "",
+            "description": "Organisation Chart - Download",
+            "name": null,
+            "format": "HTML",
+            "url": "http://datashare.colchester.gov.uk/Download/council-information/organisation-chart",
+            "cache_last_updated": null,
+            "package_id": "25f3bcfd-619b-43d3-82eb-255859622b9c",
+            "created": "2015-09-10T11:20:55.216692",
+            "state": "active",
+            "mimetype_inner": null,
+            "last_modified": null,
+            "id": "85a1ade7-c892-4805-a36b-a54c0895520f",
+            "position": 0,
+            "revision_id": "a5601e4d-7409-4aa9-9f04-bc08ec46552b",
+            "schema-url": "http://datashare.colchester.gov.uk/api/council-information/organisation-chart/definition",
+            "url_type": null,
+            "schema-type": "None",
+            "resource_type": "documentation",
+            "size": null
+          },
+          {
+            "mimetype": null,
+            "cache_url": null,
+            "hash": "",
+            "description": "Organisation Chart - Download",
+            "name": null,
+            "format": "CSV",
+            "url": "http://datashare.colchester.gov.uk/download/council-information/organisation-chart/organisation-chart/CSV?version=21/12/2019",
+            "cache_last_updated": null,
+            "package_id": "25f3bcfd-619b-43d3-82eb-255859622b9c",
+            "created": "2019-12-21T23:23:00.042128",
+            "state": "active",
+            "mimetype_inner": null,
+            "last_modified": null,
+            "id": "8c6be8a5-bc9f-4fe9-888f-9dc8c5c670d7",
+            "position": 1,
+            "revision_id": "4e3a2f85-1f34-416c-8a09-dcf3df71589e",
+            "schema-url": "http://datashare.colchester.gov.uk/api/council-information/organisation-chart/definition",
+            "url_type": null,
+            "schema-type": "csvlint",
+            "resource_type": "documentation",
+            "size": null
+          },
+          {
+            "mimetype": null,
+            "cache_url": null,
+            "hash": "",
+            "description": "Organisation Chart - Download",
+            "name": null,
+            "format": "XML",
+            "url": "http://datashare.colchester.gov.uk/download/council-information/organisation-chart/organisation-chart/XML?version=21/12/2019",
+            "cache_last_updated": null,
+            "package_id": "25f3bcfd-619b-43d3-82eb-255859622b9c",
+            "created": "2019-12-21T23:23:00.042135",
+            "state": "active",
+            "mimetype_inner": null,
+            "last_modified": null,
+            "id": "01184936-c43a-4044-81ae-41c50925f088",
+            "position": 2,
+            "revision_id": "4e3a2f85-1f34-416c-8a09-dcf3df71589e",
+            "schema-url": "http://datashare.colchester.gov.uk/api/council-information/organisation-chart/definition",
+            "url_type": null,
+            "schema-type": "xsd",
+            "resource_type": "documentation",
+            "size": null
+          },
+          {
+            "mimetype": null,
+            "cache_url": null,
+            "hash": "",
+            "description": "Organisation Chart - Service",
+            "name": null,
+            "format": "JSON",
+            "url": "http://datashare.colchester.gov.uk/api/council-information/organisation-chart/organisation-chart?format=JSON",
+            "cache_last_updated": null,
+            "package_id": "25f3bcfd-619b-43d3-82eb-255859622b9c",
+            "created": "2015-09-10T11:20:55.216722",
+            "state": "active",
+            "mimetype_inner": null,
+            "last_modified": null,
+            "id": "5b092907-cba5-4a6c-b97f-bc8ee309e010",
+            "position": 3,
+            "revision_id": "7df6a985-8882-452c-a7e0-52733686d8ee",
+            "schema-url": "http://datashare.colchester.gov.uk/api/council-information/organisation-chart/definition",
+            "url_type": null,
+            "schema-type": "None",
+            "resource_type": "documentation",
+            "size": null
+          },
+          {
+            "mimetype": null,
+            "cache_url": null,
+            "hash": "",
+            "description": "Organisation Chart - Service",
+            "name": null,
+            "format": "XML",
+            "url": "http://datashare.colchester.gov.uk/api/council-information/organisation-chart/organisation-chart?format=XML",
+            "cache_last_updated": null,
+            "package_id": "25f3bcfd-619b-43d3-82eb-255859622b9c",
+            "created": "2015-09-10T11:20:55.216726",
+            "state": "active",
+            "mimetype_inner": null,
+            "last_modified": null,
+            "id": "4e335569-b7cb-417c-91b2-3b545518cb0f",
+            "position": 4,
+            "revision_id": "7df6a985-8882-452c-a7e0-52733686d8ee",
+            "schema-url": "http://datashare.colchester.gov.uk/api/council-information/organisation-chart/definition",
+            "url_type": null,
+            "schema-type": "xsd",
+            "resource_type": "documentation",
+            "size": null
+          }
+        ],
+        "num_resources": 5,
+        "tags": [],
+        "groups": [],
+        "license_id": "uk-ogl",
+        "relationships_as_subject": [],
+        "organization": {
+          "description": "",
+          "created": "2014-01-16T11:49:46.028151",
+          "title": "Colchester Borough Council",
+          "name": "colchester-borough-council",
+          "is_organization": true,
+          "state": "active",
+          "image_url": "",
+          "revision_id": "0f7178d4-bb05-4baf-a5a4-81f358916a4c",
+          "type": "organization",
+          "id": "140fad04-d552-4757-ac79-bc9a06ef635d",
+          "approval_status": "pending"
+        },
+        "name": "organisation-chart-cbc",
+        "isopen": true,
+        "url": null,
+        "notes": "<p>Details of the staff and responsibilities are displayed here</p>\r\n<p>Related financial information can be viewed under 'Senior Salaries' schema</p>\r\n<p><span class=\"Apple-tab-span\" style=\"white-space: pre;\">U</span>nder the Data Transparency Code 2014, we are required to update this information on an annual basis</p>",
+        "owner_org": "140fad04-d552-4757-ac79-bc9a06ef635d",
+        "extras": [
+          {
+            "key": "guid",
+            "value": "http://www.colchester.gov.uk/residents/council-information/organisation-chart"
+          },
+          {
+            "key": "harvest_source_reference",
+            "value": "http://www.colchester.gov.uk/residents/council-information/organisation-chart"
+          },
+          {
+            "key": "import_source",
+            "value": "harvest"
+          },
+          {
+            "key": "inventory_identifier",
+            "value": "council-information/organisation-chart"
+          },
+          {
+            "key": "la_function",
+            "value": ""
+          },
+          {
+            "key": "la_service",
+            "value": ""
+          },
+          {
+            "key": "metadata-date",
+            "value": "2019-12-02"
+          },
+          {
+            "key": "metadata_provenance",
+            "value": "[{\"harvest_source_url\": \"http://datashare.colchester.gov.uk/api/esdInventory\", \"harvest_source_type\": \"inventory\", \"harvested_metadata_modified\": \"2019-12-02T00:00:00\", \"harvest_source_title\": \"Colchester datashare website\", \"activity_occurred\": \"2019-12-21T23:55:17.663375\", \"activity\": \"harvest\", \"harvested_guid\": \"http://www.colchester.gov.uk/residents/council-information/organisation-chart\"}]"
+          },
+          {
+            "key": "harvest_object_id",
+            "value": "fa4d3a4c-507b-455c-bc4f-7cd65efcd039"
+          },
+          {
+            "key": "harvest_source_id",
+            "value": "674bd66c-5af7-4269-bb48-f419f63fec72"
+          },
+          {
+            "key": "harvest_source_title",
+            "value": "Colchester datashare website"
+          }
+        ],
+        "license_url": "http://reference.data.gov.uk/id/open-government-licence",
+        "title": "Organisation Chart",
+        "revision_id": "a5601e4d-7409-4aa9-9f04-bc08ec46552b"
+      },
+      {
+        "license_title": "UK Open Government Licence (OGL)",
+        "temporal_coverage-from": [
+          "1997-06-01"
+        ],
+        "relationships_as_object": [],
+        "private": false,
+        "num_tags": 12,
+        "id": "98c45342-9145-46bd-a845-3cac8413178e",
+        "metadata_created": "2013-02-26T16:31:32.942835",
+        "metadata_modified": "2020-03-18T04:32:50.447124",
+        "state": "active",
+        "version": null,
+        "temporal_coverage-to": [
+          "1999-11-30"
+        ],
+        "license_id": "uk-ogl",
+        "type": "dataset",
+        "resources": [
+          {
+            "mimetype": null,
+            "cache_url": null,
+            "hash": "",
+            "description": "Get a copy of this data",
+            "name": "Download the data",
+            "format": "",
+            "url": "https://data-package.ceh.ac.uk/data/d4c6029a-464c-49d0-bcc7-75757cab2b3a",
+            "cache_last_updated": null,
+            "package_id": "98c45342-9145-46bd-a845-3cac8413178e",
+            "created": "2020-03-18T04:32:50.774329",
+            "state": "active",
+            "mimetype_inner": null,
+            "resource_locator_function": "download",
+            "last_modified": null,
+            "resource_locator_protocol": "",
+            "position": 0,
+            "revision_id": "0cd7ccf7-2d6f-4a49-88d0-e1d6564f84ce",
+            "url_type": null,
+            "id": "de891928-850c-4f67-8aea-984e4be0054c",
+            "resource_type": null,
+            "size": null
+          },
+          {
+            "mimetype": null,
+            "cache_url": null,
+            "hash": "",
+            "description": "Documents available to assist with re-use of this dataset.",
+            "name": "Supporting documents",
+            "format": "ZIP",
+            "url": "https://data-package.ceh.ac.uk/sd/d4c6029a-464c-49d0-bcc7-75757cab2b3a.zip",
+            "cache_last_updated": null,
+            "package_id": "98c45342-9145-46bd-a845-3cac8413178e",
+            "created": "2020-03-18T04:32:50.774336",
+            "state": "active",
+            "mimetype_inner": null,
+            "resource_locator_function": "information",
+            "last_modified": null,
+            "resource_locator_protocol": "",
+            "position": 1,
+            "revision_id": "0cd7ccf7-2d6f-4a49-88d0-e1d6564f84ce",
+            "url_type": null,
+            "id": "3feb154c-cabb-4ca9-bc28-e051f7083ccb",
+            "resource_type": null,
+            "size": null
+          }
+        ],
+        "num_resources": 2,
+        "contact-email": "\nenquiries@ceh.ac.uk\n",
+        "tags": [
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "Sierra Rutile Concession Area",
+            "id": "269c36ee-8671-4cd2-880e-c3720be61776",
+            "name": "Sierra Rutile Concession Area"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "West Africa",
+            "id": "47796262-1461-4057-a787-f6e842179c81",
+            "name": "West Africa"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "cashew",
+            "id": "8f77a294-4685-422c-946d-9fc7bc97aed6",
+            "name": "cashew"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "citrus",
+            "id": "d54580eb-41ec-4ac2-a772-673246227593",
+            "name": "citrus"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "land restoration",
+            "id": "fce1d8b0-90d1-40b7-aeba-4a2c8efe99ac",
+            "name": "land restoration"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "mango",
+            "id": "c8a8de62-e752-4436-a09e-1df9c4a42522",
+            "name": "mango"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "mining",
+            "id": "b2836be4-8a8b-4509-8152-c49aab2c65e8",
+            "name": "mining"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "monkey apple",
+            "id": "cb66ace0-a0cd-43be-b9f4-a5132004ef4d",
+            "name": "monkey apple"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "orange",
+            "id": "bda0f07b-97ad-40a8-9df4-cedf91aa5cce",
+            "name": "orange"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "rutile",
+            "id": "c589edbb-d9d8-4cc1-8d2f-aca8ddea9d9e",
+            "name": "rutile"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "sand tailings",
+            "id": "650ff1ef-7da5-49f5-bedb-a127cb8435ed",
+            "name": "sand tailings"
+          },
+          {
+            "vocabulary_id": null,
+            "state": "active",
+            "display_name": "titanium dioxide",
+            "id": "dd22ffcd-465e-43c2-838f-98673a28c66d",
+            "name": "titanium dioxide"
+          }
+        ],
+        "groups": [],
+        "creator_user_id": "60e687bf-a6d8-43e2-a50e-efab84b27952",
+        "relationships_as_subject": [],
+        "organization": {
+          "description": "<p>The <a href=\"https://www.eidc.ac.uk/\" target=\"_blank\">Environmental Information Data Centre (EIDC)</a> is the UK's national data centre for terrestrial and freshwater sciences.</p>\r\n\r\n<p>The EIDC is one of the network of Natural Environment Research Council (NERC) data centres that provide a focal point for its scientific data and information.</p>\r\n\r\n<p>The EIDC is hosted by <a href=\"http://www.ceh.ac.uk/\" target=\"_blank\">the UK Centre for Ecology & Hydrology (UKCEH)</a>, a world-class, independent, not-for-profit research organisation focusing on land and freshwater ecosystems and their interaction with the atmosphere. UKCEH integrates UK-wide observation systems and curiosity driven research, from the smallest scale of genetic diversity to large-scale, whole-Earth systems. We work across disciplines and facilitate academic, public, private and voluntary sector partnerships. UKCEH\u2019s extensive, long-term monitoring, analysis and modelling deliver UK and global environmental data, providing early warnings of change and management solutions for our land and freshwaters.</p>",
+          "created": "2012-06-27T14:54:40.370760",
+          "title": "Environmental Information Data Centre",
+          "name": "eidc",
+          "is_organization": true,
+          "state": "active",
+          "image_url": "2020-01-09-092402.7201059E2F5F93-AA00-4DD2-8727-97F0F63FD4CB.png",
+          "revision_id": "9cc5b179-3d68-4cde-bcc8-c4175b7756fd",
+          "type": "organization",
+          "id": "866f4088-ae4f-43b8-ba8c-6d3141a327f2",
+          "approval_status": "pending"
+        },
+        "name": "growth-of-five-species-of-trees-on-experimental-plots-on-sand-tailings-left-after-mining-for-ru",
+        "isopen": true,
+        "url": null,
+        "notes": "Data comprise measured heights of five species of trees after 2.5 years growth between June 2007 and November 2009 in plots reclaimed using a variety of planting techniques and surface applications following mining for rutile in Lanti South, Sierra Leone, West Africa. Eight 25 by 25 metres plots were divided into four squares and four rectangles and planted in June 2007. The five tree species included Gmelina (Gmelina arborea), mango (Mangifera indica), cashew (Anacardium occidentale), citrus (Citrus sinensis) and monkey apple (Anisophyllea laurina). Five rows of trees were planted at a spacing of 5 meters in each direction to minimize above and below ground competition. Four planting treatments were tested: 1 bucket of compost per planting hole, 1 bucket of topsoil, 1 bucket of a 50:50 mix of compost and topsoil and a control. Surface treatments included 2 cm of compost, 5 cm of mulch, 2 cm of top-soil and a control. Full details about this dataset can be found at https://doi.org/10.5285/d4c6029a-464c-49d0-bcc7-75757cab2b3a",
+        "owner_org": "866f4088-ae4f-43b8-ba8c-6d3141a327f2",
+        "extras": [
+          {
+            "key": "UKLP",
+            "value": "True"
+          },
+          {
+            "key": "access_constraints",
+            "value": "[\"\\u00c2\\u00a9 UK Centre for Ecology & Hydrology\", \"CEH must be acknowledged in all resultant publications\", \"If you reuse this data, you should cite: Dick, J., Garnett, T., Jones, S., Karim, A. B., Sundufu, A.J., Wadsworth, R.A., Okoni-Williams, A. (2015). Growth of five species of trees on experimental plots on sand tailings left after mining for rutile in Sierra Leone. NERC Environmental Information Data Centre https://doi.org/10.5285/d4c6029a-464c-49d0-bcc7-75757cab2b3a\"]"
+          },
+          {
+            "key": "bbox-east-long",
+            "value": "-12"
+          },
+          {
+            "key": "bbox-north-lat",
+            "value": "8"
+          },
+          {
+            "key": "bbox-south-lat",
+            "value": "7"
+          },
+          {
+            "key": "bbox-west-long",
+            "value": "-13"
+          },
+          {
+            "key": "coupled-resource",
+            "value": "[]"
+          },
+          {
+            "key": "dataset-reference-date",
+            "value": "[{\"type\": \"publication\", \"value\": \"2015-07-31\"}]"
+          },
+          {
+            "key": "frequency-of-update",
+            "value": "notPlanned"
+          },
+          {
+            "key": "guid",
+            "value": "d4c6029a-464c-49d0-bcc7-75757cab2b3a"
+          },
+          {
+            "key": "licence",
+            "value": "[]"
+          },
+          {
+            "key": "metadata-date",
+            "value": "2020-03-13T14:24:38"
+          },
+          {
+            "key": "metadata-language",
+            "value": "eng"
+          },
+          {
+            "key": "progress",
+            "value": ""
+          },
+          {
+            "key": "provider",
+            "value": "UK Centre for Ecology & Hydrology"
+          },
+          {
+            "key": "resource-type",
+            "value": "dataset"
+          },
+          {
+            "key": "responsible-party",
+            "value": "Environmental Information Data Centre (custodian); Centre for Ecology & Hydrology (author); UK Centre for Ecology & Hydrology (pointOfContact, owner); NERC Environmental Information Data Centre (publisher)"
+          },
+          {
+            "key": "spatial",
+            "value": "{\"type\": \"Polygon\", \"coordinates\": [[[-12, 7], [-13, 7], [-13, 8], [-12, 8], [-12, 7]]]}"
+          },
+          {
+            "key": "spatial-data-service-type",
+            "value": ""
+          },
+          {
+            "key": "spatial-reference-system",
+            "value": ""
+          },
+          {
+            "key": "harvest_object_id",
+            "value": "31d46935-d4da-4435-a6ca-780a04a4ab8e"
+          },
+          {
+            "key": "harvest_source_id",
+            "value": "92985a0c-1d7c-4ef2-bf51-d5e43178de24"
+          },
+          {
+            "key": "harvest_source_title",
+            "value": "EIDC GEMINI records"
+          }
+        ],
+        "license_url": "http://reference.data.gov.uk/id/open-government-licence",
+        "title": "Growth of five species of trees on experimental plots on sand tailings left after mining for rutile in Sierra Leone",
+        "revision_id": "10595b1a-dc3f-471f-aaec-95b93eff5126"
+      },
+      {
+        "license_title": "UK Open Government Licence (OGL)",
+        "temporal_coverage-from": [
+          "1969-03-31T23:00:00.000Z"
+        ],
+        "relationships_as_object": [],
+        "private": false,
+        "num_tags": 0,
+        "id": "5622c3ae-e31c-45e5-94ef-60bdcc736055",
+        "metadata_created": "2019-01-03T15:25:30.376791",
+        "metadata_modified": "2020-01-15T04:13:19.274649",
+        "state": "active",
+        "version": null,
+        "temporal_coverage-to": [
+          "2016-07-31T23:00:00.000Z"
+        ],
+        "license_id": "uk-ogl",
+        "type": "dataset",
+        "resources": [
+          {
+            "mimetype": null,
+            "cache_url": null,
+            "hash": "",
+            "description": "Resource locator",
+            "name": "",
+            "format": "",
+            "url": "http://data.cefas.co.uk/#/View/19467/",
+            "cache_last_updated": null,
+            "package_id": "5622c3ae-e31c-45e5-94ef-60bdcc736055",
+            "created": "2020-01-15T04:13:19.474521",
+            "state": "active",
+            "mimetype_inner": null,
+            "resource_locator_function": "order",
+            "last_modified": null,
+            "resource_locator_protocol": "",
+            "position": 0,
+            "revision_id": "4ae17009-6cbd-4d2b-9983-37336ee48f50",
+            "url_type": null,
+            "id": "da82c6ed-0c63-4ae2-b200-28a7e795d300",
+            "resource_type": null,
+            "size": null
+          }
+        ],
+        "num_resources": 1,
+        "contact-email": "data.manager@cefas.co.uk",
+        "tags": [],
+        "groups": [],
+        "creator_user_id": "431b5956-7b87-41ba-8fc5-a4a8b681b797",
+        "relationships_as_subject": [],
+        "organization": {
+          "description": "The Centre for Environment, Fisheries and Aquaculture Science (Cefas) is a world leader in marine science and technology, providing innovative solutions for the aquatic environment, biodiversity and food security.\r\n",
+          "created": "2012-06-27T14:50:51.521004",
+          "title": "Centre for Environment, Fisheries & Aquaculture Science",
+          "name": "centre-for-environment-fisheries-aquaculture-science",
+          "is_organization": true,
+          "state": "active",
+          "image_url": "",
+          "revision_id": "ce84bb7e-1d2d-4db2-9e43-ba1c1a8e6158",
+          "type": "organization",
+          "id": "2f1c6ccb-3f21-40c0-8b26-41566c53eb2f",
+          "approval_status": "pending"
+        },
+        "name": "1969-2016-centre-for-environment-fisheries-aquaculture-science-cefas-biological-based-habitat-c",
+        "isopen": true,
+        "url": null,
+        "notes": "Files for use with the R script accompanying the paper Cooper et al. (2019). \nNote that this script also uses files from \n`https://doi.org/10.14466/CefasDataHub.34`_ (details provided in script). \nCooper, K.M., Bolam, S.G., Downie, A-L., Barry, J. (2019) Biological- based \nhabitat classification approaches promote cost- efficient monitoring: An \nexample using seabed assemblages. J. Appl. Ecol. 56, 1085\u20131098. https://doi. \norg/10.1111/1365-2664.13381\n\n\n\n\n.. _`https://doi.org/10.14466/cefasdatahub.34`:\n    https://doi.org/10.14466/CefasDataHub.34\n",
+        "owner_org": "2f1c6ccb-3f21-40c0-8b26-41566c53eb2f",
+        "extras": [
+          {
+            "key": "UKLP",
+            "value": "True"
+          },
+          {
+            "key": "access_constraints",
+            "value": "[\"Public data (Crown Copyright) - Open Government Licence Terms and Conditions apply\"]"
+          },
+          {
+            "key": "bbox-east-long",
+            "value": "1.74086"
+          },
+          {
+            "key": "bbox-north-lat",
+            "value": "52.4595"
+          },
+          {
+            "key": "bbox-south-lat",
+            "value": "52.4581"
+          },
+          {
+            "key": "bbox-west-long",
+            "value": "1.73881"
+          },
+          {
+            "key": "coupled-resource",
+            "value": "[]"
+          },
+          {
+            "key": "dataset-reference-date",
+            "value": "[{\"type\": \"publication\", \"value\": \"2018-11-19\"}]"
+          },
+          {
+            "key": "frequency-of-update",
+            "value": "notPlanned"
+          },
+          {
+            "key": "guid",
+            "value": "CEFAS28c4339e-afc4-4222-91a5-be51430e1f65"
+          },
+          {
+            "key": "licence",
+            "value": "[\"Public data (Crown Copyright) - Open Government Licence Terms and Conditions apply\"]"
+          },
+          {
+            "key": "metadata-date",
+            "value": "2020-01-09T15:40:35"
+          },
+          {
+            "key": "metadata-language",
+            "value": "eng"
+          },
+          {
+            "key": "progress",
+            "value": ""
+          },
+          {
+            "key": "provider",
+            "value": ""
+          },
+          {
+            "key": "resource-type",
+            "value": "dataset"
+          },
+          {
+            "key": "responsible-party",
+            "value": "Centre for Environment, Fisheries & Aquaculture Science (originator, custodian)"
+          },
+          {
+            "key": "spatial",
+            "value": "{\"type\": \"Polygon\", \"coordinates\": [[[1.74086, 52.4581], [1.73881, 52.4581], [1.73881, 52.4595], [1.74086, 52.4595], [1.74086, 52.4581]]]}"
+          },
+          {
+            "key": "spatial-data-service-type",
+            "value": ""
+          },
+          {
+            "key": "spatial-reference-system",
+            "value": "urn:ogc:def:crs:EPSG::4326"
+          },
+          {
+            "key": "harvest_object_id",
+            "value": "5f0dcb24-99a2-40b9-a77e-bae557e180a1"
+          },
+          {
+            "key": "harvest_source_id",
+            "value": "1a2a2e3d-a51e-4046-8c8b-e8ad3856dd9d"
+          },
+          {
+            "key": "harvest_source_title",
+            "value": "Cefas WAF endpoint for data.gov.uk"
+          }
+        ],
+        "license_url": "http://reference.data.gov.uk/id/open-government-licence",
+        "title": "1969 - 2016 Centre for Environment, Fisheries & Aquaculture Science (Cefas) Biological-based habitat classification approaches promote cost-efficient monitoring: an example using seabed assemblages",
+        "revision_id": "3ae852b4-8ce0-441e-a565-971abe67d058"
+      }
+    ],
+    "search_facets": {
+      "organization": {
+        "items": [
+          {
+            "count": 2,
+            "display_name": "Natural England",
+            "name": "natural-england"
+          },
+          {
+            "count": 1,
+            "display_name": "Greater London Authority",
+            "name": "greater-london-authority"
+          },
+          {
+            "count": 4,
+            "display_name": "Environmental Information Data Centre",
+            "name": "eidc"
+          },
+          {
+            "count": 1,
+            "display_name": "Colchester Borough Council",
+            "name": "colchester-borough-council"
+          },
+          {
+            "count": 1,
+            "display_name": "Centre for Environment, Fisheries & Aquaculture Science",
+            "name": "centre-for-environment-fisheries-aquaculture-science"
+          },
+          {
+            "count": 1,
+            "display_name": "Cambridgeshire Insight",
+            "name": "cambridgeshire-insight"
+          }
+        ],
+        "title": "organization"
+      }
+    }
+  }
+}

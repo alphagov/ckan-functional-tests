@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/organization_base.schema.json",
+  "title": "CKAN base organization representation",
+  "type": "object",
+  "properties": {
+    "package_count": {
+      "type": "integer"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "revision_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "title": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "$ref": "common#/definitions/slug"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "is_organization": {
+      "type": "boolean",
+      "const": true
+    },
+    "type": {
+      "type": "string",
+      "const": "organization"
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "capacity": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "state": {
+      "$ref": "common#/definitions/state"
+    },
+    "extras": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "revision_id",
+    "created",
+    "is_organization",
+    "type",
+    "state",
+    "name",
+    "title"
+  ]
+}

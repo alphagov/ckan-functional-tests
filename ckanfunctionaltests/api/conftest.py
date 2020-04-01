@@ -1,15 +1,14 @@
 from random import Random
-import re
 
 import pytest
 import requests
 
 
+from ckanfunctionaltests.api import uuid_re
+
+
 # we will want to be able to seed this at some point
 _random = Random()
-
-
-_uuid_re = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", re.I)
 
 
 @pytest.fixture()
@@ -38,7 +37,7 @@ def random_pkg_slug(base_url, rsession):
     assert response.status_code == 200
 
     suitable_names = tuple(
-        name for name in response.json()["result"] if not _uuid_re.fullmatch(name)
+        name for name in response.json()["result"] if not uuid_re.fullmatch(name)
     )
 
     if not suitable_names:

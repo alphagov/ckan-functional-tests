@@ -9,7 +9,7 @@ from ckanfunctionaltests.api import validate_against_schema
 def test_package_list(base_url, rsession):
     response = rsession.get(f"{base_url}/action/package_list")
     assert response.status_code == 200
-    validate_against_schema(response.json(), "package_list.schema.json")
+    validate_against_schema(response.json(), "package_list")
 
     assert response.json()["success"] is True
 
@@ -27,7 +27,7 @@ def test_package_show(subtests, base_url, rsession, random_pkg_slug):
     rj = response.json()
 
     with subtests.test("response validity"):
-        validate_against_schema(rj, "package_show.schema.json")
+        validate_against_schema(rj, "package_show")
         assert rj["success"] is True
         assert rj["result"]["name"] == random_pkg_slug
         assert all(res["package_id"] == rj['result']['id'] for res in rj["result"]["resources"])
@@ -51,7 +51,11 @@ def test_package_search_by_full_slug_general_term(subtests, base_url, rsession, 
         f"{base_url}/action/package_search?q={random_pkg_slug}&rows=100"
     )
     assert response.status_code == 200
-    assert response.json()["success"] is True
+    rj = response.json()
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "package_search")
+        assert rj["success"] is True
 
     desired_result = tuple(
         pkg for pkg in response.json()["result"]["results"] if pkg["name"] == random_pkg_slug
@@ -75,7 +79,10 @@ def test_package_search_by_revision_id_specific_field(subtests, base_url, rsessi
     )
     assert response.status_code == 200
     rj = response.json()
-    assert rj["success"] is True
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "package_search")
+        assert rj["success"] is True
 
     desired_result = tuple(
         pkg for pkg in rj["result"]["results"] if pkg["id"] == random_pkg["id"]
@@ -122,7 +129,10 @@ def test_package_search_by_org_id_specific_field_and_title_general_term(
     )
     assert response.status_code == 200
     rj = response.json()
-    assert rj["success"] is True
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "package_search")
+        assert rj["success"] is True
 
     with subtests.test("all results match criteria"):
         assert all(
@@ -136,7 +146,7 @@ def test_package_search_by_org_id_specific_field_and_title_general_term(
     )
     if rj["result"]["count"] > 1000 and not desired_result:
         # we don't have all results - it may well be on a latter page
-        warn(f"Expected package {random_pkg['id']!r} not found on first page of results")
+        warn(f"Expected package id {random_pkg['id']!r} not found on first page of results")
     else:
         assert len(desired_result) == 1
 
@@ -155,7 +165,10 @@ def test_package_search_facets(subtests, base_url, rsession, random_pkg):
     )
     assert response.status_code == 200
     rj = response.json()
-    assert rj["success"] is True
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "package_search")
+        assert rj["success"] is True
 
     with subtests.test("facets include random_pkg's value"):
         assert random_pkg["organization"]["name"] in rj["result"]["facets"]["organization"]

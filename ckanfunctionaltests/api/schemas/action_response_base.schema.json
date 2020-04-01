@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/action_response_base.schema.json",
+  "title": "CKAN action API base response",
+  "description": "Properties common to all CKAN 'action' API responses at the top level",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "help": {
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "required": ["success", "help", "result"]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/common.schema.json",
+  "title": "Definitions for commonly used schema fragments in CKAN responses",
+  "definitions": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "optionalSlug": {
+      "anyOf": [{
+          "type": "null"
+        }, {
+          "$ref": "#/definitions/slug"
+        }
+      ]
+    },
+    "optionalUUID": {
+      "anyOf": [{
+          "type": "string",
+          "format": "uuid"
+        }, {
+          "type": "null"
+        }
+      ]
+    },
+    "state": {
+      "type": "string",
+      "enum": ["active", "deleted"]
+    }
+  }
+}
