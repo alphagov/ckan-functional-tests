@@ -15,6 +15,15 @@
         }
       ]
     },
+    "optionalUUID": {
+      "anyOf": [{
+          "type": "string",
+          "format": "uuid"
+        }, {
+          "type": "null"
+        }
+      ]
+    },
     "state": {
       "type": "string",
       "enum": ["active", "deleted"]

@@ -2,9 +2,13 @@ from functools import lru_cache
 from glob import glob
 import json
 import os.path
+import re
 
 from jsonschema import draft7_format_checker
 from jsonschema.validators import RefResolver, validator_for
+
+
+uuid_re = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", re.I)
 
 
 def _get_schema(schema_path: str) -> dict:
@@ -45,6 +49,12 @@ def _lenient_is_datetime(instance):
     return _is_datetime(instance) or (
         isinstance(instance, str) and _is_datetime(instance + "Z")
     )
+
+
+# jsonschema doesn't currently validate uuids
+@draft7_format_checker.checks("uuid")
+def _is_uuid(instance):
+    return bool(isinstance(instance, str) and uuid_re.fullmatch(instance))
 
 
 @lru_cache()

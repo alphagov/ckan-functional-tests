@@ -174,8 +174,7 @@
       "$ref": "common#/definitions/slug"
     },
     "creator_user_id": {
-      "type": ["string", "null"],
-      "format": "uuid"
+      "$ref": "common#/definitions/optionalUUID"
     },
     "isopen": {
       "type": "boolean"
