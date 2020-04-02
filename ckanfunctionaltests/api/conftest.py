@@ -52,3 +52,24 @@ def random_pkg(base_url, rsession, random_pkg_slug):
     assert response.status_code == 200
 
     return response.json()["result"]
+
+
+@pytest.fixture()
+def random_harvestobject_id(base_url, rsession):
+    # in this initial request, we only care about the count so we know the range in which
+    # to make our random selection from
+    count_response = rsession.get(f"{base_url}/action/package_search?q=harvest_object_id:*&rows=1")
+    assert count_response.status_code == 200
+
+    random_index = _random.randint(0, count_response.json()["result"]["count"])
+    detail_response = rsession.get(
+        f"{base_url}/action/package_search?q=harvest_object_id:*&rows=1&start={random_index}"
+    )
+    assert detail_response.status_code == 200
+
+    # find the harvest_object_id
+    return next((
+        kv["value"]
+        for kv in detail_response.json()["result"]["results"][0]["extras"]
+        if kv["key"] == "harvest_object_id"
+    ))
