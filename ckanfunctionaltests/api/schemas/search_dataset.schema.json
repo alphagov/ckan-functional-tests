@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/search_dataset.schema.json",
+  "title": "CKAN search dataset response",
+  "description": "A lenient specification for responses from the CKAN legacy api's search dataset endpoint",
+  "properties": {
+    "count": {
+      "type": "integer"
+    },
+    "results": {
+      "anyOf": [{
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }, {
+          "type": "array",
+          "items": {
+            "$ref": "dataset_base"
+          }
+        }
+      ]
+    }
+  }
+}

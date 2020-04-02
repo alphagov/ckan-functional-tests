@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://github.com/alphagov/ckan-functional-tests/api/package_base.schema.json",
-  "title": "CKAN base package representation",
+  "title": "CKAN action api base package representation",
   "type": "object",
   "properties": {
     "id": {
@@ -178,6 +178,10 @@
     },
     "isopen": {
       "type": "boolean"
+    },
+    "metadata_modified": {
+      "type": "string",
+      "format": "date-time"
     },
     "owner_org": {
       "type": "string",

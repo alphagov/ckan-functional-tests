@@ -26,6 +26,10 @@ def _get_example_response(filename: str):
     ("organization_show.json", "organization_show",),
     ("package_show.json", "package_show",),
     ("package_search.json", "package_search",),
+    ("search_dataset.all_fields.json", "search_dataset",),
+    ("search_dataset.rawids.json", "search_dataset",),
+    ("search_dataset.rawslugs.json", "search_dataset",),
+    ("search_dataset.titles.json", "search_dataset",),
 ))
 def test_responses_pass_respective_schemas(response_filename, schema_name):
     validate_against_schema(_get_example_response(response_filename), schema_name)
