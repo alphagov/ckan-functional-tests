@@ -1,0 +1,15 @@
+{
+  "ResultSet": {
+    "Result": [
+      {
+        "Format": "http://reference.data.gov.uk/gov-structure/organogram/?pubbod=imperial-war-museums&post=dg"
+      },
+      {
+        "Format": "human readable header file"
+      },
+      {
+        "Format": "viewservice"
+      }
+    ]
+  }
+}

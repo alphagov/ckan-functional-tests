@@ -30,6 +30,7 @@ def _get_example_response(filename: str):
     ("search_dataset.rawids.json", "search_dataset",),
     ("search_dataset.rawslugs.json", "search_dataset",),
     ("search_dataset.titles.json", "search_dataset",),
+    ("format_autocomplete.json", "format_autocomplete",),
 ))
 def test_responses_pass_respective_schemas(response_filename, schema_name):
     validate_against_schema(_get_example_response(response_filename), schema_name)
@@ -124,3 +125,12 @@ def test_package_search_empty_tag():
 
     with pytest.raises(jsonschema.ValidationError):
         validate_against_schema(example_response, "package_search")
+
+
+def test_format_autocomplete_result_missing_format():
+    example_response = _get_example_response("format_autocomplete.json")
+
+    del example_response["ResultSet"]["Result"][1]["Format"]
+
+    with pytest.raises(jsonschema.ValidationError):
+        validate_against_schema(example_response, "format_autocomplete")
