@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/format_autocomplete.schema.json",
+  "title": "CKAN legacy api format_autocomplete response",
+  "type": "object",
+  "properties": {
+    "ResultSet": {
+      "type": "object",
+      "properties": {
+        "Result": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Format": {
+                "type": "string"
+              }
+            },
+            "required": ["Format"]
+          }
+        }
+      },
+      "required": ["Result"]
+    }
+  },
+  "required": ["ResultSet"]
+}
