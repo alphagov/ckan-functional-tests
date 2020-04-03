@@ -46,7 +46,7 @@
                           "type": "integer"
                         },
                         "name": {
-                          "$ref": "common#/definitions/slug"
+                          "type": "string"
                         },
                         "display_name": {
                           "type": "string"
