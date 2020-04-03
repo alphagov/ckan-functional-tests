@@ -31,6 +31,7 @@ def _get_example_response(filename: str):
     ("search_dataset.rawslugs.json", "search_dataset",),
     ("search_dataset.titles.json", "search_dataset",),
     ("format_autocomplete.json", "format_autocomplete",),
+    ("i18n.json", "i18n",),
 ))
 def test_responses_pass_respective_schemas(response_filename, schema_name):
     validate_against_schema(_get_example_response(response_filename), schema_name)
@@ -134,3 +135,8 @@ def test_format_autocomplete_result_missing_format():
 
     with pytest.raises(jsonschema.ValidationError):
         validate_against_schema(example_response, "format_autocomplete")
+
+
+def test_i18n_non_dict():
+    with pytest.raises(jsonschema.ValidationError):
+        validate_against_schema(3.1415, "i18n")
