@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/i18n.schema.json",
+  "title": "CKAN i18n response",
+  "description": "A specification describing all we can assert about the i18n endpoint, which is... not much",
+  "type": "object"
+}
