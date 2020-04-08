@@ -4,9 +4,6 @@
   "title": "CKAN action api base organization representation",
   "type": "object",
   "properties": {
-    "package_count": {
-      "type": "integer"
-    },
     "id": {
       "type": "string",
       "format": "uuid"
