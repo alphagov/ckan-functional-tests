@@ -66,6 +66,21 @@
           }
         }
       }
+    },
+    "approval_status": {
+      "enum": ["pending", "approved"]
+    },
+    "package_count": {
+      "type": "integer"
+    },
+    "packages": {
+      "type": "array",
+      "items": {
+        "$ref": "package_base"
+      }
+    },
+    "num_followers": {
+      "type": "integer"
     }
   },
   "required": [
