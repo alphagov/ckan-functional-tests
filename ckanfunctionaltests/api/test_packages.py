@@ -46,7 +46,13 @@ def test_package_show(subtests, base_url, rsession, random_pkg_slug):
         assert org_response.json()["result"] == AnySupersetOf(rj['result']['organization'])
 
 
-def test_package_search_by_full_slug_general_term(subtests, base_url, rsession, random_pkg_slug):
+def test_package_search_by_full_slug_general_term(
+    subtests,
+    inc_sync_sensitive,
+    base_url,
+    rsession,
+    random_pkg_slug,
+):
     response = rsession.get(
         f"{base_url}/action/package_search?q={random_pkg_slug}&rows=100"
     )
@@ -58,22 +64,32 @@ def test_package_search_by_full_slug_general_term(subtests, base_url, rsession, 
         assert rj["success"] is True
         assert len(rj["result"]["results"]) <= 100
 
-    desired_result = tuple(
-        pkg for pkg in response.json()["result"]["results"] if pkg["name"] == random_pkg_slug
-    )
-    assert desired_result
-    if len(desired_result) > 1:
-        warn(f"Multiple results ({len(desired_result)}) with name = {random_pkg_slug!r})")
+    if inc_sync_sensitive:
+        desired_result = tuple(
+            pkg for pkg in response.json()["result"]["results"] if pkg["name"] == random_pkg_slug
+        )
+        assert desired_result
+        if len(desired_result) > 1:
+            warn(f"Multiple results ({len(desired_result)}) with name = {random_pkg_slug!r})")
 
-    with subtests.test("approx consistency with package_show"):
-        ps_response = rsession.get(f"{base_url}/action/package_show?id={random_pkg_slug}")
-        assert ps_response.status_code == 200
-        assert any(ps_response.json()["result"]["id"] == result["id"] for result in desired_result)
+        with subtests.test("approx consistency with package_show"):
+            ps_response = rsession.get(f"{base_url}/action/package_show?id={random_pkg_slug}")
+            assert ps_response.status_code == 200
+            assert any(
+                ps_response.json()["result"]["id"] == result["id"] for result in desired_result
+            )
 
-        # TODO assert actual contents are approximately equal (exact equality is out the window)
+            # TODO assert actual contents are approximately equal (exact equality is out the
+            # window)
 
 
-def test_package_search_by_revision_id_specific_field(subtests, base_url, rsession, random_pkg):
+def test_package_search_by_revision_id_specific_field(
+    subtests,
+    inc_sync_sensitive,
+    base_url,
+    rsession,
+    random_pkg,
+):
     response = rsession.get(
         f"{base_url}/action/package_search?fq=revision_id:{random_pkg['revision_id']}"
         "&rows=1000"
@@ -86,24 +102,27 @@ def test_package_search_by_revision_id_specific_field(subtests, base_url, rsessi
         assert rj["success"] is True
         assert len(rj["result"]["results"]) <= 1000
 
-    desired_result = tuple(
-        pkg for pkg in rj["result"]["results"] if pkg["id"] == random_pkg["id"]
-    )
-    assert len(desired_result) == 1
-
     with subtests.test("all results match criteria"):
         assert all(
             random_pkg["revision_id"] == pkg["revision_id"] for pkg in rj["result"]["results"]
         )
 
-    with subtests.test("approx consistency with package_show"):
-        assert random_pkg["name"] == desired_result[0]["name"]
-        assert random_pkg["organization"] == desired_result[0]["organization"]
-        # TODO assert actual contents are approximately equal (exact equality is out the window)
+    if inc_sync_sensitive:
+        desired_result = tuple(
+            pkg for pkg in rj["result"]["results"] if pkg["id"] == random_pkg["id"]
+        )
+        assert len(desired_result) == 1
+
+        with subtests.test("approx consistency with package_show"):
+            assert random_pkg["name"] == desired_result[0]["name"]
+            assert random_pkg["organization"] == desired_result[0]["organization"]
+            # TODO assert actual contents are approximately equal (exact equality is out the
+            # window)
 
 
 def test_package_search_by_org_id_specific_field_and_title_general_term(
     subtests,
+    inc_sync_sensitive,
     base_url,
     rsession,
     random_pkg,
@@ -129,22 +148,24 @@ def test_package_search_by_org_id_specific_field_and_title_general_term(
         # we can't reliably test for the search terms because they may have been stemmed
         # and not correspond to exact matches
 
-    desired_result = tuple(
-        pkg for pkg in rj["result"]["results"] if pkg["id"] == random_pkg["id"]
-    )
-    if rj["result"]["count"] > 1000 and not desired_result:
-        # we don't have all results - it may well be on a latter page
-        warn(f"Expected package id {random_pkg['id']!r} not found on first page of results")
-    else:
-        assert len(desired_result) == 1
+    if inc_sync_sensitive:
+        desired_result = tuple(
+            pkg for pkg in rj["result"]["results"] if pkg["id"] == random_pkg["id"]
+        )
+        if rj["result"]["count"] > 1000 and not desired_result:
+            # we don't have all results - it may well be on a latter page
+            warn(f"Expected package id {random_pkg['id']!r} not found on first page of results")
+        else:
+            assert len(desired_result) == 1
 
-        with subtests.test("approx consistency with package_show"):
-            assert random_pkg["name"] == desired_result[0]["name"]
-            assert random_pkg["organization"] == desired_result[0]["organization"]
-            # TODO assert actual contents are approximately equal (exact equality is out the window)
+            with subtests.test("approx consistency with package_show"):
+                assert random_pkg["name"] == desired_result[0]["name"]
+                assert random_pkg["organization"] == desired_result[0]["organization"]
+                # TODO assert actual contents are approximately equal (exact equality is out
+                # the window)
 
 
-def test_package_search_facets(subtests, base_url, rsession, random_pkg):
+def test_package_search_facets(subtests, inc_sync_sensitive, base_url, rsession, random_pkg):
     notes_terms = extract_search_terms(random_pkg["notes"], 2)
 
     response = rsession.get(
@@ -159,17 +180,18 @@ def test_package_search_facets(subtests, base_url, rsession, random_pkg):
         assert rj["success"] is True
         assert len(rj["result"]["results"]) <= 10
 
-    with subtests.test("facets include random_pkg's value"):
-        assert random_pkg["organization"]["name"] in rj["result"]["facets"]["organization"]
-        assert any(
-            random_pkg["organization"]["name"] == val["name"]
-            for val in rj["result"]["search_facets"]["organization"]["items"]
-        )
-
-        # not all packages have a license_id
-        if random_pkg.get("license_id"):
-            assert random_pkg["license_id"] in rj["result"]["facets"]["license_id"]
+    if inc_sync_sensitive:
+        with subtests.test("facets include random_pkg's value"):
+            assert random_pkg["organization"]["name"] in rj["result"]["facets"]["organization"]
             assert any(
-                random_pkg["license_id"] == val["name"]
-                for val in rj["result"]["search_facets"]["license_id"]["items"]
+                random_pkg["organization"]["name"] == val["name"]
+                for val in rj["result"]["search_facets"]["organization"]["items"]
             )
+
+            # not all packages have a license_id
+            if random_pkg.get("license_id"):
+                assert random_pkg["license_id"] in rj["result"]["facets"]["license_id"]
+                assert any(
+                    random_pkg["license_id"] == val["name"]
+                    for val in rj["result"]["search_facets"]["license_id"]["items"]
+                )
