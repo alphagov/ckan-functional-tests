@@ -24,6 +24,17 @@ def base_url(variables):
 
 
 @pytest.fixture()
+def inc_sync_sensitive(variables):
+    """
+    A variable controlling whether to include tests that are sensitive to whether the target
+    instance has consistent data across e.g. its database and search index
+    """
+    # we would normally use pytest.mark for this kind of thing, but it doesn't allow you to
+    # mark & skip individual subtests
+    return bool(variables.get("inc_sync_sensitive", True))
+
+
+@pytest.fixture()
 def random_org_slug(base_url, rsession):
     response = rsession.get(f"{base_url}/action/organization_list")
     assert response.status_code == 200

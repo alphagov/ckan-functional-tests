@@ -6,7 +6,13 @@ import pytest
 from ckanfunctionaltests.api import validate_against_schema, extract_search_terms
 
 
-def test_search_datasets_by_full_slug_general_term(subtests, base_url, rsession, random_pkg_slug):
+def test_search_datasets_by_full_slug_general_term(
+    subtests,
+    inc_sync_sensitive,
+    base_url,
+    rsession,
+    random_pkg_slug,
+):
     response = rsession.get(
         f"{base_url}/search/dataset?q={random_pkg_slug}&rows=100"
     )
@@ -19,17 +25,19 @@ def test_search_datasets_by_full_slug_general_term(subtests, base_url, rsession,
         assert isinstance(rj["results"][0], str)
         assert len(rj["results"]) <= 100
 
-    with subtests.test("desired result present"):
-        desired_result = tuple(
-            name for name in response.json()["results"] if name == random_pkg_slug
-        )
-        assert desired_result
-        if len(desired_result) > 1:
-            warn(f"Multiple results ({len(desired_result)}) with name = {random_pkg_slug!r})")
+    if inc_sync_sensitive:
+        with subtests.test("desired result present"):
+            desired_result = tuple(
+                name for name in response.json()["results"] if name == random_pkg_slug
+            )
+            assert desired_result
+            if len(desired_result) > 1:
+                warn(f"Multiple results ({len(desired_result)}) with name = {random_pkg_slug!r})")
 
 
 def test_search_datasets_by_full_slug_general_term_id_response(
     subtests,
+    inc_sync_sensitive,
     base_url,
     rsession,
     random_pkg,
@@ -46,12 +54,14 @@ def test_search_datasets_by_full_slug_general_term_id_response(
         assert isinstance(rj["results"][0], str)
         assert len(rj["results"]) <= 100
 
-    with subtests.test("desired result present"):
-        assert random_pkg["id"] in rj["results"]
+    if inc_sync_sensitive:
+        with subtests.test("desired result present"):
+            assert random_pkg["id"] in rj["results"]
 
 
 def test_search_datasets_by_full_slug_general_term_revision_id_response(
     subtests,
+    inc_sync_sensitive,
     base_url,
     rsession,
     random_pkg,
@@ -68,12 +78,14 @@ def test_search_datasets_by_full_slug_general_term_revision_id_response(
         assert isinstance(rj["results"][0], dict)
         assert len(rj["results"]) <= 100
 
-    with subtests.test("desired result present"):
-        assert any(random_pkg["revision_id"] == dst["revision_id"] for dst in rj["results"])
+    if inc_sync_sensitive:
+        with subtests.test("desired result present"):
+            assert any(random_pkg["revision_id"] == dst["revision_id"] for dst in rj["results"])
 
 
 def test_search_datasets_by_full_slug_specific_field_all_fields_response(
     subtests,
+    inc_sync_sensitive,
     base_url,
     rsession,
     random_pkg,
@@ -89,20 +101,22 @@ def test_search_datasets_by_full_slug_specific_field_all_fields_response(
         assert isinstance(rj["results"][0], dict)
         assert len(rj["results"]) <= 10
 
-    with subtests.test("desired result present"):
-        desired_result = tuple(
-            dst for dst in rj["results"] if random_pkg["id"] == dst["id"]
-        )
-        assert len(desired_result) == 1
+    if inc_sync_sensitive:
+        with subtests.test("desired result present"):
+            desired_result = tuple(
+                dst for dst in rj["results"] if random_pkg["id"] == dst["id"]
+            )
+            assert len(desired_result) == 1
 
-        assert desired_result[0]["title"] == random_pkg["title"]
-        assert desired_result[0]["state"] == random_pkg["state"]
-        assert desired_result[0]["organization"] == random_pkg["organization"]["name"]
+            assert desired_result[0]["title"] == random_pkg["title"]
+            assert desired_result[0]["state"] == random_pkg["state"]
+            assert desired_result[0]["organization"] == random_pkg["organization"]["name"]
 
 
 @pytest.mark.parametrize("org_as_q", (False, True,))
 def test_search_datasets_by_org_slug_specific_field_and_title_general_term(
     subtests,
+    inc_sync_sensitive,
     base_url,
     rsession,
     random_pkg,
@@ -136,13 +150,14 @@ def test_search_datasets_by_org_slug_specific_field_and_title_general_term(
         # we can't reliably test for the search terms because they may have been stemmed
         # and not correspond to exact matches
 
-    with subtests.test("desired result present"):
-        desired_result = tuple(
-            dst for dst in rj["results"] if random_pkg["id"] == dst["id"]
-        )
-        if rj["count"] > 1000 and not desired_result:
-            # we don't have all results - it may well be on a latter page
-            warn(f"Expected dataset id {random_pkg['id']!r} not found on first page of results")
-        else:
-            assert len(desired_result) == 1
-            assert desired_result[0]["title"] == random_pkg["title"]
+    if inc_sync_sensitive:
+        with subtests.test("desired result present"):
+            desired_result = tuple(
+                dst for dst in rj["results"] if random_pkg["id"] == dst["id"]
+            )
+            if rj["count"] > 1000 and not desired_result:
+                # we don't have all results - it may well be on a latter page
+                warn(f"Expected dataset id {random_pkg['id']!r} not found on first page of results")
+            else:
+                assert len(desired_result) == 1
+                assert desired_result[0]["title"] == random_pkg["title"]

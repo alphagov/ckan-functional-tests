@@ -1,4 +1,5 @@
 {
     "api_base_url": "https://ckan.staging.publishing.service.gov.uk/api",
-    "api_user_agent": "ckan-functional-tests"
+    "api_user_agent": "ckan-functional-tests",
+    "inc_sync_sensitive": true
 }
