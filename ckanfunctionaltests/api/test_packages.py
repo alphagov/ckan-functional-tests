@@ -46,6 +46,17 @@ def test_package_show(subtests, base_url_3, rsession, random_pkg_slug):
         assert org_response.json()["result"] == AnySupersetOf(rj['result']['organization'])
 
 
+def test_package_show_default_schema(base_url_3, rsession, random_pkg_slug):
+    response = rsession.get(
+        f"{base_url_3}/action/package_show?id={random_pkg_slug}&use_default_schema=1"
+    )
+    assert response.status_code == 200
+    rj = response.json()
+    validate_against_schema(rj, "package_show")
+
+    assert rj["success"] is True
+
+
 def test_package_search_by_full_slug_general_term(
     subtests,
     inc_sync_sensitive,
