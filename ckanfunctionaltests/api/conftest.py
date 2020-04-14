@@ -104,3 +104,10 @@ def stable_pkg_default_schema():
     return get_example_response(
         "stable/package_show.default_schema.inner.civil-service-people-survey-2011.json"
     )
+
+
+@pytest.fixture()
+def stable_org():
+    return get_example_response(
+        "stable/organization_show.inner.cabinet-office.json"
+    )
