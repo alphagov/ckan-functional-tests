@@ -111,3 +111,10 @@ def stable_org():
     return get_example_response(
         "stable/organization_show.inner.cabinet-office.json"
     )
+
+
+@pytest.fixture()
+def stable_dataset():
+    return get_example_response(
+        "stable/search_dataset.inner.civil-service-people-survey-2011.json"
+    )
