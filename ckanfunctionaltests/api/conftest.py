@@ -4,7 +4,7 @@ import pytest
 import requests
 
 
-from ckanfunctionaltests.api import uuid_re
+from ckanfunctionaltests.api import get_example_response, uuid_re
 
 
 # we will want to be able to seed this at some point
@@ -90,3 +90,17 @@ def random_harvestobject_id(base_url, rsession):
         for kv in detail_response.json()["result"]["results"][0]["extras"]
         if kv["key"] == "harvest_object_id"
     ))
+
+
+@pytest.fixture()
+def stable_pkg():
+    return get_example_response(
+        "stable/package_show.inner.civil-service-people-survey-2011.json"
+    )
+
+
+@pytest.fixture()
+def stable_pkg_default_schema():
+    return get_example_response(
+        "stable/package_show.default_schema.inner.civil-service-people-survey-2011.json"
+    )

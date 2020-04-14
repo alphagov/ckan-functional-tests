@@ -3,7 +3,11 @@ from warnings import warn
 
 from dmtestutils.comparisons import AnySupersetOf
 
-from ckanfunctionaltests.api import validate_against_schema, extract_search_terms
+from ckanfunctionaltests.api import (
+    extract_search_terms,
+    get_example_response,
+    validate_against_schema,
+)
 
 
 def test_package_list(base_url_3, rsession):
@@ -55,6 +59,41 @@ def test_package_show_default_schema(base_url_3, rsession, random_pkg_slug):
     validate_against_schema(rj, "package_show")
 
     assert rj["success"] is True
+
+
+def test_package_show_stable_pkg(subtests, base_url_3, rsession, stable_pkg):
+    response = rsession.get(
+        f"{base_url_3}/action/package_show?id={stable_pkg['name']}"
+    )
+    assert response.status_code == 200
+    rj = response.json()
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "package_show")
+        assert rj["success"] is True
+
+    with subtests.test("response equality"):
+        assert rj["result"] == stable_pkg
+
+
+def test_package_show_stable_pkg_default_schema(
+    subtests,
+    base_url_3,
+    rsession,
+    stable_pkg_default_schema,
+):
+    response = rsession.get(
+        f"{base_url_3}/action/package_show?id={stable_pkg_default_schema['name']}&use_default_schema=1"
+    )
+    assert response.status_code == 200
+    rj = response.json()
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "package_show")
+        assert rj["success"] is True
+
+    with subtests.test("response equality"):
+        assert rj["result"] == stable_pkg_default_schema
 
 
 def test_package_search_by_full_slug_general_term(
@@ -208,3 +247,24 @@ def test_package_search_facets(subtests, inc_sync_sensitive, base_url_3, rsessio
                     random_pkg["license_id"] == val["name"]
                     for val in rj["result"]["search_facets"]["license_id"]["items"]
                 )
+
+
+def test_package_search_stable_package(subtests, base_url_3, rsession, stable_pkg):
+    response = rsession.get(
+        f"{base_url_3}/action/package_search?q=name:{stable_pkg['name']}&rows=30"
+    )
+    assert response.status_code == 200
+    rj = response.json()
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "package_search")
+        assert rj["success"] is True
+        assert len(rj["result"]["results"]) <= 30
+
+    desired_result = tuple(
+        pkg for pkg in rj["result"]["results"] if pkg["name"] == stable_pkg["name"]
+    )
+    assert len(desired_result) == 1
+
+    with subtests.test("desired result equality"):
+        assert desired_result[0] == stable_pkg
