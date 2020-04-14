@@ -18,3 +18,6 @@ notably this includes:
 
  - `inc_sync_sensitive`: Set to `false`, this will skip assertions which could be sensitive to
    e.g. the target instance's database and search index having un-synchronized entries.
+ - `inc_fixed_data`: Set to `false`, this will skip tests that use fixed data usually
+   considered "stable" to compare with results from the target. You may want to do so if e.g.
+   your target instance is only filled with sparse demo data.

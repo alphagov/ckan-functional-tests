@@ -41,6 +41,22 @@ def inc_sync_sensitive(variables):
 
 
 @pytest.fixture()
+def inc_fixed_data(variables):
+    """
+    A variable controlling whether to include tests that use fixed data usually considered
+    "stable" to compare with results from the target. you may want to skip these if e.g. your
+    target instance is only filled with sparse demo data.
+    """
+    # again we would normally use pytest.mark for this kind of thing, but we may as well match
+    # the mechanism used for inc_sync_sensitive
+    if not bool(variables.get("inc_fixed_data", True)):
+        # the thinking here is that only tests which use fixed data will be asking for this
+        # value so we may as well do the skipping here.
+        pytest.skip("Skipping fixed data test")
+    return True
+
+
+@pytest.fixture()
 def random_org_slug(base_url, rsession):
     response = rsession.get(f"{base_url}/action/organization_list")
     assert response.status_code == 200
@@ -93,28 +109,28 @@ def random_harvestobject_id(base_url, rsession):
 
 
 @pytest.fixture()
-def stable_pkg():
+def stable_pkg(inc_fixed_data):
     return get_example_response(
         "stable/package_show.inner.civil-service-people-survey-2011.json"
     )
 
 
 @pytest.fixture()
-def stable_pkg_default_schema():
+def stable_pkg_default_schema(inc_fixed_data):
     return get_example_response(
         "stable/package_show.default_schema.inner.civil-service-people-survey-2011.json"
     )
 
 
 @pytest.fixture()
-def stable_org():
+def stable_org(inc_fixed_data):
     return get_example_response(
         "stable/organization_show.inner.cabinet-office.json"
     )
 
 
 @pytest.fixture()
-def stable_dataset():
+def stable_dataset(inc_fixed_data):
     return get_example_response(
         "stable/search_dataset.inner.civil-service-people-survey-2011.json"
     )
