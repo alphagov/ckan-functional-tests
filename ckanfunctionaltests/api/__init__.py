@@ -1,3 +1,4 @@
+from copy import deepcopy
 from functools import lru_cache
 from glob import glob
 import json
@@ -85,3 +86,15 @@ def extract_search_terms(source_text: str, n: int) -> str:
         key=lambda t: len(t),
         reverse=True,
     )[:n])
+
+
+@lru_cache()
+def _get_example_response_inner(filename: str):
+    with open(os.path.join(os.path.dirname(__file__), "example_responses", filename), "rb") as f:
+        return json.load(f)
+
+
+def get_example_response(filename: str):
+    # returning a deepcopy allows the caller to mutate the response safely without affecting
+    # cached version
+    return deepcopy(_get_example_response_inner(filename))
