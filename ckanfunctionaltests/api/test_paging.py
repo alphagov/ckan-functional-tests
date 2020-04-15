@@ -9,8 +9,8 @@ import pytest
     # currently too slow to work
     #"/action/harvest_source_list?",
 ))
-def test_list_paging_equivalence(subtests, base_url, rsession, endpoint_path):
-    full_response = rsession.get(f"{base_url}{endpoint_path}")
+def test_list_paging_equivalence(subtests, base_url_3, rsession, endpoint_path):
+    full_response = rsession.get(f"{base_url_3}{endpoint_path}")
     assert full_response.status_code == 200
     assert full_response.json()["success"] is True
 
@@ -20,7 +20,7 @@ def test_list_paging_equivalence(subtests, base_url, rsession, endpoint_path):
         # tests for both heavily populated and sparsely populated instances
         limit = int(10 ** log_limit)
         response = rsession.get(
-            f"{base_url}{endpoint_path}&limit={limit}&offset={len(accumulated_results)}"
+            f"{base_url_3}{endpoint_path}&limit={limit}&offset={len(accumulated_results)}"
         )
         assert response.status_code == 200
         rj = response.json()
@@ -33,7 +33,7 @@ def test_list_paging_equivalence(subtests, base_url, rsession, endpoint_path):
             # no limit should return an equal result
             with subtests.test("offset no limit"):
                 response_no_lim = rsession.get(
-                    f"{base_url}{endpoint_path}&offset={len(accumulated_results)}"
+                    f"{base_url_3}{endpoint_path}&offset={len(accumulated_results)}"
                 )
                 assert response_no_lim.status_code == 200
                 assert rj == response_no_lim.json()
@@ -49,7 +49,7 @@ def test_list_paging_equivalence(subtests, base_url, rsession, endpoint_path):
 
     with subtests.test("no results past end"):
         overrun_response = rsession.get(
-            f"{base_url}{endpoint_path}&limit={limit}&offset={len(accumulated_results)+10}"
+            f"{base_url_3}{endpoint_path}&limit={limit}&offset={len(accumulated_results)+10}"
         )
         assert overrun_response.status_code == 200
         assert overrun_response.json()["success"] is True
@@ -65,11 +65,25 @@ def test_list_paging_equivalence(subtests, base_url, rsession, endpoint_path):
         "start",
     ),
     (
+        "/3/action/package_search?q=data",
+        lambda r: r["result"]["results"],
+        lambda r: r["result"]["count"],
+        "rows",
+        "start",
+    ),
+    (
         "/search/dataset?q=data",
         lambda r: r["results"],
         lambda r: r["count"],
         "limit",
         "offset",
+    ),
+    (
+        "/3/search/dataset?q=data",
+        lambda r: r["results"],
+        lambda r: r["count"],
+        "rows",
+        "start",
     ),
 ))
 def test_search_paging_equivalence(

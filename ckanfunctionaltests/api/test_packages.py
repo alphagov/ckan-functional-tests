@@ -6,23 +6,23 @@ from dmtestutils.comparisons import AnySupersetOf
 from ckanfunctionaltests.api import validate_against_schema, extract_search_terms
 
 
-def test_package_list(base_url, rsession):
-    response = rsession.get(f"{base_url}/action/package_list")
+def test_package_list(base_url_3, rsession):
+    response = rsession.get(f"{base_url_3}/action/package_list")
     assert response.status_code == 200
     validate_against_schema(response.json(), "package_list")
 
     assert response.json()["success"] is True
 
 
-def test_package_show_404(base_url, rsession):
-    response = rsession.get(f"{base_url}/action/package_show?id=plates-knives-and-forks")
+def test_package_show_404(base_url_3, rsession):
+    response = rsession.get(f"{base_url_3}/action/package_show?id=plates-knives-and-forks")
     assert response.status_code == 404
 
     assert response.json()["success"] is False
 
 
-def test_package_show(subtests, base_url, rsession, random_pkg_slug):
-    response = rsession.get(f"{base_url}/action/package_show?id={random_pkg_slug}")
+def test_package_show(subtests, base_url_3, rsession, random_pkg_slug):
+    response = rsession.get(f"{base_url_3}/action/package_show?id={random_pkg_slug}")
     assert response.status_code == 200
     rj = response.json()
 
@@ -34,13 +34,13 @@ def test_package_show(subtests, base_url, rsession, random_pkg_slug):
 
     with subtests.test("uuid lookup consistency"):
         # we should be able to look up this same package by its uuid and get an identical response
-        uuid_response = rsession.get(f"{base_url}/action/package_show?id={rj['result']['id']}")
+        uuid_response = rsession.get(f"{base_url_3}/action/package_show?id={rj['result']['id']}")
         assert uuid_response.status_code == 200
         assert uuid_response.json() == rj
 
     with subtests.test("organization consistency"):
         org_response = rsession.get(
-            f"{base_url}/action/organization_show?id={rj['result']['organization']['id']}"
+            f"{base_url_3}/action/organization_show?id={rj['result']['organization']['id']}"
         )
         assert org_response.status_code == 200
         assert org_response.json()["result"] == AnySupersetOf(rj['result']['organization'])
@@ -49,12 +49,12 @@ def test_package_show(subtests, base_url, rsession, random_pkg_slug):
 def test_package_search_by_full_slug_general_term(
     subtests,
     inc_sync_sensitive,
-    base_url,
+    base_url_3,
     rsession,
     random_pkg_slug,
 ):
     response = rsession.get(
-        f"{base_url}/action/package_search?q={random_pkg_slug}&rows=100"
+        f"{base_url_3}/action/package_search?q={random_pkg_slug}&rows=100"
     )
     assert response.status_code == 200
     rj = response.json()
@@ -73,7 +73,9 @@ def test_package_search_by_full_slug_general_term(
             warn(f"Multiple results ({len(desired_result)}) with name = {random_pkg_slug!r})")
 
         with subtests.test("approx consistency with package_show"):
-            ps_response = rsession.get(f"{base_url}/action/package_show?id={random_pkg_slug}")
+            ps_response = rsession.get(
+                f"{base_url_3}/action/package_show?id={random_pkg_slug}"
+            )
             assert ps_response.status_code == 200
             assert any(
                 ps_response.json()["result"]["id"] == result["id"] for result in desired_result
@@ -86,12 +88,12 @@ def test_package_search_by_full_slug_general_term(
 def test_package_search_by_revision_id_specific_field(
     subtests,
     inc_sync_sensitive,
-    base_url,
+    base_url_3,
     rsession,
     random_pkg,
 ):
     response = rsession.get(
-        f"{base_url}/action/package_search?fq=revision_id:{random_pkg['revision_id']}"
+        f"{base_url_3}/action/package_search?fq=revision_id:{random_pkg['revision_id']}"
         "&rows=1000"
     )
     assert response.status_code == 200
@@ -123,14 +125,14 @@ def test_package_search_by_revision_id_specific_field(
 def test_package_search_by_org_id_specific_field_and_title_general_term(
     subtests,
     inc_sync_sensitive,
-    base_url,
+    base_url_3,
     rsession,
     random_pkg,
 ):
     title_terms = extract_search_terms(random_pkg["title"], 2)
 
     response = rsession.get(
-        f"{base_url}/action/package_search?fq=owner_org:{random_pkg['owner_org']}"
+        f"{base_url_3}/action/package_search?fq=owner_org:{random_pkg['owner_org']}"
         f"&q={title_terms}&rows=1000"
     )
     assert response.status_code == 200
@@ -165,11 +167,11 @@ def test_package_search_by_org_id_specific_field_and_title_general_term(
                 # the window)
 
 
-def test_package_search_facets(subtests, inc_sync_sensitive, base_url, rsession, random_pkg):
+def test_package_search_facets(subtests, inc_sync_sensitive, base_url_3, rsession, random_pkg):
     notes_terms = extract_search_terms(random_pkg["notes"], 2)
 
     response = rsession.get(
-        f"{base_url}/action/package_search?q={notes_terms}&rows=10"
+        f"{base_url_3}/action/package_search?q={notes_terms}&rows=10"
         "&facet.field=[\"license_id\",\"organization\"]&facet.limit=-1"
     )
     assert response.status_code == 200

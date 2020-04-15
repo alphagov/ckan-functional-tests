@@ -23,6 +23,12 @@ def base_url(variables):
     return variables["api_base_url"]
 
 
+@pytest.fixture(params=("", "/3"))
+def base_url_3(request, base_url):
+    "For endpoints published both under an /api and /api/3 endpoint"
+    return base_url + request.param
+
+
 @pytest.fixture()
 def inc_sync_sensitive(variables):
     """
