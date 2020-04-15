@@ -1,3 +1,4 @@
+from collections.abc import Mapping, Sequence
 from random import Random
 
 import pytest
@@ -108,29 +109,68 @@ def random_harvestobject_id(base_url, rsession):
     ))
 
 
+_unstable_keys = frozenset((
+    "_version_",
+    "created",
+    "creator_user_id",
+    "data_dict",
+    "harvest_source_reference",
+    "id",
+    "import_source",
+    "indexed_ts",
+    "metadata_created",
+    "metadata_modified",
+    "owner_org",
+    "package_count",
+    "package_id",
+    "revision_id",
+    "validated_data_dict",
+))
+
+
+def _strip_unstable_data(obj):
+    if isinstance(obj, Mapping):
+        return {
+            k: _strip_unstable_data(v)
+            for k, v in obj.items()
+            if k not in _unstable_keys
+        }
+    elif isinstance(obj, Sequence) and not isinstance(obj, str):
+        return [
+            _strip_unstable_data(element) for element in obj
+            if not (
+                isinstance(element, Mapping)
+                and element.keys() == {"key", "value"}
+                and element["key"] in _unstable_keys
+            )
+        ]
+    else:
+        return obj
+
+
 @pytest.fixture()
 def stable_pkg(inc_fixed_data):
-    return get_example_response(
+    return _strip_unstable_data(get_example_response(
         "stable/package_show.inner.civil-service-people-survey-2011.json"
-    )
+    ))
 
 
 @pytest.fixture()
 def stable_pkg_default_schema(inc_fixed_data):
-    return get_example_response(
+    return _strip_unstable_data(get_example_response(
         "stable/package_show.default_schema.inner.civil-service-people-survey-2011.json"
-    )
+    ))
 
 
 @pytest.fixture()
 def stable_org(inc_fixed_data):
-    return get_example_response(
+    return _strip_unstable_data(get_example_response(
         "stable/organization_show.inner.cabinet-office.json"
-    )
+    ))
 
 
 @pytest.fixture()
 def stable_dataset(inc_fixed_data):
-    return get_example_response(
+    return _strip_unstable_data(get_example_response(
         "stable/search_dataset.inner.civil-service-people-survey-2011.json"
-    )
+    ))

@@ -217,12 +217,6 @@ def test_search_datasets_by_full_slug_specific_field_all_fields_response(
 
     limit_param, offset_param = _get_limit_offset_params(base_url_3)
 
-    # these are not consistent in their string-rendering
-    del stable_dataset["data_dict"]
-    del stable_dataset["validated_data_dict"]
-    del stable_dataset["_version_"]
-    del stable_dataset["indexed_ts"]
-
     response = rsession.get(
         f"{base_url_3}/search/dataset?q=name:{stable_dataset['name']}"
         f"&{allfields_term}&{limit_param}=10"
@@ -241,4 +235,4 @@ def test_search_datasets_by_full_slug_specific_field_all_fields_response(
     assert len(desired_result) == 1
 
     with subtests.test("desired result equality"):
-        assert desired_result[0] == AnySupersetOf(stable_dataset)
+        assert desired_result[0] == AnySupersetOf(stable_dataset, recursive=True)

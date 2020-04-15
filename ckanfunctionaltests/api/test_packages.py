@@ -46,7 +46,7 @@ def test_package_show(subtests, base_url_3, rsession, random_pkg_slug):
             f"{base_url_3}/action/organization_show?id={rj['result']['organization']['id']}"
         )
         assert org_response.status_code == 200
-        assert org_response.json()["result"] == AnySupersetOf(rj['result']['organization'])
+        assert org_response.json()["result"] == AnySupersetOf(rj['result']['organization'], recursive=True)
 
 
 def test_package_show_default_schema(base_url_3, rsession, random_pkg_slug):
@@ -72,7 +72,7 @@ def test_package_show_stable_pkg(subtests, base_url_3, rsession, stable_pkg):
         assert rj["success"] is True
 
     with subtests.test("response equality"):
-        assert rj["result"] == stable_pkg
+        assert rj["result"] == AnySupersetOf(stable_pkg, recursive=True)
 
 
 def test_package_show_stable_pkg_default_schema(
@@ -92,7 +92,7 @@ def test_package_show_stable_pkg_default_schema(
         assert rj["success"] is True
 
     with subtests.test("response equality"):
-        assert rj["result"] == stable_pkg_default_schema
+        assert rj["result"] == AnySupersetOf(stable_pkg_default_schema, recursive=True)
 
 
 def test_package_search_by_full_slug_general_term(
@@ -266,4 +266,4 @@ def test_package_search_stable_package(subtests, base_url_3, rsession, stable_pk
     assert len(desired_result) == 1
 
     with subtests.test("desired result equality"):
-        assert desired_result[0] == stable_pkg
+        assert desired_result[0] == AnySupersetOf(stable_pkg, recursive=True)

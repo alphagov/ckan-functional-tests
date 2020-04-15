@@ -98,9 +98,6 @@ def test_organization_show(subtests, base_url_3, rsession, random_org_slug):
 
 
 def test_organization_show_stable_org(subtests, base_url_3, rsession, stable_org):
-    # this is likely to be volatile
-    del stable_org["package_count"]
-
     response = rsession.get(
         f"{base_url_3}/action/organization_show?id={stable_org['name']}"
     )
@@ -111,7 +108,7 @@ def test_organization_show_stable_org(subtests, base_url_3, rsession, stable_org
         validate_against_schema(rj, "organization_show")
 
     with subtests.test("response equality"):
-        assert rj["result"] == AnySupersetOf(stable_org)
+        assert rj["result"] == AnySupersetOf(stable_org, recursive=True)
 
 
 def test_organization_show_inc_datasets(subtests, base_url_3, rsession, random_pkg):
@@ -140,6 +137,10 @@ def test_organization_show_inc_datasets_stable_pkg(
     rsession,
     stable_pkg,
 ):
+    # these keys aren't included in organizations' package lists
+    del stable_pkg["extras"]
+    del stable_pkg["resources"]
+
     response = rsession.get(
         f"{base_url_3}/action/organization_show?id={stable_pkg['organization']['name']}"
         "&include_datasets=1"
@@ -160,5 +161,4 @@ def test_organization_show_inc_datasets_stable_pkg(
         assert len(desired_result) == 1
 
         with subtests.test("response equality"):
-            # package listings inside organizations omit certain fields
-            assert stable_pkg == AnySupersetOf(desired_result[0])
+            assert desired_result[0] == AnySupersetOf(stable_pkg, recursive=True)
