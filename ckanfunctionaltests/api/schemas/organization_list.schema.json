@@ -9,10 +9,18 @@
       "type": "object",
       "properties": {
         "result": {
-          "type": "array",
-          "items": {
-            "$ref": "common#/definitions/slug"
-          }
+          "anyOf": [{
+              "type": "array",
+              "items": {
+                "$ref": "common#/definitions/slug"
+              }
+            }, {
+              "type": "array",
+              "items": {
+                "$ref": "organization_base"
+              }
+            }
+          ]
         }
       }
     }
