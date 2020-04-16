@@ -1,4 +1,7 @@
 import re
+from unittest.mock import ANY
+
+import pytest
 
 from ckanfunctionaltests.api.comparisons import (
     RestrictedAny,
@@ -17,8 +20,200 @@ class TestRestrictedAny:
 
 
 class TestAnySupersetOf:
-    def test_superset(self):
+    def test_dict(self):
         assert [{"a": 123, "b": 456, "less": "predictabananas"}, 789] == [AnySupersetOf({"a": 123, "b": 456}), 789]
+
+    def test_dict_identical(self):
+        value = {"a": 123, "b": 456, "less": "predictabananas"}
+        assert [value, 789] == [AnySupersetOf(value), 789]
+
+    def test_seq(self):
+        assert [
+            None,
+            {"a": 123, "b": 456},
+            "foo",
+            789,
+            "bar",
+            "baz",
+        ] == AnySupersetOf([
+            {"a": 123, "b": 456},
+            789,
+            "baz",
+        ])
+
+    def test_seq_identical(self):
+        value = [
+            None,
+            {"a": 123, "b": 456},
+            "foo",
+            789,
+            "bar",
+            "baz",
+        ]
+        assert value == AnySupersetOf(value)
+
+    def test_seq_wrong_order(self):
+        assert [
+            None,
+            {"a": 123, "b": 456},
+            "foo",
+            789,
+            "bar",
+            "baz",
+        ] != AnySupersetOf([
+            {"a": 123, "b": 456},
+            "baz",
+            789,
+        ])
+
+    def test_seq_any(self):
+        assert [
+            None,
+            {"a": 123, "b": 456},
+            "foo",
+            789,
+            "bar",
+            "baz",
+        ] == AnySupersetOf([
+            {"a": 123, "b": ANY},
+            789,
+            ANY,
+            "baz",
+        ])
+
+    def test_seq_any_unmatched(self):
+        assert [
+            None,
+            {"a": 123, "b": 456},
+            "foo",
+            789,
+            "bar",
+            "baz",
+        ] != AnySupersetOf([
+            {"a": 123, "b": ANY},
+            789,
+            "baz",
+            ANY,
+        ])
+
+    @pytest.mark.parametrize("recursive", (False, True,))
+    def test_recursive_alldicts(self, recursive):
+        # this should be equal only if the recursive flag is True
+        assert ({
+            "a": 123,
+            "b": {
+                "c": "foo",
+                321: {
+                    "x": 456,
+                    "y": "bar",
+                },
+                "d": "baz",
+            },
+            "less": "predictabananas",
+        } == AnySupersetOf({
+            "a": 123,
+            "b": {
+                "c": "foo",
+                321: {
+                    "y": "bar",
+                },
+            },
+        }, recursive=recursive)) == recursive
+
+    @pytest.mark.parametrize("recursive", (False, True,))
+    def test_recursive_alldicts_identical(self, recursive):
+        value = {
+            "a": 123,
+            "b": {
+                "c": "foo",
+                321: {
+                    "x": 456,
+                    "y": "bar",
+                },
+                "d": "baz",
+            },
+            "less": "predictabananas",
+        }
+        assert value == AnySupersetOf(value, recursive=recursive)
+
+    @pytest.mark.parametrize("recursive", (False, True,))
+    def test_recursive_allseqs(self, recursive):
+        # this should be equal only if the recursive flag is True
+        assert ([
+            ["a", [2], ["b"], "c", ["d"]],
+            123,
+            [None, None, ["foo", 321, ["bar"]], None],
+            6.7,
+        ] == AnySupersetOf([
+            [[], "c"],
+            123,
+            [["foo", ["bar"]], None],
+        ], recursive=recursive)) == recursive
+
+    @pytest.mark.parametrize("recursive", (False, True,))
+    def test_recursive_allseqs_identical(self, recursive):
+        value = [
+            ["a", [2], ["b"], "c", ["d"]],
+            123,
+            [None, None, ["foo", 321, ["bar"]], None],
+            6.7,
+        ]
+        assert value == AnySupersetOf(value, recursive=recursive)
+
+    @pytest.mark.parametrize("recursive", (False, True,))
+    def test_recursive_mix(self, recursive):
+        # this should be equal only if the recursive flag is True
+        assert ({
+            "a": 123,
+            "b": [
+                {"c": "foo"},
+                {
+                    321: {
+                        "x": 456,
+                        "y": ["b", "a", "r"],
+                        "z": None,
+                        (444, "555"): [],
+                    },
+                    "654": [1],
+                },
+                "d",
+                "baz",
+            ],
+            "less": "predictabananas",
+        } == AnySupersetOf({
+            "a": 123,
+            "b": [
+                {
+                    321: {
+                        "y": [ANY],
+                        "x": 456,
+                    },
+                },
+                "baz",
+            ],
+        }, recursive=recursive)) == recursive
+
+    @pytest.mark.parametrize("recursive", (False, True,))
+    def test_recursive_mix_identical(self, recursive):
+        value = {
+            "a": 123,
+            "b": [
+                {"c": "foo"},
+                {
+                    321: {
+                        "x": 456,
+                        "y": ["b", "a", "r"],
+                        "z": None,
+                        (444, "555"): [],
+                    },
+                    "654": [1],
+                },
+                "d",
+                "baz",
+            ],
+            "less": "predictabananas",
+        }
+        assert value == AnySupersetOf(value, recursive=recursive)
 
 
 class TestStringMatching:

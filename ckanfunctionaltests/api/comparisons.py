@@ -1,3 +1,4 @@
+from collections.abc import Mapping, Sequence
 from functools import lru_cache
 import re
 from types import MappingProxyType
@@ -31,21 +32,99 @@ class RestrictedAny:
 
 
 class AnySupersetOf(RestrictedAny):
+    def __new__(cls, subset, recursive=False):
+        if isinstance(subset, Mapping):
+            return AnySupersetOfMapping(subset, recursive=recursive)
+        elif isinstance(subset, Sequence) and not isinstance(subset, (str, bytes)):
+            return AnySupersetOfSeq(subset, recursive=recursive)
+        else:
+            return subset
+
+
+class AnySupersetOfImpl(AnySupersetOf):
+    "This class simply exists to reset the __new__ method for any AnySupersetOf implementations"
+    def __new__(cls, *args, **kwargs):
+        return object.__new__(cls)
+
+
+class AnySupersetOfMapping(AnySupersetOfImpl):
     """
-    Instance will appear to "equal" any dictionary-like object that is a "superset" of the the constructor-supplied
+    Instance will appear to "equal" any dictionary-like object that is a "superset" of the constructor-supplied
     ``subset_dict``, i.e. will ignore any keys present in the dictionary in question but missing from the reference
     dict. e.g.
 
-    >>> [{"a": 123, "b": 456, "less": "predictabananas"}, 789] == [AnySupersetOf({"a": 123, "b": 456}), 789]
+    >>> [{"a": 123, "b": 456, "less": "predictabananas"}, 789] == [AnySupersetOfMapping({"a": 123, "b": 456}), 789]
     True
+
+    If constructed with the ``recursive`` option, this fuzzy equality behaviour will also be applied to any contained
+    Mapping or any contained Sequence (using AnySupersetOfSeq), applied recursively.
     """
-    def __init__(self, subset_dict):
+    def __init__(self, subset_dict, recursive=False):
         # take an immutable dict copy of supplied dict-like object
-        self._subset_dict = MappingProxyType(dict(subset_dict))
-        super().__init__(lambda other: self._subset_dict == {k: v for k, v in other.items() if k in self._subset_dict})
+        self._subset_dict = MappingProxyType({
+            k: AnySupersetOf(v, recursive=recursive) if recursive else v
+            for k, v in subset_dict.items()
+        })
+        super().__init__(lambda other: (
+            isinstance(other, Mapping)
+            and self._subset_dict == {k: v for k, v in other.items() if k in self._subset_dict}
+        ))
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self._subset_dict})"
+
+
+class AnySupersetOfSeq(AnySupersetOfImpl):
+    """
+    Instance will appear to "equal" any sequence that is a "superset" of the constructor-supplied ``subset_seq``,
+    i.e. will ignore any items present in the sequence in question but missing from the reference sequence, This is
+    done in an order-sensitive manner. e.g.
+
+    >>> {"a": "b", "c": [1, 2, "three", None, 4.5]} == {"a": "b", "c": AnySupersetOfSeq(["three", 4.5])}
+    True
+
+    If constructed with the ``recursive`` option, this fuzzy equality behaviour will also be applied to any contained
+    Sequence or any contained Mapping (using AnySupersetOfMapping), applied recursively.
+    """
+    def __init__(self, subset_seq, recursive=False):
+        self._subset_seq = tuple(
+            (AnySupersetOf(v, recursive=recursive) if recursive else v) for v in subset_seq
+        )
+        super().__init__(self._is_equal)
+
+    def _is_equal(self, other):
+        if not (isinstance(other, Sequence) and not isinstance(other, (str, bytes))):
+            return False
+
+        # this technique should work as long as `other` (the superset sequence doesn't have
+        # any items with "funny" equality properties (like, say, another RestrictedAny)
+        # because we don't perform any backtracking. we just attempt to do a parallel
+        # iteration of the two sequences and see which one runs out first
+        sub_iter = iter(self._subset_seq)
+        try:
+            current_sub = next(sub_iter)
+        except StopIteration:
+            # an empty sequence is a subsequence of anything
+            return True
+
+        for current_super in other:
+            if current_sub == current_super:
+                # excellent, we can continue advancing both iterators and assume any super
+                # items we had skipped were superfluous
+                try:
+                    current_sub = next(sub_iter)
+                except StopIteration:
+                    # we've run out of items in the sub_iter, any items remaining in the super
+                    # seq can be ignored
+                    return True
+            # else we simply advance the super iterator to see if *its* next item equals
+            # current_sub
+        else:
+            # not all items in sub_iter were matched
+            return False
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self._subset_seq})"
 
 
 class AnyStringMatching(RestrictedAny):
