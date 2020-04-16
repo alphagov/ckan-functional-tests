@@ -1,9 +1,9 @@
 from warnings import warn
 
-from dmtestutils.comparisons import AnySupersetOf
 import pytest
 
 from ckanfunctionaltests.api import validate_against_schema, extract_search_terms
+from ckanfunctionaltests.api.comparisons import AnySupersetOf
 
 
 def _get_limit_offset_params(base_url):

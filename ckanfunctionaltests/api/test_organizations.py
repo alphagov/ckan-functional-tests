@@ -1,10 +1,8 @@
 from warnings import warn
 
 
-from dmtestutils.comparisons import AnySupersetOf
-
-
 from ckanfunctionaltests.api import validate_against_schema
+from ckanfunctionaltests.api.comparisons import AnySupersetOf
 
 
 def test_organization_list(base_url_3, rsession):

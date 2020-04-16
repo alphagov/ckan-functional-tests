@@ -1,13 +1,12 @@
 import re
 from warnings import warn
 
-from dmtestutils.comparisons import AnySupersetOf
-
 from ckanfunctionaltests.api import (
     extract_search_terms,
     get_example_response,
     validate_against_schema,
 )
+from ckanfunctionaltests.api.comparisons import AnySupersetOf
 
 
 def test_package_list(base_url_3, rsession):
