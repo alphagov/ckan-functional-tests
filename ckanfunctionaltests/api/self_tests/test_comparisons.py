@@ -97,7 +97,8 @@ class TestAnySupersetOf:
         ])
 
     @pytest.mark.parametrize("recursive", (False, True,))
-    def test_recursive_alldicts(self, recursive):
+    @pytest.mark.parametrize("seq_norm_order", (False, True,))
+    def test_recursive_alldicts(self, recursive, seq_norm_order):
         # this should be equal only if the recursive flag is True
         assert ({
             "a": 123,
@@ -118,10 +119,11 @@ class TestAnySupersetOf:
                     "y": "bar",
                 },
             },
-        }, recursive=recursive)) == recursive
+        }, recursive=recursive, seq_norm_order=seq_norm_order)) == recursive
 
     @pytest.mark.parametrize("recursive", (False, True,))
-    def test_recursive_alldicts_identical(self, recursive):
+    @pytest.mark.parametrize("seq_norm_order", (False, True,))
+    def test_recursive_alldicts_identical(self, recursive, seq_norm_order):
         value = {
             "a": 123,
             "b": {
@@ -134,10 +136,11 @@ class TestAnySupersetOf:
             },
             "less": "predictabananas",
         }
-        assert value == AnySupersetOf(value, recursive=recursive)
+        assert value == AnySupersetOf(value, recursive=recursive, seq_norm_order=seq_norm_order)
 
     @pytest.mark.parametrize("recursive", (False, True,))
-    def test_recursive_allseqs(self, recursive):
+    @pytest.mark.parametrize("seq_norm_order", (False, True,))
+    def test_recursive_allseqs(self, recursive, seq_norm_order):
         # this should be equal only if the recursive flag is True
         assert ([
             ["a", [2], ["b"], "c", ["d"]],
@@ -148,20 +151,22 @@ class TestAnySupersetOf:
             [[], "c"],
             123,
             [["foo", ["bar"]], None],
-        ], recursive=recursive)) == recursive
+        ], recursive=recursive, seq_norm_order=seq_norm_order)) == recursive
 
     @pytest.mark.parametrize("recursive", (False, True,))
-    def test_recursive_allseqs_identical(self, recursive):
+    @pytest.mark.parametrize("seq_norm_order", (False, True,))
+    def test_recursive_allseqs_identical(self, recursive, seq_norm_order):
         value = [
             ["a", [2], ["b"], "c", ["d"]],
             123,
             [None, None, ["foo", 321, ["bar"]], None],
             6.7,
         ]
-        assert value == AnySupersetOf(value, recursive=recursive)
+        assert value == AnySupersetOf(value, recursive=recursive, seq_norm_order=seq_norm_order)
 
     @pytest.mark.parametrize("recursive", (False, True,))
-    def test_recursive_mix(self, recursive):
+    @pytest.mark.parametrize("seq_norm_order", (False, True,))
+    def test_recursive_mix(self, recursive, seq_norm_order):
         # this should be equal only if the recursive flag is True
         assert ({
             "a": 123,
@@ -194,7 +199,8 @@ class TestAnySupersetOf:
         }, recursive=recursive)) == recursive
 
     @pytest.mark.parametrize("recursive", (False, True,))
-    def test_recursive_mix_identical(self, recursive):
+    @pytest.mark.parametrize("seq_norm_order", (False, True,))
+    def test_recursive_mix_identical(self, recursive, seq_norm_order):
         value = {
             "a": 123,
             "b": [
@@ -213,7 +219,89 @@ class TestAnySupersetOf:
             ],
             "less": "predictabananas",
         }
-        assert value == AnySupersetOf(value, recursive=recursive)
+        assert value == AnySupersetOf(value, recursive=recursive, seq_norm_order=seq_norm_order)
+
+    @pytest.mark.parametrize("recursive", (False, True,))
+    @pytest.mark.parametrize("seq_norm_order", (False, True,))
+    def test_recursive_norm_order(self, recursive, seq_norm_order):
+        # this should be equal only if the recursive and seq_norm_order flags are both True
+        assert ({
+            "a": 123,
+            "b": [
+                {
+                    321: {
+                        "x": 456,
+                        "y": ["a", "b", "r", "d", "b"],
+                        "z": None,
+                        (444, "555"): [],
+                    },
+                    "key": "abc",
+                    "654": [1],
+                },
+                {"c": "foo"},
+                {
+                    "m": "oof",
+                    "name": "moo",
+                },
+                "e",
+                "d",
+                "baz",
+            ],
+            "less": "predictabananas",
+        } == AnySupersetOf({
+            "a": 123,
+            "b": [
+                "baz",
+                {
+                    321: {
+                        "y": ["r", "b"],
+                        "x": 456,
+                    },
+                    "key": "abc",
+                },
+                "d",
+            ],
+        }, recursive=recursive, seq_norm_order=seq_norm_order)) == (recursive and seq_norm_order)
+
+    @pytest.mark.parametrize("recursive", (False, True,))
+    @pytest.mark.parametrize("seq_norm_order", (False, True,))
+    def test_recursive_norm_order_not_equal(self, recursive, seq_norm_order):
+        assert {
+            "a": 123,
+            "b": [
+                {
+                    321: {
+                        "x": 456,
+                        "y": ["a", "b", "r", "b"],
+                        "z": None,
+                        (444, "555"): [],
+                    },
+                    "key": "abc",
+                    "654": [1],
+                },
+                {"c": "foo"},
+                {
+                    "m": "oof",
+                    "name": "moo",
+                },
+                "e",  # missing "d"
+                "baz",
+            ],
+            "less": "predictabananas",
+        } != AnySupersetOf({
+            "a": 123,
+            "b": [
+                "baz",
+                {
+                    321: {
+                        "y": ["b", "r"],
+                        "x": 456,
+                    },
+                    "key": "abc",
+                },
+                "d",
+            ],
+        }, recursive=recursive, seq_norm_order=seq_norm_order)
 
 
 class TestStringMatching:

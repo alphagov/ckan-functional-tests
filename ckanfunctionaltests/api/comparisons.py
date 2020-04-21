@@ -1,5 +1,6 @@
 from collections.abc import Mapping, Sequence
 from functools import lru_cache
+from numbers import Number
 import re
 from types import MappingProxyType
 from typing.re import Pattern
@@ -32,11 +33,11 @@ class RestrictedAny:
 
 
 class AnySupersetOf(RestrictedAny):
-    def __new__(cls, subset, recursive=False):
+    def __new__(cls, subset, recursive=False, seq_norm_order=False):
         if isinstance(subset, Mapping):
-            return AnySupersetOfMapping(subset, recursive=recursive)
+            return AnySupersetOfMapping(subset, recursive=recursive, seq_norm_order=seq_norm_order)
         elif isinstance(subset, Sequence) and not isinstance(subset, (str, bytes)):
-            return AnySupersetOfSeq(subset, recursive=recursive)
+            return AnySupersetOfSeq(subset, recursive=recursive, seq_norm_order=seq_norm_order)
         else:
             return subset
 
@@ -58,11 +59,14 @@ class AnySupersetOfMapping(AnySupersetOfImpl):
 
     If constructed with the ``recursive`` option, this fuzzy equality behaviour will also be applied to any contained
     Mapping or any contained Sequence (using AnySupersetOfSeq), applied recursively.
+
+    The ``seq_norm_order`` flag only applies to any recursively-discovered child sequences, and therefore has no
+    meaning without ``recursive=True``.
     """
-    def __init__(self, subset_dict, recursive=False):
+    def __init__(self, subset_dict, recursive=False, seq_norm_order=False):
         # take an immutable dict copy of supplied dict-like object
         self._subset_dict = MappingProxyType({
-            k: AnySupersetOf(v, recursive=recursive) if recursive else v
+            k: AnySupersetOf(v, recursive=recursive, seq_norm_order=seq_norm_order) if recursive else v
             for k, v in subset_dict.items()
         })
         super().__init__(lambda other: (
@@ -85,10 +89,21 @@ class AnySupersetOfSeq(AnySupersetOfImpl):
 
     If constructed with the ``recursive`` option, this fuzzy equality behaviour will also be applied to any contained
     Sequence or any contained Mapping (using AnySupersetOfMapping), applied recursively.
+
+    If constructed with the ``seq_norm_order`` option, will attempt to compare sequences in an order-insensitive way.
+    This is done by sorting both sides of the comparison using the ``get_norm_order_key`` method as a key function. The
+    default implementation of this looks for likely-stable, identifying keys in any child mappings it finds. It is not
+    faultless as I realized that doing order-insensitive superset testing "perfectly" is equivalent to solving a
+    bipartite graph matching problem, which is NP-complete. So this will have to do. Remember, we can't "just use sets"
+    becuase it's likely the elements aren't hashable.
     """
-    def __init__(self, subset_seq, recursive=False):
+    def __init__(self, subset_seq, recursive=False, seq_norm_order=False):
+        self._seq_norm_order = seq_norm_order
+        if self._seq_norm_order:
+            subset_seq = tuple(sorted(subset_seq, key=self.get_norm_order_key))
         self._subset_seq = tuple(
-            (AnySupersetOf(v, recursive=recursive) if recursive else v) for v in subset_seq
+            (AnySupersetOf(v, recursive=recursive, seq_norm_order=seq_norm_order) if recursive else v)
+            for v in subset_seq
         )
         super().__init__(self._is_equal)
 
@@ -107,6 +122,9 @@ class AnySupersetOfSeq(AnySupersetOfImpl):
             # an empty sequence is a subsequence of anything
             return True
 
+        if self._seq_norm_order:
+            other = sorted(other, key=self.get_norm_order_key)
+
         for current_super in other:
             if current_sub == current_super:
                 # excellent, we can continue advancing both iterators and assume any super
@@ -122,6 +140,42 @@ class AnySupersetOfSeq(AnySupersetOfImpl):
         else:
             # not all items in sub_iter were matched
             return False
+
+    norm_order_mapping_keys = ("key", "name", "position",)
+    norm_order_stringifiable_types = (str, bytes, bool, Number,)
+
+    @classmethod
+    def get_norm_order_key(cls, item):
+        # all return values must be tuples of the form (int, str?) (the string being optional) to ensure their
+        # comparability. the leading integer denotes which "category" of key this is. this is done so that keys
+        # retrieved by different means end up segregated once sorted.
+        key_categories_skipped = 0
+        if isinstance(item, Mapping):
+            return next(
+                (
+                    (i, str(item[k]))
+                    for i, k in enumerate(cls.norm_order_mapping_keys, key_categories_skipped)
+                    if k in item
+                ),
+                # for mappings with no matched keys
+                (key_categories_skipped + len(cls.norm_order_mapping_keys),),
+            )
+
+        key_categories_skipped += len(cls.norm_order_mapping_keys) + 1
+
+        return next(
+            (
+                (i, str(item))
+                for i, _type in enumerate(cls.norm_order_stringifiable_types, key_categories_skipped)
+                if isinstance(item, _type)
+            ),
+            # if the item is a more complex type than any of these, it's less likely it will have a stable string
+            # representation (consider e.g. order of items in a dict which doesn't affect equality).
+            # it's tempting to return a string representation of the item as a final effort, but it's better to return a
+            # constant and hopefully allow the stability of the sorting algorithm keep all such items in their
+            # originally returned order
+            (key_categories_skipped + len(cls.norm_order_stringifiable_types),),
+        )
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self._subset_seq})"
