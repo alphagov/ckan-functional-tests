@@ -72,7 +72,7 @@ def test_package_show_stable_pkg(subtests, base_url_3, rsession, stable_pkg):
         assert rj["success"] is True
 
     with subtests.test("response equality"):
-        assert rj["result"] == AnySupersetOf(stable_pkg, recursive=True)
+        assert rj["result"] == AnySupersetOf(stable_pkg, recursive=True, seq_norm_order=True)
 
 
 def test_package_show_stable_pkg_default_schema(
@@ -92,7 +92,7 @@ def test_package_show_stable_pkg_default_schema(
         assert rj["success"] is True
 
     with subtests.test("response equality"):
-        assert rj["result"] == AnySupersetOf(stable_pkg_default_schema, recursive=True)
+        assert rj["result"] == AnySupersetOf(stable_pkg_default_schema, recursive=True, seq_norm_order=True)
 
 
 def test_package_search_by_full_slug_general_term(
@@ -266,4 +266,4 @@ def test_package_search_stable_package(subtests, base_url_3, rsession, stable_pk
     assert len(desired_result) == 1
 
     with subtests.test("desired result equality"):
-        assert desired_result[0] == AnySupersetOf(stable_pkg, recursive=True)
+        assert desired_result[0] == AnySupersetOf(stable_pkg, recursive=True, seq_norm_order=True)

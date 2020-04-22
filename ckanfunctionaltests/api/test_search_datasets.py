@@ -235,4 +235,4 @@ def test_search_datasets_by_full_slug_specific_field_all_fields_response(
     assert len(desired_result) == 1
 
     with subtests.test("desired result equality"):
-        assert desired_result[0] == AnySupersetOf(stable_dataset, recursive=True)
+        assert desired_result[0] == AnySupersetOf(stable_dataset, recursive=True, seq_norm_order=True)

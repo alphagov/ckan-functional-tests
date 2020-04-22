@@ -108,7 +108,7 @@ def test_organization_show_stable_org(subtests, base_url_3, rsession, stable_org
         validate_against_schema(rj, "organization_show")
 
     with subtests.test("response equality"):
-        assert rj["result"] == AnySupersetOf(stable_org, recursive=True)
+        assert rj["result"] == AnySupersetOf(stable_org, recursive=True, seq_norm_order=True)
 
 
 def test_organization_show_inc_datasets(subtests, base_url_3, rsession, random_pkg):
@@ -161,4 +161,4 @@ def test_organization_show_inc_datasets_stable_pkg(
         assert len(desired_result) == 1
 
         with subtests.test("response equality"):
-            assert desired_result[0] == AnySupersetOf(stable_pkg, recursive=True)
+            assert desired_result[0] == AnySupersetOf(stable_pkg, recursive=True, seq_norm_order=True)
