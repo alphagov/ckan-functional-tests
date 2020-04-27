@@ -25,14 +25,18 @@ notably this includes:
 ## Warnings
 
 This test suite _will_ emit warnings if it is unable to complete an assertion for reasons that
-don't necessarily indicate a failure. Examples of such cases are where an expected value is not
-found in a returned list, but the returned list has the maximum allowed number of values
-(implication being, the value could well just be "beyond the fold", but equally, it might not
-be). Rather than simply marking this as a "pass" and allowing a user to infer that a specific
-test is definitely working, we emit a warning summarizing the problem. Usually these warnings
-are nothing to worry about, but if you do want to explicitly assert that a particular feature
+don't necessarily indicate a failure. 
+
+Examples of such cases are where an expected value is notfound in a returned list, but the returned list has the maximum allowed number of values, eg 1000 returned results when in fact there may be 1005 in total, so the result might be item 1001.
+
+Rather than simply marking this as a "pass" and allowing a user to infer that a specific
+test is definitely working, we emit a warning summarizing the problem. 
+
+Usually these warnings are nothing to worry about, but if you do want to explicitly assert that a particular feature
 is working, some tests may respond to being run repeatedly. The `-Werror` pytest option can be
 used to treat these warnings as test failures.
+
+## Skipped tests
 
 There are also some combinations of parametrization values which will always be skipped (because
 they are combinations of features which are not supported). These are nothing to worry about
