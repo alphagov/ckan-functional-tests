@@ -1,0 +1,175 @@
+{
+  "license_title": "UK Open Government Licence (OGL)",
+  "relationships_as_object": [],
+  "private": false,
+  "num_tags": 0,
+  "id": "27b635b7-a2a5-4e20-98e4-d521259306ca",
+  "metadata_created": "2012-02-01T16:16:54.048188",
+  "owner_org": "aa1e068a-23da-4563-b9c2-2cad272b663e",
+  "metadata_modified": "2013-08-12T23:00:31.404269",
+  "state": "active",
+  "version": null,
+  "license_id": "uk-ogl",
+  "type": "dataset",
+  "resources": [
+    {
+      "mimetype": null,
+      "cache_url": null,
+      "mimetype_inner": null,
+      "description": "CSPS 2011 - summary of findings",
+      "format": "PDF",
+      "url": "http://www.civilservice.gov.uk/wp-content/uploads/2012/02/csps2011_externalsummary_final_20120201.pdf",
+      "cache_last_updated": null,
+      "state": "active",
+      "package_id": "27b635b7-a2a5-4e20-98e4-d521259306ca",
+      "last_modified": null,
+      "url_type": null,
+      "position": 0,
+      "revision_id": "6773cab6-21b8-47c5-a02c-d5c71f23a151",
+      "size": null,
+      "datastore_active": "False",
+      "id": "d82f853e-b473-4e9c-bee2-d0b5f30147c4",
+      "resource_type": null,
+      "name": null
+    },
+    {
+      "mimetype": null,
+      "cache_url": null,
+      "mimetype_inner": null,
+      "description": "CSPS 2011 - Civil Service benchmark",
+      "format": "PDF",
+      "url": "http://www.civilservice.gov.uk/wp-content/uploads/2011/10/Civil-Service-People-Survey-2011-Civil-Service-benchmark-final.pdf",
+      "cache_last_updated": null,
+      "state": "active",
+      "package_id": "27b635b7-a2a5-4e20-98e4-d521259306ca",
+      "last_modified": null,
+      "url_type": null,
+      "position": 1,
+      "revision_id": "6773cab6-21b8-47c5-a02c-d5c71f23a151",
+      "size": null,
+      "datastore_active": "False",
+      "id": "6b2018af-b981-4740-bb9e-5379749641a6",
+      "resource_type": null,
+      "name": null
+    },
+    {
+      "mimetype": null,
+      "cache_url": null,
+      "mimetype_inner": null,
+      "description": "CSPS 2011 - summary of organisation scores (XLS)",
+      "format": "XLS",
+      "url": "http://www.civilservice.gov.uk/wp-content/uploads/2012/02/csps2011_allorganisations_20120202.xls",
+      "cache_last_updated": null,
+      "state": "active",
+      "package_id": "27b635b7-a2a5-4e20-98e4-d521259306ca",
+      "last_modified": null,
+      "url_type": null,
+      "position": 2,
+      "revision_id": "6773cab6-21b8-47c5-a02c-d5c71f23a151",
+      "size": null,
+      "datastore_active": "False",
+      "id": "11250e27-b925-4c6b-8be5-94745cfd70dd",
+      "resource_type": null,
+      "name": null
+    },
+    {
+      "mimetype": null,
+      "cache_url": null,
+      "mimetype_inner": null,
+      "description": "CSPS 201 - summary of organisation scores (CSV)",
+      "format": "CSV",
+      "url": "http://www.civilservice.gov.uk/wp-content/uploads/2012/02/csps2011_allorganisations_20120202.csv",
+      "cache_last_updated": null,
+      "state": "active",
+      "package_id": "27b635b7-a2a5-4e20-98e4-d521259306ca",
+      "last_modified": null,
+      "url_type": null,
+      "position": 3,
+      "revision_id": "6773cab6-21b8-47c5-a02c-d5c71f23a151",
+      "size": null,
+      "datastore_active": "False",
+      "id": "e2e32da6-3155-4142-be31-7c8d7f0d6c88",
+      "resource_type": null,
+      "name": null
+    }
+  ],
+  "num_resources": 4,
+  "tags": [],
+  "groups": [],
+  "creator_user_id": null,
+  "relationships_as_subject": [],
+  "name": "civil-service-people-survey-2011",
+  "isopen": true,
+  "url": "http://www.civilservice.gov.uk/about/improving/employee-engagement-in-the-civil-service/people-survey-2011",
+  "notes": "The Civil Service People Survey (CSPS) is an annual survey open to all Civil Servants and those that work for Civil Service organisations. In 2011 299,410 Civil Servants across 97 organisations participated. \r\n\r\nThe CSPS provides consistent and robust metrics which help us understand how we can improve levels of engagement across the Civil Service. The 2011 survey was carried out between mid-September 2011 and the end of October 2011; see the temporal details below for the start and end of fieldwork.\r\n\r\nThe linked files provide for each of the 97 participating organisations their Employee Engagement Index, theme scores, and % positive scores for each of the core attitudinal questions asked to all respondents. A formatted (XLS) and unformatted (CSV) version is available. ",
+  "title": "Civil Service People Survey 2011",
+  "extras": [
+    {
+      "value": "2012-02-01",
+      "key": "date_released"
+    },
+    {
+      "value": "",
+      "key": "date_update_future"
+    },
+    {
+      "value": "2012-02-01",
+      "key": "date_updated"
+    },
+    {
+      "value": "000000: ",
+      "key": "geographic_coverage"
+    },
+    {
+      "value": "national",
+      "key": "geographic_granularity"
+    },
+    {
+      "value": "{\"status\": \"final\", \"source\": \"Automatically awarded by ODI\", \"certification_type\": \"automatically awarded\", \"level\": \"bronze\", \"title\": \"Civil Service People Survey 2011\", \"created_at\": \"2014-10-28T13:25:09Z\", \"jurisdiction\": \"GB\", \"certificate_url\": \"https://certificates.theodi.org/en/datasets/6422/certificate\", \"badge_url\": \"https://certificates.theodi.org/en/datasets/6422/certificate/badge.png\", \"cert_title\": \"Bronze level certificate\"}",
+      "key": "odi-certificate"
+    },
+    {
+      "value": "percentages rounded to whole integer",
+      "key": "precision"
+    },
+    {
+      "value": "",
+      "key": "taxonomy_url"
+    },
+    {
+      "value": "2011-09-19",
+      "key": "temporal_coverage-from"
+    },
+    {
+      "value": "2011-10-21",
+      "key": "temporal_coverage-to"
+    },
+    {
+      "value": "year",
+      "key": "temporal_granularity"
+    },
+    {
+      "value": "government",
+      "key": "theme-primary"
+    },
+    {
+      "value": "never",
+      "key": "update_frequency"
+    }
+  ],
+  "license_url": "http://reference.data.gov.uk/id/open-government-licence",
+  "organization": {
+    "description": "The Cabinet Office supports the Prime Minister and Deputy Prime Minister, and ensure the effective running of government. We are also the corporate headquarters for government, in partnership with HM Treasury, and we take the lead in certain critical policy areas.\r\nCO is a ministerial department, supported by 18 agencies and public bodies\r\n\r\nYou can find out more at https://www.gov.uk/government/organisations/cabinet-office",
+    "created": "2012-06-27T14:48:40.244951",
+    "title": "Cabinet Office",
+    "name": "cabinet-office",
+    "is_organization": true,
+    "state": "active",
+    "image_url": "",
+    "revision_id": "4be8825d-d3f4-4fb2-b80b-43e36f574c05",
+    "type": "organization",
+    "id": "aa1e068a-23da-4563-b9c2-2cad272b663e",
+    "approval_status": "pending"
+  },
+  "revision_id": "3de03597-6961-47ef-903a-d2aea2a4601e"
+}

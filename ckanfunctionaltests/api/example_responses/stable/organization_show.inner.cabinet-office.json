@@ -1,0 +1,53 @@
+{
+  "groups": [],
+  "package_count": 171,
+  "num_followers": 0,
+  "foi-email": "foi-team@cabinetoffice.gov.uk",
+  "id": "aa1e068a-23da-4563-b9c2-2cad272b663e",
+  "category": "ministerial-department",
+  "display_name": "Cabinet Office",
+  "approval_status": "pending",
+  "title": "Cabinet Office",
+  "state": "active",
+  "foi-web": "",
+  "description": "The Cabinet Office supports the Prime Minister and Deputy Prime Minister, and ensure the effective running of government. We are also the corporate headquarters for government, in partnership with HM Treasury, and we take the lead in certain critical policy areas.\r\nCO is a ministerial department, supported by 18 agencies and public bodies\r\n\r\nYou can find out more at https://www.gov.uk/government/organisations/cabinet-office",
+  "contact-email": "co-transparency@cabinetoffice.gov.uk",
+  "tags": [],
+  "foi-name": "FOI Team",
+  "contact-phone": "",
+  "contact-name": "Cabinet Office Transparency",
+  "name": "cabinet-office",
+  "created": "2012-06-27T14:48:40.244951",
+  "type": "organization",
+  "image_display_url": "",
+  "is_organization": true,
+  "extras": [
+    {
+      "value": "CO",
+      "key": "abbreviation"
+    },
+    {
+      "value": "false",
+      "key": "closed"
+    },
+    {
+      "value": "{\"cfb3274f-d60f-4f84-83cc-d23acce62c16\": \"2013-10-01T11:21:28.515342\", \"98d1d030-7dbd-4976-a077-52fdd2c3330d\": \"2013-09-16T11:17:31.425559\", \"46ea97c4-d1e1-4a10-8006-c355f965aade\": \"2013-09-06T09:38:52.388003\", \"190fe9b9-87f1-42d3-94d9-4dd20844e840\": \"2013-09-18T16:57:44.108681\", \"58b295d1-1e56-43d4-a06a-0365fcb92571\": \"2013-09-02T17:49:07.759652\", \"431ba02c-7133-47c5-b72a-c3015bb40503\": \"2013-09-04T11:29:23.780224\"}",
+      "key": "inventory.jobs"
+    },
+    {
+      "value": "[]",
+      "key": "replaced_by"
+    },
+    {
+      "value": "",
+      "key": "website-name"
+    },
+    {
+      "value": "",
+      "key": "website-url"
+    }
+  ],
+  "image_url": "",
+  "revision_id": "4be8825d-d3f4-4fb2-b80b-43e36f574c05",
+  "foi-phone": ""
+}

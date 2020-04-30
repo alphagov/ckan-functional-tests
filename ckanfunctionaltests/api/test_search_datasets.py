@@ -1,9 +1,9 @@
 from warnings import warn
 
-from dmtestutils.comparisons import AnySupersetOf
 import pytest
 
 from ckanfunctionaltests.api import validate_against_schema, extract_search_terms
+from ckanfunctionaltests.api.comparisons import AnySupersetOf
 
 
 def _get_limit_offset_params(base_url):
@@ -126,6 +126,30 @@ def test_search_datasets_by_full_slug_specific_field_all_fields_response(
             assert desired_result[0]["organization"] == random_pkg["organization"]["name"]
 
 
+def test_search_datasets_stable_package_by_title_general_term(
+    subtests,
+    base_url_3,
+    rsession,
+    stable_pkg,
+):
+    limit_param, offset_param = _get_limit_offset_params(base_url_3)
+    title_terms = extract_search_terms(stable_pkg["title"], 3)
+    response = rsession.get(
+        f"{base_url_3}/search/dataset?q=title:{stable_pkg['name']}&fl=name&{limit_param}=100"
+    )
+    assert response.status_code == 200
+    rj = response.json()
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "search_dataset")
+        # check it's using the raw-string result format
+        assert isinstance(rj["results"][0], str)
+        assert len(rj["results"]) <= 100
+
+    with subtests.test("desired result present"):
+        assert stable_pkg["name"] in rj["results"]
+
+
 @pytest.mark.parametrize("org_as_q", (False, True,))
 def test_search_datasets_by_org_slug_specific_field_and_title_general_term(
     subtests,
@@ -178,3 +202,37 @@ def test_search_datasets_by_org_slug_specific_field_and_title_general_term(
             else:
                 assert len(desired_result) == 1
                 assert desired_result[0]["title"] == random_pkg["title"]
+
+
+@pytest.mark.parametrize("allfields_term", ("all_fields=1", "fl=*",))
+def test_search_datasets_by_full_slug_specific_field_all_fields_response(
+    subtests,
+    base_url_3,
+    rsession,
+    stable_dataset,
+    allfields_term,
+):
+    if allfields_term.startswith("all_fields") and base_url_3.endswith("/3"):
+        pytest.skip("all_fields parameter not supported in v3 endpoint")
+
+    limit_param, offset_param = _get_limit_offset_params(base_url_3)
+
+    response = rsession.get(
+        f"{base_url_3}/search/dataset?q=name:{stable_dataset['name']}"
+        f"&{allfields_term}&{limit_param}=10"
+    )
+    assert response.status_code == 200
+    rj = response.json()
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "search_dataset")
+        assert isinstance(rj["results"][0], dict)
+        assert len(rj["results"]) <= 10
+
+    desired_result = tuple(
+        dst for dst in rj["results"] if stable_dataset["name"] == dst["name"]
+    )
+    assert len(desired_result) == 1
+
+    with subtests.test("desired result equality"):
+        assert desired_result[0] == AnySupersetOf(stable_dataset, recursive=True, seq_norm_order=True)

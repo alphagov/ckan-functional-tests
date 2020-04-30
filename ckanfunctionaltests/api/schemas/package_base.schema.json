@@ -55,10 +55,6 @@
       "items": {
         "type": "object",
         "properties": {
-          "created": {
-            "type": "string",
-            "format": "date-time"
-          },
           "url": {
             "$comment": "not reliably a valid uri",
             "type": "string"
@@ -83,8 +79,17 @@
             "format": "date-time"
           },
           "cache_url": {
+            "anyOf": [{
+                "type": ["string", "null"],
+                "format": "uri"
+              }, {
+                "const": ""
+              }
+            ]
+          },
+          "created": {
             "type": ["string", "null"],
-            "format": "uri"
+            "format": "date-time"
           },
           "format": {
             "type": ["string", "null"]
@@ -106,7 +111,7 @@
             "type": ["string", "null"]
           },
           "size": {
-            "type": ["string", "null"]
+            "type": ["integer", "null"]
           }
         },
         "required": [

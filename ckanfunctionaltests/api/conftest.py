@@ -1,10 +1,11 @@
+from collections.abc import Mapping, Sequence
 from random import Random
 
 import pytest
 import requests
 
 
-from ckanfunctionaltests.api import uuid_re
+from ckanfunctionaltests.api import get_example_response, uuid_re
 
 
 # we will want to be able to seed this at some point
@@ -38,6 +39,22 @@ def inc_sync_sensitive(variables):
     # we would normally use pytest.mark for this kind of thing, but it doesn't allow you to
     # mark & skip individual subtests
     return bool(variables.get("inc_sync_sensitive", True))
+
+
+@pytest.fixture()
+def inc_fixed_data(variables):
+    """
+    A variable controlling whether to include tests that use fixed data usually considered
+    "stable" to compare with results from the target. you may want to skip these if e.g. your
+    target instance is only filled with sparse demo data.
+    """
+    # again we would normally use pytest.mark for this kind of thing, but we may as well match
+    # the mechanism used for inc_sync_sensitive
+    if not bool(variables.get("inc_fixed_data", True)):
+        # the thinking here is that only tests which use fixed data will be asking for this
+        # value so we may as well do the skipping here.
+        pytest.skip("Skipping fixed data test")
+    return True
 
 
 @pytest.fixture()
@@ -89,4 +106,71 @@ def random_harvestobject_id(base_url, rsession):
         kv["value"]
         for kv in detail_response.json()["result"]["results"][0]["extras"]
         if kv["key"] == "harvest_object_id"
+    ))
+
+
+_unstable_keys = frozenset((
+    "_version_",
+    "created",
+    "creator_user_id",
+    "data_dict",
+    "harvest_source_reference",
+    "id",
+    "import_source",
+    "indexed_ts",
+    "metadata_created",
+    "metadata_modified",
+    "owner_org",
+    "package_count",
+    "package_id",
+    "revision_id",
+    "validated_data_dict",
+))
+
+
+def _strip_unstable_data(obj):
+    if isinstance(obj, Mapping):
+        return {
+            k: _strip_unstable_data(v)
+            for k, v in obj.items()
+            if k not in _unstable_keys
+        }
+    elif isinstance(obj, Sequence) and not isinstance(obj, str):
+        return [
+            _strip_unstable_data(element) for element in obj
+            if not (
+                isinstance(element, Mapping)
+                and element.keys() == {"key", "value"}
+                and element["key"] in _unstable_keys
+            )
+        ]
+    else:
+        return obj
+
+
+@pytest.fixture()
+def stable_pkg(inc_fixed_data):
+    return _strip_unstable_data(get_example_response(
+        "stable/package_show.inner.civil-service-people-survey-2011.json"
+    ))
+
+
+@pytest.fixture()
+def stable_pkg_default_schema(inc_fixed_data):
+    return _strip_unstable_data(get_example_response(
+        "stable/package_show.default_schema.inner.civil-service-people-survey-2011.json"
+    ))
+
+
+@pytest.fixture()
+def stable_org(inc_fixed_data):
+    return _strip_unstable_data(get_example_response(
+        "stable/organization_show.inner.cabinet-office.json"
+    ))
+
+
+@pytest.fixture()
+def stable_dataset(inc_fixed_data):
+    return _strip_unstable_data(get_example_response(
+        "stable/search_dataset.inner.civil-service-people-survey-2011.json"
     ))

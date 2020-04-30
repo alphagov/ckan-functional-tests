@@ -1,10 +1,8 @@
 from warnings import warn
 
 
-from dmtestutils.comparisons import AnySupersetOf
-
-
 from ckanfunctionaltests.api import validate_against_schema
+from ckanfunctionaltests.api.comparisons import AnySupersetOf
 
 
 def test_organization_list(base_url_3, rsession):
@@ -99,6 +97,20 @@ def test_organization_show(subtests, base_url_3, rsession, random_org_slug):
         assert uuid_response.json() == rj
 
 
+def test_organization_show_stable_org(subtests, base_url_3, rsession, stable_org):
+    response = rsession.get(
+        f"{base_url_3}/action/organization_show?id={stable_org['name']}"
+    )
+    assert response.status_code == 200
+    rj = response.json()
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "organization_show")
+
+    with subtests.test("response equality"):
+        assert rj["result"] == AnySupersetOf(stable_org, recursive=True, seq_norm_order=True)
+
+
 def test_organization_show_inc_datasets(subtests, base_url_3, rsession, random_pkg):
     response = rsession.get(
         f"{base_url_3}/action/organization_show?id={random_pkg['owner_org']}&include_datasets=1"
@@ -117,3 +129,36 @@ def test_organization_show_inc_datasets(subtests, base_url_3, rsession, random_p
         warn(f"Expected package id {random_pkg['id']!r} not found in first 1000 listed packages")
     else:
         assert len(desired_result) == 1
+
+
+def test_organization_show_inc_datasets_stable_pkg(
+    subtests,
+    base_url_3,
+    rsession,
+    stable_pkg,
+):
+    # these keys aren't included in organizations' package lists
+    del stable_pkg["extras"]
+    del stable_pkg["resources"]
+
+    response = rsession.get(
+        f"{base_url_3}/action/organization_show?id={stable_pkg['organization']['name']}"
+        "&include_datasets=1"
+    )
+    assert response.status_code == 200
+    rj = response.json()
+
+    with subtests.test("response validity"):
+        validate_against_schema(rj, "organization_show")
+
+    desired_result = tuple(
+        pkg for pkg in rj["result"]["packages"] if pkg["name"] == stable_pkg["name"]
+    )
+    if rj["result"]["package_count"] > 1000 and not desired_result:
+        # this view only shows the first 1000 packages - it may have missed the cut
+        warn(f"Expected package name {stable_pkg['name']!r} not found in first 1000 listed packages")
+    else:
+        assert len(desired_result) == 1
+
+        with subtests.test("response equality"):
+            assert desired_result[0] == AnySupersetOf(stable_pkg, recursive=True, seq_norm_order=True)
