@@ -3,6 +3,9 @@
   "$id": "http://github.com/alphagov/ckan-functional-tests/api/package_base.schema.json",
   "title": "CKAN action api base package representation",
   "type": "object",
+  "propertyNames": {
+    "$ref": "common#/definitions/nonPIIKey"
+  },
   "properties": {
     "id": {
       "type": "string",
@@ -39,7 +42,7 @@
         "type": "object",
         "properties": {
           "key": {
-            "type": "string"
+            "$ref": "common#/definitions/nonPIIKey"
           },
           "value": {
             "type": "string"
