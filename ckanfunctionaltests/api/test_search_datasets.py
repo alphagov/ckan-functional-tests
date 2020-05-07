@@ -1,3 +1,4 @@
+import json
 from warnings import warn
 
 import pytest
@@ -8,6 +9,16 @@ from ckanfunctionaltests.api.comparisons import AnySupersetOf
 
 def _get_limit_offset_params(base_url):
     return ("rows", "start",) if base_url.endswith("/3") else ("limit", "offset",)
+
+
+def _validate_embedded_keys(response_json):
+    for result in response_json["results"]:
+        for key in ("data_dict", "validated_data_dict",):
+            if key in result:
+                # note this embedded json uses the "package" schema, despite being
+                # in a "dataset".
+                inner_package = json.loads(result[key])
+                validate_against_schema(inner_package, "package_base")
 
 
 def test_search_datasets_by_full_slug_general_term(
@@ -113,6 +124,8 @@ def test_search_datasets_by_full_slug_specific_field_all_fields_response(
         validate_against_schema(rj, "search_dataset")
         assert isinstance(rj["results"][0], dict)
         assert len(rj["results"]) <= 10
+
+        _validate_embedded_keys(rj)
 
     if inc_sync_sensitive:
         with subtests.test("desired result present"):
@@ -228,6 +241,8 @@ def test_search_datasets_by_full_slug_specific_field_all_fields_response(
         validate_against_schema(rj, "search_dataset")
         assert isinstance(rj["results"][0], dict)
         assert len(rj["results"]) <= 10
+
+        _validate_embedded_keys(rj)
 
     desired_result = tuple(
         dst for dst in rj["results"] if stable_dataset["name"] == dst["name"]
