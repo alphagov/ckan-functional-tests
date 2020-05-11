@@ -115,6 +115,42 @@ def test_package_search_empty_tag():
         validate_against_schema(example_response, "package_search")
 
 
+def test_package_search_pii_field():
+    example_response = get_example_response("package_search.json")
+
+    example_response["result"]["results"][1]["author"] = "Rieux"
+
+    with pytest.raises(jsonschema.ValidationError):
+        validate_against_schema(example_response, "package_search")
+
+
+def test_package_search_pii_extra():
+    example_response = get_example_response("package_search.json")
+
+    example_response["result"]["results"][1]["extras"].append({"key": "author", "value": "Rieux"})
+
+    with pytest.raises(jsonschema.ValidationError):
+        validate_against_schema(example_response, "package_search")
+
+
+def test_search_dataset_pii_field():
+    example_response = get_example_response("search_dataset.all_fields.json")
+
+    example_response["results"][1]["author"] = "Rieux"
+
+    with pytest.raises(jsonschema.ValidationError):
+        validate_against_schema(example_response, "search_dataset")
+
+
+def test_search_dataset_pii_extra():
+    example_response = get_example_response("search_dataset.all_fields.json")
+
+    example_response["results"][1]["extras"]["author"] = "Rieux"
+
+    with pytest.raises(jsonschema.ValidationError):
+        validate_against_schema(example_response, "search_dataset")
+
+
 def test_format_autocomplete_result_missing_format():
     example_response = get_example_response("format_autocomplete.json")
 

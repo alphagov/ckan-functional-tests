@@ -27,6 +27,12 @@
     "state": {
       "type": "string",
       "enum": ["active", "deleted"]
+    },
+    "nonPIIKey": {
+      "type": "string",
+      "not": {
+        "enum": ["author", "author_email", "maintainer", "maintainer_email"]
+      }
     }
   }
 }

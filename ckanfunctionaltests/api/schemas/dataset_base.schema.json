@@ -3,6 +3,9 @@
   "$id": "http://github.com/alphagov/ckan-functional-tests/api/dataset_base.schema.json",
   "title": "CKAN legacy api base dataset representation",
   "type": "object",
+  "propertyNames": {
+    "$ref": "common#/definitions/nonPIIKey"
+  },
   "properties": {
     "organization": {
       "$ref": "common#/definitions/slug"
@@ -55,7 +58,10 @@
       "type": "string"
     },
     "extras": {
-      "type": "object"
+      "type": "object",
+      "propertyNames": {
+        "$ref": "common#/definitions/nonPIIKey"
+      }
     }
   }
 }
