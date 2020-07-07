@@ -1,4 +1,5 @@
 from collections.abc import Mapping, Sequence
+import json
 from random import Random
 
 import pytest
@@ -81,6 +82,11 @@ def random_pkg_slug(base_url, rsession):
 
 
 @pytest.fixture()
+def stable_pkg_slug():
+    return "example-dataset-number-one"
+
+
+@pytest.fixture()
 def random_pkg(base_url, rsession, random_pkg_slug):
     response = rsession.get(f"{base_url}/action/package_show?id={random_pkg_slug}")
     assert response.status_code == 200
@@ -95,7 +101,7 @@ def random_harvestobject_id(base_url, rsession):
     count_response = rsession.get(f"{base_url}/action/package_search?q=harvest_object_id:*&rows=1")
     assert count_response.status_code == 200
 
-    random_index = _random.randint(0, count_response.json()["result"]["count"])
+    random_index = _random.randint(0, count_response.json()["result"]["count"] - 1)
     detail_response = rsession.get(
         f"{base_url}/action/package_search?q=harvest_object_id:*&rows=1&start={random_index}"
     )
@@ -148,29 +154,105 @@ def _strip_unstable_data(obj):
         return obj
 
 
+# this function sets the value of the key to a specified value from ckan-vars.conf
+# some tests expects the ID from the file to match a value from a request
+# staging and production have the same IDs as there is a data sync but data generated 
+# on a dev stack does not have the same ID, so put in the expected ID in the ckan-vars.conf
+# to substitute the value in the expected response file.
+def set_ckan_vars(json_data):
+    ckan_vars = {}
+    with open(f"ckan-vars.conf") as ckan_vars_file:
+        for line in ckan_vars_file:
+            name, val = line.partition("=")[::2]
+            ckan_vars[name.strip()] = val.strip()
+
+    str_data = json.dumps(json_data)
+
+    for key in ckan_vars:
+        str_data = str_data.replace(f'<<{key}>>', ckan_vars[key])
+    
+    return json.loads(str_data)
+
+
+_key_value_keys = ['harvest', 'extras']
+
+
+# rather than remove unstable elements from a response, this function cleans the unstable elements
+# so that the values are identical to the expected values in the expected response files.
+# it uses the _unstable_keys as a guide to which elements it should clean and it is possible to pass in 
+# other key value args to:
+# parent - used to determine whether the element is at root level where the id key is used to identify a package
+# is_key_value - some packages do not have key_value pairs, so process those differently
+def clean_unstable_elements(json_data, parent=None, is_key_value=True):
+    if isinstance(json_data, str):
+        return
+    for key in json_data.keys():
+        if key in _key_value_keys:
+            if is_key_value:
+                for item in json_data[key]:
+                    item_key = item["key"]
+                    item["value"] = f"<<{item_key}-value>>"
+            else:
+                json_data[key] = f"<<{key}>>"
+        elif isinstance(json_data[key], list):
+            for item in json_data[key]:
+                clean_unstable_elements(item, key)
+        elif isinstance(json_data[key], dict):
+            clean_unstable_elements(json_data[key], key)
+        elif key in _unstable_keys and not str(json_data[key]).startswith("<<"):
+            if not (key == "id" and not parent):
+                json_data[key] = f"<<{key}>>"
+    return json_data
+
+
 @pytest.fixture()
 def stable_pkg(inc_fixed_data):
-    return _strip_unstable_data(get_example_response(
-        "stable/package_show.inner.civil-service-people-survey-2011.json"
-    ))
+    json_data = get_example_response(
+        "stable/package_show.inner.test.json"
+    )
+    return set_ckan_vars(json_data)
+
+
+@pytest.fixture()
+def stable_pkg_search(inc_fixed_data):
+    return set_ckan_vars(
+        clean_unstable_elements(
+            get_example_response("stable/package_search.inner.test.json")
+        )
+    )
 
 
 @pytest.fixture()
 def stable_pkg_default_schema(inc_fixed_data):
-    return _strip_unstable_data(get_example_response(
-        "stable/package_show.default_schema.inner.civil-service-people-survey-2011.json"
-    ))
+    json_data = get_example_response(
+        "stable/package_show.default_schema.inner.test.json"
+    )
+
+    return set_ckan_vars(json_data)
 
 
 @pytest.fixture()
 def stable_org(inc_fixed_data):
-    return _strip_unstable_data(get_example_response(
-        "stable/organization_show.inner.cabinet-office.json"
+    return _strip_unstable_data(
+        clean_unstable_elements(
+            get_example_response(
+                "stable/organization_show.inner.test.json"
+            )
+        )
+    )
+
+
+@pytest.fixture()
+def stable_org_with_datasets(inc_fixed_data):
+    return set_ckan_vars(get_example_response(
+        "stable/organization_show_with_datasets.inner.test.json"
     ))
 
 
 @pytest.fixture()
 def stable_dataset(inc_fixed_data):
-    return _strip_unstable_data(get_example_response(
-        "stable/search_dataset.inner.civil-service-people-survey-2011.json"
-    ))
+    return set_ckan_vars(
+        get_example_response(
+        "stable/search_dataset.inner.test.json"
+        )
+    )
