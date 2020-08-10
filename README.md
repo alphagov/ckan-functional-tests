@@ -73,3 +73,20 @@ used to treat these warnings as test failures.
 There are also some combinations of parametrization values which will always be skipped (because
 they are combinations of features which are not supported). These are nothing to worry about
 either - it's just that using `pytest.skip` was the least bad way of omitting these cases.
+
+## Troubleshooting
+
+If some tests are failing because of the mock harvest source not matching then it's likely that 
+the `vars.conf` was not updated in nginx in the `static-mock-harvest-source` container. 
+Run these commands to fix it without having to rebuild the `static-mock-harvest-source` image -
+
+  docker exec -it static-mock-harvest-source bash
+  echo $'\nmap $host $mock_absolute_root_url { default "http://static-mock-harvest-source:11088/"; }' >> /etc/nginx/vars.conf
+  service nginx reload
+
+To make these changes more permanent add this to the end of `vars.conf` in the relevant source file if `bootstrap.sh`
+didn't update it, which can happen if you checked out a different branch on the `ckan-mock-harvest-sources` repo -
+
+  map $host $mock_absolute_root_url { default "http://static-mock-harvest-source:11088/"; }
+
+and then run the `./scripts/rebuild-ckan.sh 2.7` script (substitute 2.7 for the version you want to rebuild).
