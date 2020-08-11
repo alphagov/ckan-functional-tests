@@ -130,9 +130,9 @@ def test_organization_show_inc_datasets_stable_pkg(
     with subtests.test("response validity"):
         validate_against_schema(rj, "organization_show")
 
-    desired_result = tuple(
-        pkg for pkg in rj["result"]["packages"] if pkg["organization"]["name"] == stable_org_with_datasets["name"]
-    )
+    desired_result = [
+        clean_unstable_elements(pkg) for pkg in rj["result"]["packages"] if pkg["organization"]["name"] == stable_org_with_datasets["name"]
+    ]
     if rj["result"]["package_count"] > 1000 and not desired_result:
         # this view only shows the first 1000 packages - it may have missed the cut
         warn(f"Expected package name {stable_org_with_datasets['name']!r} not found in first 1000 listed packages")
@@ -141,6 +141,5 @@ def test_organization_show_inc_datasets_stable_pkg(
         assert len(desired_result) == 2
 
         with subtests.test("response equality"):
-            clean_unstable_elements(desired_result[0])
             clean_unstable_elements(stable_org_with_datasets["packages"][0])
-            assert desired_result[0] == stable_org_with_datasets["packages"][0]
+            assert stable_org_with_datasets["packages"][0] in desired_result
