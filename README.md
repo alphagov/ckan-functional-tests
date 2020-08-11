@@ -80,9 +80,11 @@ If some tests are failing because of the mock harvest source not matching then i
 the `vars.conf` was not updated in nginx in the `static-mock-harvest-source` container. 
 Run these commands to fix it without having to rebuild the `static-mock-harvest-source` image -
 
-  docker exec -it static-mock-harvest-source bash
-  echo $'\nmap $host $mock_absolute_root_url { default "http://static-mock-harvest-source:11088/"; }' >> /etc/nginx/vars.conf
-  service nginx reload
+```
+docker exec -it static-mock-harvest-source bash
+echo $'\nmap $host $mock_absolute_root_url { default "http://static-mock-harvest-source:11088/"; }' >> /etc/nginx/vars.conf
+service nginx reload
+```
 
 To make these changes more permanent add this to the end of `vars.conf` in the relevant source file if `bootstrap.sh`
 didn't update it, which can happen if you checked out a different branch on the `ckan-mock-harvest-sources` repo -
