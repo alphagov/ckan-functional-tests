@@ -3,6 +3,6 @@
     "api_user_agent": "ckan-functional-tests",
     "inc_sync_sensitive": true,
     "inc_fixed_data": true,
-    "username": "< username for integration >",
-    "password": "< password for integration >"
+    "username": "< basic auth username for integration >",
+    "password": "< basic auth password for integration >"
 }
