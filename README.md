@@ -54,6 +54,11 @@ notably this includes:
    considered "stable" to compare with results from the target. You may want to do so if e.g.
    your target instance is only filled with sparse demo data.
 
+To run against CKAN in Integration:
+
+ - `username`: set the basic auth username on the Integration environment.
+ - `password`: set the basic auth password on the Integration environment.
+
 ## Warnings
 
 This test suite _will_ emit warnings if it is unable to complete an assertion for reasons that
@@ -80,9 +85,11 @@ If some tests are failing because of the mock harvest source not matching then i
 the `vars.conf` was not updated in nginx in the `static-mock-harvest-source` container. 
 Run these commands to fix it without having to rebuild the `static-mock-harvest-source` image -
 
-  docker exec -it static-mock-harvest-source bash
-  echo $'\nmap $host $mock_absolute_root_url { default "http://static-mock-harvest-source:11088/"; }' >> /etc/nginx/vars.conf
-  service nginx reload
+```
+docker exec -it static-mock-harvest-source bash
+echo $'\nmap $host $mock_absolute_root_url { default "http://static-mock-harvest-source:11088/"; }' >> /etc/nginx/vars.conf
+service nginx reload
+```
 
 To make these changes more permanent add this to the end of `vars.conf` in the relevant source file if `bootstrap.sh`
 didn't update it, which can happen if you checked out a different branch on the `ckan-mock-harvest-sources` repo -

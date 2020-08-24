@@ -131,6 +131,8 @@ _unstable_keys = frozenset((
     "package_id",
     "revision_id",
     "validated_data_dict",
+    "index_id",
+    "site_id"
 ))
 
 

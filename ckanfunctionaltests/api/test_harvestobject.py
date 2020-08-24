@@ -5,10 +5,11 @@ from xml.etree.ElementTree import fromstring
 import pytest
 
 
-def test_harvestobject_xml(inc_sync_sensitive, base_url, rsession, random_harvestobject_id):
+def test_harvestobject_xml(variables, inc_sync_sensitive, base_url, rsession, random_harvestobject_id):
     if not inc_sync_sensitive:
         pytest.skip("it's possible for some harvest objects to be missing")
 
+    rsession.auth = (variables['username'], variables['password'])
     response = rsession.get(f"{base_url}/2/rest/harvestobject/{random_harvestobject_id}/xml")
     assert response.status_code == 200
 
