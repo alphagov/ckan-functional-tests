@@ -132,7 +132,9 @@ _unstable_keys = frozenset((
     "revision_id",
     "validated_data_dict",
     "index_id",
-    "site_id"
+    "site_id",
+    "harvest_object_id",
+    "harvest_source_id"
 ))
 
 
@@ -252,9 +254,9 @@ def stable_org_with_datasets(inc_fixed_data):
 
 
 @pytest.fixture()
-def stable_dataset(inc_fixed_data):
+def stable_dataset(variables, inc_fixed_data):
     return set_ckan_vars(
         get_example_response(
-        "stable/search_dataset.inner.test.json"
+        "stable/search_dataset{}.inner.test.json".format('-2.9' if variables['ckan_version'] == '2.9' else '')
         )
     )
