@@ -31,6 +31,7 @@ In order to run the tests in docker CKAN using the CKAN static mock harvest sour
    - There should be just 1 result, the `OWNER_ORG` is the value in the `id` field.
 
 - Update `config.json` to point to the CKAN website that you want to run the tests against.
+  - make sure that you set the correct version of `ckan_version` as support for v1 API was dropped in 2.9.
 
 After all these steps you should be able to run the tests.
 
