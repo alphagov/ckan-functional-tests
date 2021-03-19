@@ -82,7 +82,6 @@
   },
   "required": [
     "id",
-    "revision_id",
     "created",
     "is_organization",
     "type",
