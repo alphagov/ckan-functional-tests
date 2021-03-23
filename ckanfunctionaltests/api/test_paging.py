@@ -97,12 +97,12 @@ def test_search_paging_equivalence(
     offset_param,
     variables
 ):
-    if variables.get('ckan_version') == '2.9':
+    if CkanVersionHelper(variables.get('ckan_version')).using_latest_ckan_version
         # v1 API has been dropped from CKAN, package searching is using v3
         if endpoint_path.startswith("/search/dataset"):
             limit_param = "rows"
             offset_param = "start"
-        if endpoint_path.startswith("/3/search/dataset"):
+        elif endpoint_path.startswith("/3/search/dataset"):
             results_getter = lambda r: r["result"]["results"]
             count_getter = lambda r: r["result"]["count"]
 

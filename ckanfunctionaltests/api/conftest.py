@@ -257,6 +257,6 @@ def stable_org_with_datasets(inc_fixed_data):
 def stable_dataset(variables, inc_fixed_data):
     return set_ckan_vars(
         get_example_response(
-        "stable/search_dataset{}.inner.test.json".format('-2.9' if variables['ckan_version'] == '2.9' else '')
+        "stable/search_dataset{}.inner.test.json".format('-2.9' if CkanVersionHelper(variables.get('ckan_version')).using_latest_ckan_version else '')
         )
     )

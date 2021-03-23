@@ -98,3 +98,13 @@ def get_example_response(filename: str):
     # returning a deepcopy allows the caller to mutate the response safely without affecting
     # cached version
     return deepcopy(_get_example_response_inner(filename))
+
+class CkanVersionHelper:
+    """A simple example class"""
+    ckan_version = '2.8'
+
+    def __init__(self, ckan_version):
+        self.ckan_version = ckan_version
+
+    def using_latest_ckan_version
+        return ckan_version == '2.9'

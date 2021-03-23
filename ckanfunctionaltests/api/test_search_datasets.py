@@ -9,7 +9,7 @@ from ckanfunctionaltests.api.conftest import clean_unstable_elements
 
 
 def _get_limit_offset_params(variables, base_url):
-    return ("rows", "start",) if base_url.endswith("/3") or variables.get("ckan_version") == "2.9"\
+    return ("rows", "start",) if base_url.endswith("/3") or CkanVersionHelper(variables.get('ckan_version')).using_latest_ckan_version\
         else ("limit", "offset",)
 
 
@@ -234,7 +234,7 @@ def test_search_datasets_by_full_slug_specific_field_all_fields_response(
     allfields_term,
     variables
 ):
-    if allfields_term.startswith("all_fields") and (base_url_3.endswith("/3") or variables.get('ckan_version') == '2.9'):
+    if allfields_term.startswith("all_fields") and (base_url_3.endswith("/3") or CkanVersionHelper(variables.get('ckan_version')).using_latest_ckan_version):
         pytest.skip("all_fields parameter not supported in v3 endpoint")
 
     limit_param, offset_param = _get_limit_offset_params(variables, base_url_3)
@@ -244,7 +244,7 @@ def test_search_datasets_by_full_slug_specific_field_all_fields_response(
         f"&{allfields_term}&{limit_param}=10"
     )
     assert response.status_code == 200
-    rj = response.json().get('result') if variables.get('ckan_version') == '2.9' and base_url_3.endswith("/3")\
+    rj = response.json().get('result') if CkanVersionHelper(variables.get('ckan_version')).using_latest_ckan_version and base_url_3.endswith("/3")\
         else response.json()
 
     with subtests.test("response validity"):
