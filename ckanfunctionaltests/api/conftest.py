@@ -1,4 +1,5 @@
 from collections.abc import Mapping, Sequence
+from functools import wraps
 import json
 from random import Random
 
@@ -181,6 +182,45 @@ def set_ckan_vars(json_data):
 _key_value_keys = ['harvest', 'extras']
 
 
+# to use this decorator you will need to add in the variables fixture to access the ckan_version:
+#
+# @update_for_ckan_version
+# def test(variables):
+#   return some_dataset_json
+def update_for_ckan_version(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        data = f(*args, **kwargs)
+
+        if kwargs.get('variables').get('ckan_version') == "2.9":
+            # revisions have been removed from 2.9  
+            data = remove_element(data, ['revision_id'])
+
+            # introduction of metadata modified in resources list
+            for key in data.keys():
+                if key == 'resources':
+                    for item in data[key]:
+                        item['metadata_modified'] = None
+
+        return data
+    return decorated
+
+
+def remove_element(in_data, removed_elements=[]):
+    data = {}
+    for key in in_data.keys():
+        if key not in removed_elements:
+            if isinstance(in_data[key], list):
+                data[key] = []
+                for item in in_data[key]:
+                    data[key].append(remove_element(item, removed_elements))
+            elif isinstance(in_data[key], dict):
+                data[key] = remove_element(in_data[key], removed_elements)
+            else:
+                data[key] = in_data[key]
+    return data
+
+
 # rather than remove unstable elements from a response, this function cleans the unstable elements
 # so that the values are identical to the expected values in the expected response files.
 # it uses the _unstable_keys as a guide to which elements it should clean and it is possible to pass in 
@@ -210,7 +250,8 @@ def clean_unstable_elements(json_data, parent=None, is_key_value=True):
 
 
 @pytest.fixture()
-def stable_pkg(inc_fixed_data):
+@update_for_ckan_version
+def stable_pkg(variables, inc_fixed_data):
     json_data = get_example_response(
         "stable/package_show.inner.test.json"
     )
@@ -218,7 +259,8 @@ def stable_pkg(inc_fixed_data):
 
 
 @pytest.fixture()
-def stable_pkg_search(inc_fixed_data):
+@update_for_ckan_version
+def stable_pkg_search(variables, inc_fixed_data):
     return set_ckan_vars(
         clean_unstable_elements(
             get_example_response("stable/package_search.inner.test.json")
@@ -227,7 +269,8 @@ def stable_pkg_search(inc_fixed_data):
 
 
 @pytest.fixture()
-def stable_pkg_default_schema(inc_fixed_data):
+@update_for_ckan_version
+def stable_pkg_default_schema(variables, inc_fixed_data):
     json_data = get_example_response(
         "stable/package_show.default_schema.inner.test.json"
     )
@@ -247,7 +290,8 @@ def stable_org(inc_fixed_data):
 
 
 @pytest.fixture()
-def stable_org_with_datasets(inc_fixed_data):
+@update_for_ckan_version
+def stable_org_with_datasets(variables, inc_fixed_data):
     return set_ckan_vars(get_example_response(
         "stable/organization_show_with_datasets.inner.test.json"
     ))
