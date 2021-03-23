@@ -95,7 +95,17 @@ def test_search_paging_equivalence(
     count_getter,
     limit_param,
     offset_param,
+    variables
 ):
+    if variables.get('ckan_version') == '2.9':
+        # v1 API has been dropped from CKAN, package searching is using v3
+        if endpoint_path.startswith("/search/dataset"):
+            limit_param = "rows"
+            offset_param = "start"
+        if endpoint_path.startswith("/3/search/dataset"):
+            results_getter = lambda r: r["result"]["results"]
+            count_getter = lambda r: r["result"]["count"]
+
     # in these tests the "full" response is actually also limited to the approx
     # max size the endpoints will tend to allow
     full_response_limit = 1000

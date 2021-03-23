@@ -31,6 +31,6 @@ def test_harvestobject_html(inc_sync_sensitive, base_url, rsession, random_harve
         f"{base_url}/2/rest/harvestobject/{random_harvestobject_id}/html",
         allow_redirects=False,
     )
-    assert response.status_code == 301
+    assert response.status_code in [301, 302]
     assert urlparse(response.headers["location"]).path == \
         f"/harvest/object/{random_harvestobject_id}/html"

@@ -128,7 +128,6 @@
           "name",
           "package_id",
           "resource_type",
-          "revision_id",
           "size",
           "state",
           "url"
@@ -201,7 +200,6 @@
   },
   "required": [
     "id",
-    "revision_id",
     "groups",
     "type",
     "state",

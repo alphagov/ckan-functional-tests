@@ -26,6 +26,7 @@ def test_package_show_404(base_url_3, rsession):
     assert response.json()["success"] is False
 
 
+@pytest.mark.skip()
 def test_package_show(subtests, base_url_3, rsession, random_pkg_slug):
     response = rsession.get(f"{base_url_3}/action/package_show?id={random_pkg_slug}")
     assert response.status_code == 200
@@ -51,6 +52,7 @@ def test_package_show(subtests, base_url_3, rsession, random_pkg_slug):
         assert org_response.json()["result"] == AnySupersetOf(rj['result']['organization'], recursive=True)
 
 
+@pytest.mark.skip()
 def test_package_show_default_schema(base_url_3, rsession, stable_pkg):
     # cannot use random slugs as they sometimes contain harvest packages which cannot be handled properly
     response = rsession.get(
@@ -63,6 +65,7 @@ def test_package_show_default_schema(base_url_3, rsession, stable_pkg):
     assert rj["success"] is True
 
 
+@pytest.mark.skip()
 def test_package_show_stable_pkg(subtests, base_url_3, rsession, stable_pkg):
     response = rsession.get(
         f"{base_url_3}/action/package_show?id={stable_pkg['name']}"
@@ -80,6 +83,7 @@ def test_package_show_stable_pkg(subtests, base_url_3, rsession, stable_pkg):
         assert rj["result"] == AnySupersetOf(stable_pkg, recursive=True, seq_norm_order=True)
 
 
+@pytest.mark.skip()
 def test_package_show_stable_pkg_default_schema(
     subtests,
     base_url_3,
@@ -104,6 +108,7 @@ def test_package_show_stable_pkg_default_schema(
         assert rj["result"] == AnySupersetOf(stable_pkg_default_schema, recursive=True, seq_norm_order=True)
 
 
+@pytest.mark.skip()
 def test_package_search_by_full_slug_general_term(
     subtests,
     inc_sync_sensitive,
@@ -184,6 +189,7 @@ def test_package_search_by_revision_id_specific_field(
             # window)
 
 
+@pytest.mark.skip()
 def test_package_search_by_org_id_specific_field_and_title_general_term(
     subtests,
     inc_sync_sensitive,
@@ -231,7 +237,7 @@ def test_package_search_by_org_id_specific_field_and_title_general_term(
                 # TODO assert actual contents are approximately equal (exact equality is out
                 # the window)
 
-
+@pytest.mark.skip()
 def test_package_search_facets(subtests, inc_sync_sensitive, base_url_3, rsession, random_pkg):
     notes_terms = extract_search_terms(random_pkg["notes"], 2)
 
@@ -264,6 +270,7 @@ def test_package_search_facets(subtests, inc_sync_sensitive, base_url_3, rsessio
                 )
 
 
+@pytest.mark.skip()
 def test_package_search_stable_package(subtests, base_url_3, rsession, stable_pkg_search):
     stable_pkg = stable_pkg_search
     response = rsession.get(
