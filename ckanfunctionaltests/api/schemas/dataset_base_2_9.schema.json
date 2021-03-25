@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://github.com/alphagov/ckan-functional-tests/api/dataset_base_2_9.schema.json",
+  "title": "CKAN legacy api base dataset representation",
+  "type": "object",
+  "properties": {
+    "creator_user_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "organization": {
+      "$ref": "organization_base"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "$ref": "tag"
+      }
+    },
+    "isopen": {
+      "type": "boolean"
+    },
+    "license_id": {
+      "type": "string"
+    },
+    "license_title": {
+      "type": "string"
+    },
+    "license_url": {
+      "type": "string"
+    },
+    "state": {
+      "$ref": "common#/definitions/state"
+    },
+    "dataset_type": {
+      "type": "string"
+    },
+    "metadata_modified": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "indexed_ts": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "site_id": {
+      "type": "string"
+    },
+    "capacity": {
+      "type": "string"
+    },
+    "name": {
+      "$ref": "common#/definitions/slug"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "num_resources": {
+      "type": "integer"
+    },
+    "num_tags": {
+      "type": "integer"
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "title": {
+      "type": "string"
+    },
+    "extras": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

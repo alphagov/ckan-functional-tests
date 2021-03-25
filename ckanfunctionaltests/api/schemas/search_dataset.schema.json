@@ -18,6 +18,11 @@
           "items": {
             "$ref": "dataset_base"
           }
+        }, {
+          "type": "array",
+          "items": {
+            "$ref": "dataset_base_2_9"
+          }
         }
       ]
     }

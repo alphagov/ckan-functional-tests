@@ -32,6 +32,12 @@ def base_url_3(request, base_url):
     return base_url + request.param
 
 
+def get_dataset_search_json_response(response, base_url_3, variables=None):
+    return response.json().get('result') if variables.get('ckan_version') == '2.9' and base_url_3.endswith("/3")\
+        else response.json()
+
+
+
 @pytest.fixture()
 def inc_sync_sensitive(variables):
     """
@@ -73,7 +79,7 @@ def random_pkg_slug(base_url, rsession):
     assert response.status_code == 200
 
     suitable_names = tuple(
-        name for name in response.json()["result"] if not uuid_re.fullmatch(name)
+        name for name in response.json()["result"] if not uuid_re.fullmatch(name) and not 'harvest' in name
     )
 
     if not suitable_names:
