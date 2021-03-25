@@ -18,7 +18,6 @@ def test_organization_list(base_url_3, rsession):
     assert isinstance(rj["result"][0], str)
 
 
-@pytest.mark.skip()
 def test_organization_list_all_fields(subtests, base_url_3, rsession):
     response = rsession.get(f"{base_url_3}/action/organization_list?all_fields=1&limit=5")
     assert response.status_code == 200
@@ -37,7 +36,6 @@ def test_organization_list_all_fields(subtests, base_url_3, rsession):
         assert os_response.json()["result"] == AnySupersetOf(rj['result'][0])
 
 
-@pytest.mark.skip()
 def test_organization_list_all_fields_inc_optional(subtests, base_url_3, rsession):
     response = rsession.get(
         f"{base_url_3}/action/organization_list?all_fields=1&include_extras=1&include_tags=1"
@@ -64,7 +62,6 @@ def test_organization_list_all_fields_inc_optional(subtests, base_url_3, rsessio
         assert os_response.json()["result"] == AnySupersetOf(rj['result'][0])
 
 
-@pytest.mark.skip()
 def test_organization_list_all_fields_inc_users_no_effect(subtests, base_url_3, rsession):
     incusers_response = rsession.get(
         f"{base_url_3}/action/organization_list?all_fields=1&include_users=1&limit=5"
@@ -86,7 +83,6 @@ def test_organization_show_404(base_url_3, rsession):
     assert response.json()["success"] is False
 
 
-@pytest.mark.skip()
 def test_organization_show(subtests, base_url_3, rsession, random_org_slug):
     response = rsession.get(f"{base_url_3}/action/organization_show?id={random_org_slug}")
     assert response.status_code == 200
@@ -105,7 +101,6 @@ def test_organization_show(subtests, base_url_3, rsession, random_org_slug):
         assert uuid_response.json() == rj
 
 
-@pytest.mark.skip()
 def test_organization_show_stable_org(subtests, base_url_3, rsession, stable_org):
     response = rsession.get(
         f"{base_url_3}/action/organization_show?id={stable_org['name']}"
@@ -120,7 +115,6 @@ def test_organization_show_stable_org(subtests, base_url_3, rsession, stable_org
         assert rj["result"] == AnySupersetOf(stable_org, recursive=True, seq_norm_order=True)
 
 
-@pytest.mark.skip()
 def test_organization_show_inc_datasets_stable_pkg(
     subtests,
     base_url_3,
