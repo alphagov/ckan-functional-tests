@@ -4,30 +4,84 @@
 #
 #    pip-compile requirements-dev.in
 #
-attrs==19.3.0             # via -r requirements.txt, jsonschema, pytest
-certifi==2019.11.28       # via -r requirements.txt, requests
-chardet==3.0.4            # via -r requirements.txt, requests
-click==7.1.1              # via pip-tools
-idna==2.9                 # via -r requirements.txt, requests
-importlib-metadata==1.5.0  # via -r requirements.txt, jsonschema, pluggy, pytest
-jsonschema==3.2.0         # via -r requirements.txt
-more-itertools==8.2.0     # via -r requirements.txt, pytest
-packaging==20.3           # via -r requirements.txt, pytest
-pip-tools==4.5.1          # via -r requirements-dev.in
-pluggy==0.13.1            # via -r requirements.txt, pytest
-py==1.8.1                 # via -r requirements.txt, pytest
-pyparsing==2.4.6          # via -r requirements.txt, packaging
-pyrsistent==0.15.7        # via -r requirements.txt, jsonschema
-pytest-subtests==0.3.0    # via -r requirements.txt
-pytest-variables==1.9.0   # via -r requirements.txt
-pytest==5.4.1             # via -r requirements.txt, pytest-subtests, pytest-variables
-requests==2.23.0          # via -r requirements.txt
-rfc3339-validator==0.1.2  # via -r requirements.txt
-rfc3986-validator==0.1.1  # via -r requirements.txt
-six==1.14.0               # via -r requirements.txt, jsonschema, packaging, pip-tools, pyrsistent, rfc3339-validator
-urllib3==1.25.8           # via -r requirements.txt, requests
-wcwidth==0.1.8            # via -r requirements.txt, pytest
-zipp==3.1.0               # via -r requirements.txt, importlib-metadata
+attrs==19.3.0
+    # via
+    #   -r requirements.txt
+    #   jsonschema
+    #   pytest
+certifi==2019.11.28
+    # via
+    #   -r requirements.txt
+    #   requests
+chardet==3.0.4
+    # via
+    #   -r requirements.txt
+    #   requests
+click==7.1.1
+    # via pip-tools
+idna==2.9
+    # via
+    #   -r requirements.txt
+    #   requests
+jsonschema==3.2.0
+    # via -r requirements.txt
+more-itertools==8.2.0
+    # via
+    #   -r requirements.txt
+    #   pytest
+packaging==20.3
+    # via
+    #   -r requirements.txt
+    #   pytest
+pip-tools==4.5.1
+    # via -r requirements-dev.in
+pluggy==0.13.1
+    # via
+    #   -r requirements.txt
+    #   pytest
+py==1.10.0
+    # via
+    #   -r requirements.txt
+    #   pytest
+pyparsing==2.4.6
+    # via
+    #   -r requirements.txt
+    #   packaging
+pyrsistent==0.15.7
+    # via
+    #   -r requirements.txt
+    #   jsonschema
+pytest-subtests==0.3.0
+    # via -r requirements.txt
+pytest-variables==1.9.0
+    # via -r requirements.txt
+pytest==5.4.1
+    # via
+    #   -r requirements.txt
+    #   pytest-subtests
+    #   pytest-variables
+requests==2.23.0
+    # via -r requirements.txt
+rfc3339-validator==0.1.2
+    # via -r requirements.txt
+rfc3986-validator==0.1.1
+    # via -r requirements.txt
+six==1.14.0
+    # via
+    #   -r requirements.txt
+    #   jsonschema
+    #   packaging
+    #   pip-tools
+    #   pyrsistent
+    #   rfc3339-validator
+urllib3==1.25.8
+    # via
+    #   -r requirements.txt
+    #   requests
+wcwidth==0.1.8
+    # via
+    #   -r requirements.txt
+    #   pytest
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
