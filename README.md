@@ -98,3 +98,7 @@ didn't update it, which can happen if you checked out a different branch on the 
   map $host $mock_absolute_root_url { default "http://static-mock-harvest-source:11088/"; }
 
 and then run the `./scripts/rebuild-ckan.sh 2.7` script (substitute 2.7 for the version you want to rebuild).
+
+## Licence
+
+[MIT License](LICENCE)
