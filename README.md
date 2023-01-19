@@ -4,36 +4,14 @@ Initially testing just the API.
 
 ## Setup CKAN variables
 
-In order to run the tests in docker CKAN using the CKAN static mock harvest source a number of manual steps need to take place:
-
-- Start up your (docker ckan stack)[https://github.com/alphagov/docker-ckan]
-- Create 2 publishers
-  - `Example Publisher #1` with `Charity` organisation type.
-  - `Example Publisher #2` with any organisation type.
-
-- Add the mock harvest source to CKAN
-  - url: `http://static-mock-harvest-source:11088`
-  - name: `Example Harvest #1`
-  - Source type: `CKAN`
-- After adding the harvest source start the harvest process by clicking on the reharvest button.
-
-- Edit `Example Dataset #1` to add in a Contact Name
-  - Contact name: `Example User`
-
-- Update the `ckan_vars.conf` file:
-
-  PACKAGE_ID=a18d2811-13b0-4838-8bfb-5793433317b9
-  MOCK_HARVEST_SOURCE_URL=http://static-mock-harvest-source:11088
-  OWNER_ORG=< Get the id from http://localhost:5000/api/3/action/organization_show?id=example-publisher-1 >
-
-  - PACKAGE_ID and MOCK_HARVEST_SOURCE_URL are the default values and should work unless you change the package in the ckan-static-mock-harvest-source, or need to run multiple stacks so the MOCK_HARVEST_SOURCE_URL could change.
-  - To find the `OWNER_ORG` go to this URL - http://localhost:5000/api/3/action/organization_show?id=example-publisher-1
-   - There should be just 1 result, the `OWNER_ORG` is the value in the `id` field.
+- Before running these tests you will need to setup the test data in CKAN by running `ckan datagovuk create-dgu-test-data` in the CKAN container. 
 
 - Update `config.json` to point to the CKAN website that you want to run the tests against.
   - make sure that you set the correct version of `ckan_version` as support for v1 API was dropped in 2.9.
+  - You may need to update the `ckan_mock_harvest_source` value in `config.json` if it has been remapped, the errors in the test results should give you a hint at the correct url which is normally running on port 11088. Other values that the tests need will be automatically generated in `ckan-vars.conf`. 
+  - If you tear down the CKAN stack and rebuild everything it is probably a good idea to delete `ckan-vars.conf` so that it gets regenerated with the latest values.
 
-After all these steps you should be able to run the tests.
+After these steps you should be able to run the tests.
 
 ## Installing & Running
 
