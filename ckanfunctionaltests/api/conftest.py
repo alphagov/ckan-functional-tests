@@ -1,6 +1,7 @@
 from collections.abc import Mapping, Sequence
 from functools import wraps
 import json
+import os.path
 from random import Random
 
 import pytest
@@ -165,17 +166,30 @@ def _strip_unstable_data(obj):
         return obj
 
 
-# this function sets the value of the key to a specified value from ckan-vars.conf
+# this function generates the ckan-vars.conf from the config.json file which might
+# retrieve the data from the API and then sets the value of the key to a specified value from ckan-vars.conf
 # some tests expects the ID from the file to match a value from a request
 # staging and production have the same IDs as there is a data sync but data generated 
-# on a dev stack does not have the same ID, so put in the expected ID in the ckan-vars.conf
-# to substitute the value in the expected response file.
-def set_ckan_vars(json_data):
+# on a dev stack does not have the same ID.
+def set_ckan_vars(json_data, variables):
     ckan_vars = {}
-    with open(f"ckan-vars.conf") as ckan_vars_file:
-        for line in ckan_vars_file:
-            name, val = line.partition("=")[::2]
-            ckan_vars[name.strip()] = val.strip()
+    if os.path.isfile("ckan-vars.conf"):
+        with open("ckan-vars.conf") as ckan_vars_file:
+            for line in ckan_vars_file:
+                name, val = line.partition("=")[::2]
+                ckan_vars[name.strip()] = val.strip()
+    else:
+        with open("ckan-vars.conf", "w") as ckan_vars_file:
+            ckan_vars_file.write(f"MOCK_HARVEST_SOURCE_URL={variables.get('ckan_mock_harvest_source')}\n")
+            ckan_vars["MOCK_HARVEST_SOURCE_URL"] = variables.get('ckan_mock_harvest_source')
+            for line in variables.get('ckan_vars').split(','):
+                name, val = line.partition("=")[::2]
+                if val.startswith("FROM_API:"):
+                    _, slug = val.partition(":")[::2]
+                    res = requests.get(variables.get('api_base_url') + slug)
+                    val = res.json()['result']['id']                    
+                ckan_vars_file.write(f"{name}={val}\n")
+                ckan_vars[name] = val
 
     str_data = json.dumps(json_data)
 
@@ -261,7 +275,7 @@ def stable_pkg(variables, inc_fixed_data):
     json_data = get_example_response(
         "stable/package_show.inner.test.json"
     )
-    return set_ckan_vars(json_data)
+    return set_ckan_vars(json_data, variables)
 
 
 @pytest.fixture()
@@ -270,7 +284,8 @@ def stable_pkg_search(variables, inc_fixed_data):
     return set_ckan_vars(
         clean_unstable_elements(
             get_example_response("stable/package_search.inner.test.json")
-        )
+        ),
+        variables
     )
 
 
@@ -278,10 +293,10 @@ def stable_pkg_search(variables, inc_fixed_data):
 @update_for_ckan_version
 def stable_pkg_default_schema(variables, inc_fixed_data):
     json_data = get_example_response(
-        "stable/package_show.default_schema.inner.test.json"
+        "stable/package_show{}.default_schema.inner.test.json".format('-2.9' if variables['ckan_version'] == '2.9' else '')
     )
 
-    return set_ckan_vars(json_data)
+    return set_ckan_vars(json_data, variables)
 
 
 @pytest.fixture()
@@ -298,9 +313,12 @@ def stable_org(inc_fixed_data):
 @pytest.fixture()
 @update_for_ckan_version
 def stable_org_with_datasets(variables, inc_fixed_data):
-    return set_ckan_vars(get_example_response(
-        "stable/organization_show_with_datasets.inner.test.json"
-    ))
+    return set_ckan_vars(
+        get_example_response(
+            "stable/organization_show_with_datasets.inner.test.json"
+        ),
+        variables
+    )
 
 
 @pytest.fixture()
@@ -308,5 +326,6 @@ def stable_dataset(variables, inc_fixed_data):
     return set_ckan_vars(
         get_example_response(
         "stable/search_dataset{}.inner.test.json".format('-2.9' if variables['ckan_version'] == '2.9' else '')
-        )
+        ),
+        variables
     )
