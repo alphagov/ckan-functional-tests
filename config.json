@@ -1,9 +1,11 @@
 {
-    "api_base_url": "https://ckan.staging.publishing.service.gov.uk/api",
-    "ckan_version": "2.8",
+    "api_base_url": "http://localhost:8080/api",
+    "ckan_version": "2.9",
     "api_user_agent": "ckan-functional-tests",
     "inc_sync_sensitive": true,
     "inc_fixed_data": true,
     "username": "< basic auth username for integration >",
-    "password": "< basic auth password for integration >"
+    "password": "< basic auth password for integration >",
+    "ckan_vars": "PACKAGE_ID=a18d2811-13b0-4838-8bfb-5793433317b9,OWNER_ORG=FROM_API:/3/action/organization_show?id=example-publisher-1",
+    "ckan_mock_harvest_source": "http://127.0.0.1:11088"  
 }

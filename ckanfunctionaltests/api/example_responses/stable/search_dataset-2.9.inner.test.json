@@ -42,10 +42,7 @@
     "url": "<<MOCK_HARVEST_SOURCE_URL>>/mock-third-party/example-dataset-1/about",
     "notes": "This is an example CKAN dataset consisting of a number of active resources.",
     "title": "Example Dataset #1",
-    "harvest_object_id": "bf58c7a1-2b23-487d-bc5d-c8e2cf68e162",
     "contact-name": "Example User",
-    "harvest_source_title": "Example Harvest #1",
-    "harvest_source_id": "64e82f7f-7ce9-4e1a-93ab-8c972a0dd6a1",
     "organization": "example-publisher-1",
     "index_id": "78a56565b87a9c722e4893ef9bfe4a06"
 }
